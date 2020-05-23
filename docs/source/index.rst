@@ -1,16 +1,16 @@
-.. note:: നിങ്ങൾ ഡോക്യുമെന്റേഷൻ നോക്കുകയാണെന്ന് ഉറപ്പാക്കുക
-നിങ്ങൾ ഉപയോഗിക്കുന്ന സോഫ്റ്റ്വെയറിന്റെ പതിപ്പുമായി പൊരുത്തപ്പെടുന്നു. കാണുക
-ഇടതുവശത്തുള്ള നാവിഗേഷൻ പാനലിന്റെ മുകളിലുള്ള പതിപ്പ് ലേബൽ.
-അതിന്റെ ചുവടെയുള്ള സെലക്ടർ ഉപയോഗിച്ച് നിങ്ങൾക്ക് ഇത് മാറ്റാൻ കഴിയും
-നാവിഗേഷൻ പാനൽ.
+.. note:: Please make sure you are looking at the documentation that
+	  matches the version of the software you are using. See the
+	  version label at the top of the navigation panel on the left.
+	  You can change it using selector at the bottom of that
+	  navigation panel.
 
-എന്റർപ്രൈസിനായുള്ള ഒരു ബ്ലോക്ക്‌ചെയിൻ പ്ലാറ്റ്ഫോം
+A Blockchain Platform for the Enterprise
 ========================================
 
 .. image:: images/hyperledger_fabric_logo_color.png
 
-എന്റർപ്രൈസ് ഗ്രേഡ് അനുവദനീയമായ വിതരണം ചെയ്ത ലെഡ്ജർ പ്ലാറ്റ്ഫോം വാഗ്ദാനം ചെയ്യുന്നു
-വ്യവസായ ഉപയോഗ കേസുകളുടെ ഒരു കൂട്ടം മോഡുലാരിറ്റിയും വൈവിധ്യവും.
+Enterprise grade permissioned distributed ledger platform that offers
+modularity and versatility for a broad set of industry use cases.
 
 .. toctree::
    :maxdepth: 1
@@ -33,9 +33,9 @@
    questions
    status
 
-.. note:: ഈ ഡോക്യുമെന്റേഷൻ അഭിസംബോധന ചെയ്യാത്ത ചോദ്യങ്ങൾ നിങ്ങൾക്കുണ്ടെങ്കിൽ, അല്ലെങ്കിൽ അതിലേക്ക് ഓടുക
-          ഏതെങ്കിലും ട്യൂട്ടോറിയലുകളിലെ പ്രശ്നങ്ങൾ, ദയവായി സന്ദർശിക്കുക :doc:`questions`
-          അധിക സഹായം എവിടെ കണ്ടെത്താമെന്നതിനെക്കുറിച്ചുള്ള ചില ടിപ്പുകൾക്കായുള്ള പേജ്.
+.. note:: If you have questions not addressed by this documentation, or run into
+          issues with any of the tutorials, please visit the :doc:`questions`
+          page for some tips on where to find additional help.
 
 .. Licensed under Creative Commons Attribution 4.0 International License
    https://creativecommons.org/licenses/by/4.0/
