@@ -1,10 +1,10 @@
-# ആമുഖം
+# Introduction
 
-പൊതുവായി പറഞ്ഞാൽ, ഒരു ബ്ലോക്ക്ചെയിൻ ഒരു മാറ്റമില്ലാത്ത ഇടപാട് ലെഡ്ജറാണ്, പരിപാലിക്കപ്പെടുന്നു
-_പിയർ നോഡുകളുടെ_ വിതരണം ചെയ്ത നെറ്റ്‌വർക്കിനുള്ളിൽ. ഈ നോഡുകൾ ഓരോന്നും ഒരു പകർപ്പ് നിലനിർത്തുന്നു
-_കൺസെൻസസ് സാധൂകരിച്ച ഇടപാടുകൾ പ്രയോഗിച്ചുകൊണ്ട് ലെഡ്ജറിന്റെ
-പ്രോട്ടോക്കോൾ_, ഓരോ ബ്ലോക്കിനെയും ബന്ധിപ്പിക്കുന്ന ഒരു ഹാഷ് ഉൾപ്പെടുന്ന ബ്ലോക്കുകളായി തിരിച്ചിരിക്കുന്നു
-മുമ്പത്തെ ബ്ലോക്ക്.
+In general terms, a blockchain is an immutable transaction ledger, maintained
+within a distributed network of _peer nodes_. These nodes each maintain a copy
+of the ledger by applying transactions that have been validated by a _consensus
+protocol_, grouped into blocks that include a hash that bind each block to the
+preceding block.
 
 The first and most widely recognized application of blockchain is the
 [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) cryptocurrency, though others
@@ -101,7 +101,7 @@ processing and transaction confirmation latency, and it enables **privacy and co
 
 Let's explore these differentiating features in more detail.
 
-## മോഡുലാരിറ്റി
+## Modularity
 
 Hyperledger Fabric has been specifically architected to have a modular
 architecture. Whether it is pluggable consensus, pluggable identity management
