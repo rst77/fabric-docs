@@ -22,11 +22,11 @@ Documentação original on-line：http://hyperledger-fabric.readthedocs.io/
 
 Documentação em português do Brasil on-line：https://hyperledger-fabric-ml.readthedocs.io/pt_BR/latest/
 
-# Initial Committers - Representantes
+# Initial committers - Representantes
 
 * Renato Teixeira - renato@renatoteixeira.com
 
-# Want to Contribute? - Quer Contribuir?
+# Want to contribute? - Quer contribuir?
 
 Visit wiki page: https://wiki.hyperledger.org/display/CP/Hyperledger+Brazil+Chapter
 or contact:
