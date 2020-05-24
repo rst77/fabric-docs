@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 19:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,4 +127,143 @@ msgid ""
 "href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons "
 "Attribution 4.0 International License</a>."
 msgstr ""
+
+#~ msgid "peer node"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The peer node command allows an "
+#~ "administrator to start a peer node, "
+#~ "reset all channels in a peer to"
+#~ " the genesis block, or rollback a "
+#~ "channel to a given block number."
+#~ msgstr ""
+
+#~ msgid "Syntax"
+#~ msgstr ""
+
+#~ msgid "The peer node command has the following subcommands:"
+#~ msgstr ""
+
+#~ msgid "peer node start"
+#~ msgstr ""
+
+#~ msgid "peer node reset"
+#~ msgstr ""
+
+#~ msgid "peer node rollback"
+#~ msgstr ""
+
+#~ msgid "Example Usage"
+#~ msgstr ""
+
+#~ msgid "peer node start example"
+#~ msgstr ""
+
+#~ msgid "peer node reset example"
+#~ msgstr ""
+
+#~ msgid "peer node rollback example"
+#~ msgstr ""
+
+#~ msgid "# peer node"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The `peer node` command allows an "
+#~ "administrator to start a peer node, "
+#~ "reset all channels in a peer to"
+#~ " the genesis block, or rollback a "
+#~ "channel to a given block number."
+#~ msgstr ""
+
+#~ msgid "## Syntax"
+#~ msgstr ""
+
+#~ msgid "The `peer node` command has the following subcommands:"
+#~ msgstr ""
+
+#~ msgid "## peer node start ``` Starts a node that interacts with the network."
+#~ msgstr ""
+
+#~ msgid "Usage:"
+#~ msgstr ""
+
+#~ msgid "peer node start [flags]"
+#~ msgstr ""
+
+#~ msgid "Flags:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "help for start --peer-chaincodedev   "
+#~ "start peer in chaincode development mode"
+#~ msgstr ""
+
+#~ msgid "```"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "## peer node reset ``` Resets all"
+#~ " channels to the genesis block. When"
+#~ " the command is executed, the peer"
+#~ " must be offline. When the peer "
+#~ "starts after the reset, it will "
+#~ "receive blocks starting with block "
+#~ "number one from an orderer or "
+#~ "another peer to rebuild the block "
+#~ "store and state database."
+#~ msgstr ""
+
+#~ msgid "peer node reset [flags]"
+#~ msgstr ""
+
+#~ msgid "help for reset"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "## peer node rollback ``` Rolls "
+#~ "back a channel to a specified "
+#~ "block number. When the command is "
+#~ "executed, the peer must be offline. "
+#~ "When the peer starts after the "
+#~ "rollback, it will receive blocks, which"
+#~ " got removed during the rollback, "
+#~ "from an orderer or another peer to"
+#~ " rebuild the block store and state"
+#~ " database."
+#~ msgstr ""
+
+#~ msgid "peer node rollback [flags]"
+#~ msgstr ""
+
+#~ msgid "Block number to which the channel needs to be rolled back to."
+#~ msgstr ""
+
+#~ msgid "Channel to rollback."
+#~ msgstr ""
+
+#~ msgid "help for rollback"
+#~ msgstr ""
+
+#~ msgid "## Example Usage"
+#~ msgstr ""
+
+#~ msgid "### peer node start example"
+#~ msgstr ""
+
+#~ msgid "``` peer node start --peer-chaincodedev ```"
+#~ msgstr ""
+
+#~ msgid "### peer node reset example"
+#~ msgstr ""
+
+#~ msgid "``` peer node reset ```"
+#~ msgstr ""
+
+#~ msgid "### peer node rollback example"
+#~ msgstr ""
+
+#~ msgid "``` peer node rollback -c ch1 -b 150 ```"
+#~ msgstr ""
 

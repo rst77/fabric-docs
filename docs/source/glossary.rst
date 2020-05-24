@@ -1,7 +1,7 @@
 Glossary
 ===========================
 
-Terminology is important, so that all Hyperledger Fabric users and developers
+Terminology is verry important, so that all Hyperledger Fabric users and developers
 agree on what we mean by each specific term. What is a smart contract for
 example. The documentation will reference the glossary as needed, but feel free
 to read the entire thing in one sitting if you like; it's pretty enlightening!

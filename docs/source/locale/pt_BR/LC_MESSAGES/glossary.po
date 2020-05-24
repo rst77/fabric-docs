@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 18:29-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,22 @@ msgstr ""
 
 #: ../../source/glossary.rst:2
 msgid "Glossary"
-msgstr ""
+msgstr "Glossário"
 
 #: ../../source/glossary.rst:4
 msgid ""
-"Terminology is important, so that all Hyperledger Fabric users and "
+"Terminology is verry important, so that all Hyperledger Fabric users and "
 "developers agree on what we mean by each specific term. What is a smart "
 "contract for example. The documentation will reference the glossary as "
 "needed, but feel free to read the entire thing in one sitting if you "
 "like; it's pretty enlightening!"
 msgstr ""
+"A terminologia é muito importante, para que todos os usuários e "
+"desenvolvedores do Hyperledger Fabric concordem com o que queremos dizer "
+"com cada termo específico.O que é um contrato inteligente, por exemplo, a"
+" documentação fará referência ao glossário conforme necessário, mas fique"
+" à vontade para ler todos os termos de uma só vez se quiser; é bem "
+"esclarecedor!"
 
 #: ../../source/glossary.rst:12
 msgid "Anchor Peer"
@@ -452,7 +458,7 @@ msgstr ""
 
 #: ../../source/glossary.rst:367
 msgid "A Ledger, 'L'"
-msgstr ""
+msgstr "Um Livro-Razão, 'L'"
 
 #: ../../source/glossary.rst:370
 msgid ""
@@ -464,6 +470,14 @@ msgid ""
 " key-value pairs that have been added, modified or deleted by the set of "
 "validated and committed transactions in the blockchain."
 msgstr ""
+"Livro-Razão. Um livro-razão consiste em duas partes distintas, embora "
+"relacionadas - o \"blockchain\" e o \"banco de dados de estados\", também"
+" conhecido como \"estado global\". Diferente de outros livros, as cadeias"
+" de blocos são **imutáveis**, ou seja, depois que um bloco é adicionado à"
+" cadeia, ele não pode ser alterado. Por outro lado, o \"estado global\" é"
+" um banco de dados que contém o valor atual do conjunto de pares de "
+"valores-chave que foram adicionados, modificados ou excluídos pelo "
+"conjunto de transações validadas e confirmadas na cadeia de blocos."
 
 #: ../../source/glossary.rst:378
 msgid ""
@@ -476,6 +490,14 @@ msgid ""
 " copies distributed across a set of network nodes (peers and the ordering"
 " service)."
 msgstr ""
+"Ajuda pensar em um livro-razão **lógico** para cada canal da rede. Na "
+"realidade, cada par em um canal mantém sua própria cópia do livro-razão -"
+" que é mantida consistente com a cópia de qualquer outro par por meio de "
+"um processo chamado de **consenso**. O termo **DLT** (**Tecnologia de "
+"Registro Distribuído**) é frequentemente associado a esse tipo de livro-"
+"razão - onde um registro é logicamente singular, mas tem muitas cópias "
+"idênticas distribuídas por um conjunto de nós da rede (pares e ordering "
+"service). "
 
 #: ../../source/glossary.rst:389
 msgid "Log entry"
@@ -495,7 +517,7 @@ msgstr ""
 
 #: ../../source/glossary.rst:401
 msgid "See Organization_."
-msgstr ""
+msgstr "Veja Organization_."
 
 #: ../../source/glossary.rst:406
 msgid "Membership Service Provider"
@@ -554,7 +576,7 @@ msgstr ""
 
 #: ../../source/glossary.rst:463
 msgid "An organization, 'ORG'"
-msgstr ""
+msgstr "Uma organização, 'ORG'"
 
 #: ../../source/glossary.rst:466
 msgid ""
@@ -807,4 +829,7 @@ msgid ""
 "ledger world state for each valid transaction included in a processed "
 "block."
 msgstr ""
+
+#~ msgid "New paragraph"
+#~ msgstr "Novo parágrafo"
 

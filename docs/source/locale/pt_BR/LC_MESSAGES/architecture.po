@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 19:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,4 +21,7 @@ msgstr ""
 #: ../../source/architecture.rst:2
 msgid "Architecture Reference"
 msgstr ""
+
+#~ msgid "Hyperledger Fabric CA's User Guide"
+#~ msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 19:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,4 +57,64 @@ msgstr ""
 #: ../../source/tutorial/installxcode.md:21
 msgid "Xcode-beta: /Applications/Xcode-beta.app/Contents/Developer"
 msgstr ""
+
+#~ msgid "Install Xcode"
+#~ msgstr ""
+
+#~ msgid "Install Xcode from this website."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ensure that the Xcode app is in"
+#~ " the /Applications directory. Do not "
+#~ "put it in /Users/{user}/Applications)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Point xcode-select to the Xcode "
+#~ "app Developer directory using the "
+#~ "following command:"
+#~ msgstr ""
+
+#~ msgid "Note: Make sure your Xcode application path is correct."
+#~ msgstr ""
+
+#~ msgid "Xcode: /Applications/Xcode.app/Contents/Developer"
+#~ msgstr ""
+
+#~ msgid "Xcode-beta: /Applications/Xcode-beta.app/Contents/Developer"
+#~ msgstr ""
+
+#~ msgid "# Install Xcode"
+#~ msgstr ""
+
+#~ msgid "Install Xcode from this [website](https://developer.apple.com/xcode/)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ensure that the Xcode app is in"
+#~ " the `/Applications` directory. Do not "
+#~ "put it in `/Users/{user}/Applications)`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Point ``xcode-select`` to the Xcode "
+#~ "app Developer directory using the "
+#~ "following command:"
+#~ msgstr ""
+
+#~ msgid "```"
+#~ msgstr ""
+
+#~ msgid "sudo xcode-select -s /Applications/Xcode.app/Contents/Developer"
+#~ msgstr ""
+
+#~ msgid "**Note**: Make sure your Xcode application path is correct."
+#~ msgstr ""
+
+#~ msgid "Xcode: `/Applications/Xcode.app/Contents/Developer`"
+#~ msgstr ""
+
+#~ msgid "Xcode-beta: `/Applications/Xcode-beta.app/Contents/Developer`"
+#~ msgstr ""
 

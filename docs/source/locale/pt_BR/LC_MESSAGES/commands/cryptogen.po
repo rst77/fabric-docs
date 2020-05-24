@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 19:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,4 +102,157 @@ msgid ""
 "href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons "
 "Attribution 4.0 International License</a>."
 msgstr ""
+
+#~ msgid "cryptogen"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "cryptogen is an utility for generating"
+#~ " Hyperledger Fabric key material. It "
+#~ "is provided as a means of "
+#~ "preconfiguring a network for testing "
+#~ "purposes. It would normally not be "
+#~ "used in the operation of a "
+#~ "production network."
+#~ msgstr ""
+
+#~ msgid "Syntax"
+#~ msgstr ""
+
+#~ msgid "The cryptogen command has five subcommands, as follows:"
+#~ msgstr ""
+
+#~ msgid "cryptogen help"
+#~ msgstr ""
+
+#~ msgid "cryptogen generate"
+#~ msgstr ""
+
+#~ msgid "cryptogen showtemplate"
+#~ msgstr ""
+
+#~ msgid "cryptogen extend"
+#~ msgstr ""
+
+#~ msgid "cryptogen version"
+#~ msgstr ""
+
+#~ msgid "Usage"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Here's an example using the different"
+#~ " available flags on the cryptogen "
+#~ "extend command."
+#~ msgstr ""
+
+#~ msgid "Where config.yaml adds a new peer organization called org3.example.com"
+#~ msgstr ""
+
+#~ msgid "# cryptogen"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`cryptogen` is an utility for generating"
+#~ " Hyperledger Fabric key material. It "
+#~ "is provided as a means of "
+#~ "preconfiguring a network for testing "
+#~ "purposes. It would normally not be "
+#~ "used in the operation of a "
+#~ "production network."
+#~ msgstr ""
+
+#~ msgid "## Syntax"
+#~ msgstr ""
+
+#~ msgid "The ``cryptogen`` command has five subcommands, as follows:"
+#~ msgstr ""
+
+#~ msgid "## cryptogen help ``` usage: cryptogen [<flags>] <command> [<args> ...]"
+#~ msgstr ""
+
+#~ msgid "Utility for generating Hyperledger Fabric key material"
+#~ msgstr ""
+
+#~ msgid "Flags:"
+#~ msgstr ""
+
+#~ msgid "Show context-sensitive help (also try --help-long and --help-man)."
+#~ msgstr ""
+
+#~ msgid "Commands:"
+#~ msgstr ""
+
+#~ msgid "help [<command>...]"
+#~ msgstr ""
+
+#~ msgid "Show help."
+#~ msgstr ""
+
+#~ msgid "generate [<flags>]"
+#~ msgstr ""
+
+#~ msgid "Generate key material"
+#~ msgstr ""
+
+#~ msgid "Show the default configuration template"
+#~ msgstr ""
+
+#~ msgid "Show version information"
+#~ msgstr ""
+
+#~ msgid "extend [<flags>]"
+#~ msgstr ""
+
+#~ msgid "Extend existing network"
+#~ msgstr ""
+
+#~ msgid "```"
+#~ msgstr ""
+
+#~ msgid "## cryptogen generate ``` usage: cryptogen generate [<flags>]"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "--output=\"crypto-config\"  The output "
+#~ "directory in which to place artifacts"
+#~ " --config=CONFIG           The configuration "
+#~ "template to use"
+#~ msgstr ""
+
+#~ msgid "## cryptogen showtemplate ``` usage: cryptogen showtemplate"
+#~ msgstr ""
+
+#~ msgid "## cryptogen extend ``` usage: cryptogen extend [<flags>]"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "--input=\"crypto-config\"  The input directory"
+#~ " in which existing network place "
+#~ "--config=CONFIG          The configuration template"
+#~ " to use"
+#~ msgstr ""
+
+#~ msgid "## cryptogen version ``` usage: cryptogen version"
+#~ msgstr ""
+
+#~ msgid "## Usage"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Here's an example using the different"
+#~ " available flags on the ``cryptogen "
+#~ "extend`` command."
+#~ msgstr ""
+
+#~ msgid "cryptogen extend --input=\"crypto-config\" --config=config.yaml"
+#~ msgstr ""
+
+#~ msgid "org3.example.com"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Where config.yaml adds a new peer "
+#~ "organization called ``org3.example.com``"
+#~ msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hyperledger-fabricdocs master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 11:56-0300\n"
+"POT-Creation-Date: 2020-05-24 19:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,4 +435,531 @@ msgid ""
 "you give to the title formats (as they appear in the first sections of "
 "your doc)."
 msgstr ""
+
+#~ msgid "Documentation style guide for contributors"
+#~ msgstr ""
+
+#~ msgid "Audience: documentation writers and editors"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When in doubt, use the docs "
+#~ "themselves for guidance on how to "
+#~ "format things."
+#~ msgstr ""
+
+#~ msgid "For RST formatting."
+#~ msgstr ""
+
+#~ msgid "For Markdown formatting."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you just want to look at "
+#~ "how things are formatted, you can "
+#~ "navigate to the Fabric repo to "
+#~ "look at the raw file by clicking"
+#~ " on Edit on Github link in the"
+#~ " upper right hand corner of the "
+#~ "page. Then click the Raw tab. This"
+#~ " will show you the formatting of "
+#~ "the doc. Do not attempt to edit"
+#~ " the file on Github. If you "
+#~ "want to make a change, clone the"
+#~ " repo and follow the instructions in"
+#~ " Contributing for creating pull requests."
+#~ msgstr ""
+
+#~ msgid "Line lengths."
+#~ msgstr ""
+
+#~ msgid "Tutorials should have a list of steps at the top."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A list of steps (with links to "
+#~ "the corresponding sections) at the "
+#~ "beginning of a tutorial helps users "
+#~ "find particular steps they're interested "
+#~ "in. For an example, check out Use"
+#~ " private data in Fabric."
+#~ msgstr ""
+
+#~ msgid "\"Fabric\", \"Hyperledger Fabric\" or \"HLF\"?"
+#~ msgstr ""
+
+#~ msgid "Chaincode vs. Chaincodes?"
+#~ msgstr ""
+
+#~ msgid "When to bold?"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Not too often. The best use of "
+#~ "them is either as a summary or "
+#~ "as a way of drawing attention to"
+#~ " concepts you want to talk about. "
+#~ "“A blockchain network contains a ledger,"
+#~ " at least one chaincode, and peers”,"
+#~ " especially if you’re going to be "
+#~ "talking about those things in that "
+#~ "paragraph. Avoid using them simply to"
+#~ " emphasize a single word, as in "
+#~ "something like \"Blockchain networks must "
+#~ "use propery security protocols\"."
+#~ msgstr ""
+
+#~ msgid "When to surround something in back tics nnn?"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This is useful to draw attention "
+#~ "to words that either don’t make "
+#~ "sense in plain English or when "
+#~ "referencing parts of the code "
+#~ "(especially if you’ve put code snippets"
+#~ " in your doc). So for example, "
+#~ "when talking about the fabric-samples"
+#~ " directory, surround fabric-samples with"
+#~ " back tics. Same with a code "
+#~ "function like hf.Revoker. It might also"
+#~ " make sense to put back tics "
+#~ "around words that do make sense in"
+#~ " plain English that are part of "
+#~ "the code if you're referencing them "
+#~ "in a code context. For example, "
+#~ "when referencing an attribute as part"
+#~ " of an Access Control List."
+#~ msgstr ""
+
+#~ msgid "Is it ever appropriate to use a dash?"
+#~ msgstr ""
+
+#~ msgid "When to use hyphens?"
+#~ msgstr ""
+
+#~ msgid "How many spaces after a period?"
+#~ msgstr ""
+
+#~ msgid "How should numbers be rendered?"
+#~ msgstr ""
+
+#~ msgid "Try to avoid using the same words too often."
+#~ msgstr ""
+
+#~ msgid "How should files be named?"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "For example, identity_use_case_tutorial.md. While"
+#~ " not all files use this standard, "
+#~ "new files should adhere to it."
+#~ msgstr ""
+
+#~ msgid "Capitalization rules for doc titles."
+#~ msgstr ""
+
+#~ msgid "Use the Oxford comma?"
+#~ msgstr ""
+
+#~ msgid "JSON vs .json?"
+#~ msgstr ""
+
+#~ msgid "Referring to the reader."
+#~ msgstr ""
+
+#~ msgid "Ampersands (&)."
+#~ msgstr ""
+
+#~ msgid "Acronyms."
+#~ msgstr ""
+
+#~ msgid "Captions."
+#~ msgstr ""
+
+#~ msgid "Commands."
+#~ msgstr ""
+
+#~ msgid "Code snippets."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can substitute bash for a "
+#~ "language like Java or Go, where "
+#~ "appropriate."
+#~ msgstr ""
+
+#~ msgid "Enumerated lists in markdown."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Note that in Markdown, enumerated lists"
+#~ " will not work if you separate "
+#~ "the numbers with a space. Markdown "
+#~ "sees this as the start of a "
+#~ "new list, not a continuation of "
+#~ "the old one (every number will be"
+#~ " 1.). If you need an enumerated "
+#~ "list, you will have to use RST."
+#~ " Bulleted lists are a good substitute"
+#~ " in Markdown, and are the recommended"
+#~ " alternative."
+#~ msgstr ""
+
+#~ msgid "Linking."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When linking to another doc, use "
+#~ "relative links, not direct links. When"
+#~ " naming a link, do not just "
+#~ "call it \"link\". Use a more "
+#~ "creative and descriptive name. For "
+#~ "accessibility reasons, the link name "
+#~ "should also make it clear that it"
+#~ " is a link. For example, check "
+#~ "out this link to Google."
+#~ msgstr ""
+
+#~ msgid "curl vs cURL."
+#~ msgstr ""
+
+#~ msgid "Fabric CA."
+#~ msgstr ""
+
+#~ msgid "Raft and RAFT."
+#~ msgstr ""
+
+#~ msgid "All docs have to end with a license statement."
+#~ msgstr ""
+
+#~ msgid "How many spaces for indentation?"
+#~ msgstr ""
+
+#~ msgid "When to use which type of heading."
+#~ msgstr ""
+
+#~ msgid "Check out this topic on headings."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Both file formats don't like when "
+#~ "these things are done out of "
+#~ "order. For example, you might want "
+#~ "a #### to be the first thing "
+#~ "after your # Title. Markdown won’t "
+#~ "allow it. Similarly, RST will default"
+#~ " to whatever order you give to "
+#~ "the title formats (as they appear "
+#~ "in the first sections of your "
+#~ "doc)."
+#~ msgstr ""
+
+#~ msgid "# Documentation style guide for contributors"
+#~ msgstr ""
+
+#~ msgid "*Audience: documentation writers and editors*"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "**When in doubt, use the docs "
+#~ "themselves for guidance on how to "
+#~ "format things.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "[For RST formatting](http://hyperledger-"
+#~ "fabric.readthedocs.io/en/release-1.4/channel_update_tutorial.html)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "[For Markdown formatting](http://hyperledger-"
+#~ "fabric.readthedocs.io/en/release-1.4/peers/peers.html)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you just want to look at "
+#~ "how things are formatted, you can "
+#~ "navigate to the Fabric repo to "
+#~ "look at the raw file by clicking"
+#~ " on `Edit on Github` link in "
+#~ "the upper right hand corner of the"
+#~ " page. Then click the `Raw` tab. "
+#~ "This will show you the formatting "
+#~ "of the doc. **Do not attempt to"
+#~ " edit the file on Github.** If "
+#~ "you want to make a change, clone"
+#~ " the repo and follow the instructions"
+#~ " in [Contributing](contributing.html) for "
+#~ "creating pull requests."
+#~ msgstr ""
+
+#~ msgid "**Line lengths.**"
+#~ msgstr ""
+
+#~ msgid "**Tutorials should have a list of steps at the top.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A list of steps (with links to "
+#~ "the corresponding sections) at the "
+#~ "beginning of a tutorial helps users "
+#~ "find particular steps they're interested "
+#~ "in. For an example, check out [Use"
+#~ " private data in Fabric](../private-data"
+#~ "/private-data.html)."
+#~ msgstr ""
+
+#~ msgid "**\"Fabric\", \"Hyperledger Fabric\" or \"HLF\"?**"
+#~ msgstr ""
+
+#~ msgid "**Chaincode vs. Chaincodes?**"
+#~ msgstr ""
+
+#~ msgid "**When to bold?**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Not too often. The best use of "
+#~ "them is either as a summary or "
+#~ "as a way of drawing attention to"
+#~ " concepts you want to talk about. "
+#~ "“A blockchain network contains a ledger,"
+#~ " at least one chaincode, and peers”,"
+#~ " especially if you’re going to be "
+#~ "talking about those things in that "
+#~ "paragraph. Avoid using them simply to"
+#~ " emphasize a single word, as in "
+#~ "something like \"Blockchain networks **must**"
+#~ " use propery security protocols\"."
+#~ msgstr ""
+
+#~ msgid "**When to surround something in back tics `nnn`?**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This is useful to draw attention "
+#~ "to words that either don’t make "
+#~ "sense in plain English or when "
+#~ "referencing parts of the code "
+#~ "(especially if you’ve put code snippets"
+#~ " in your doc). So for example, "
+#~ "when talking about the fabric-samples"
+#~ " directory, surround `fabric-samples` with"
+#~ " back tics. Same with a code "
+#~ "function like `hf.Revoker`. It might "
+#~ "also make sense to put back tics"
+#~ " around words that do make sense "
+#~ "in plain English that are part of"
+#~ " the code if you're referencing them"
+#~ " in a code context. For example, "
+#~ "when referencing an `attribute` as part"
+#~ " of an Access Control List."
+#~ msgstr ""
+
+#~ msgid "**Is it ever appropriate to use a dash?**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "``` This leaves us with a trimmed"
+#~ " down JSON object --- config.json, "
+#~ "located in the fabric-samples folder "
+#~ "inside first-network --- which will "
+#~ "serve as the baseline for our "
+#~ "config update. ```"
+#~ msgstr ""
+
+#~ msgid "**When to use hyphens?**"
+#~ msgstr ""
+
+#~ msgid "**How many spaces after a period?**"
+#~ msgstr ""
+
+#~ msgid "**How should numbers be rendered?**"
+#~ msgstr ""
+
+#~ msgid "**Try to avoid using the same words too often.**"
+#~ msgstr ""
+
+#~ msgid "**How should files be named?**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "For example, `identity_use_case_tutorial.md`. While"
+#~ " not all files use this standard, "
+#~ "new files should adhere to it."
+#~ msgstr ""
+
+#~ msgid "**Capitalization rules for doc titles.**"
+#~ msgstr ""
+
+#~ msgid "**Use the Oxford comma?**"
+#~ msgstr ""
+
+#~ msgid "**JSON vs .json?**"
+#~ msgstr ""
+
+#~ msgid "**Referring to the reader.**"
+#~ msgstr ""
+
+#~ msgid "**Ampersands (&).**"
+#~ msgstr ""
+
+#~ msgid "**Acronyms.**"
+#~ msgstr ""
+
+#~ msgid "**Captions.**"
+#~ msgstr ""
+
+#~ msgid "**Commands.**"
+#~ msgstr ""
+
+#~ msgid "**Code snippets.**"
+#~ msgstr ""
+
+#~ msgid "``` Code goes here."
+#~ msgstr ""
+
+#~ msgid "Even more code goes here."
+#~ msgstr ""
+
+#~ msgid "And still more. ```"
+#~ msgstr ""
+
+#~ msgid "``` .. code:: bash"
+#~ msgstr ""
+
+#~ msgid "Code goes here."
+#~ msgstr ""
+
+#~ msgid "```"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You can substitute `bash` for a "
+#~ "language like Java or Go, where "
+#~ "appropriate."
+#~ msgstr ""
+
+#~ msgid "**Enumerated lists in markdown.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Note that in Markdown, enumerated lists"
+#~ " will not work if you separate "
+#~ "the numbers with a space. Markdown "
+#~ "sees this as the start of a "
+#~ "new list, not a continuation of "
+#~ "the old one (every number will be"
+#~ " `1.`). If you need an enumerated "
+#~ "list, you will have to use RST."
+#~ " Bulleted lists are a good substitute"
+#~ " in Markdown, and are the recommended"
+#~ " alternative."
+#~ msgstr ""
+
+#~ msgid "**Linking.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "When linking to another doc, use "
+#~ "relative links, not direct links. When"
+#~ " naming a link, do not just "
+#~ "call it \"link\". Use a more "
+#~ "creative and descriptive name. For "
+#~ "accessibility reasons, the link name "
+#~ "should also make it clear that it"
+#~ " is a link. For example, check "
+#~ "out [this link to Google](www.google.com)."
+#~ msgstr ""
+
+#~ msgid "**curl vs cURL.**"
+#~ msgstr ""
+
+#~ msgid "**Fabric CA.**"
+#~ msgstr ""
+
+#~ msgid "**Raft and RAFT.**"
+#~ msgstr ""
+
+#~ msgid "**All docs have to end with a license statement.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "``` .. Licensed under Creative Commons"
+#~ " Attribution 4.0 International License"
+#~ msgstr ""
+
+#~ msgid "https://creativecommons.org/licenses/by/4.0/"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "``` <!--- Licensed under Creative "
+#~ "Commons Attribution 4.0 International License"
+#~ " https://creativecommons.org/licenses/by/4.0/ --> ```"
+#~ msgstr ""
+
+#~ msgid "**How many spaces for indentation?**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "``` .. note:: Some words and stuff"
+#~ " etc etc etc (line continues until"
+#~ " the 70 character limit line)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "the line directly below has to "
+#~ "start at the same space as the "
+#~ "one above."
+#~ msgstr ""
+
+#~ msgid "**When to use which type of heading.**"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Check out [this topic on headings](http"
+#~ "://blender-manual-"
+#~ "i18n.readthedocs.io/ja/latest/about/markup_style_guide.html?highlight=tooltip#headings)."
+#~ msgstr ""
+
+#~ msgid "``` Chapter 1 Title ==============="
+#~ msgstr ""
+
+#~ msgid "Section 1.1 Title"
+#~ msgstr ""
+
+#~ msgid "Subsection 1.1.1 Title"
+#~ msgstr ""
+
+#~ msgid "Section 1.2 Title"
+#~ msgstr ""
+
+#~ msgid "``` # The Name of the Doc (this will get pulled for the TOC)."
+#~ msgstr ""
+
+#~ msgid "## First subsection"
+#~ msgstr ""
+
+#~ msgid "## Second subsection ```"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Both file formats don't like when "
+#~ "these things are done out of "
+#~ "order. For example, you might want "
+#~ "a `####` to be the first thing "
+#~ "after your `#` Title. Markdown won’t "
+#~ "allow it. Similarly, RST will default"
+#~ " to whatever order you give to "
+#~ "the title formats (as they appear "
+#~ "in the first sections of your "
+#~ "doc)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<!--- Licensed under Creative Commons "
+#~ "Attribution 4.0 International License "
+#~ "https://creativecommons.org/licenses/by/4.0/ -->"
+#~ msgstr ""
 
