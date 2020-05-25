@@ -106,7 +106,7 @@ processing and transaction confirmation latency, and it enables **privacy and co
 
 Let's explore these differentiating features in more detail.
 
-## Modularity
+## Modularidade
 
 Hyperledger Fabric has been specifically architected to have a modular
 architecture. Whether it is pluggable consensus, pluggable identity management
@@ -133,7 +133,7 @@ There is fair agreement in the industry that there is no "one blockchain to
 rule them all". Hyperledger Fabric can be configured in multiple ways to
 satisfy the diverse solution requirements for multiple industry use cases.
 
-## Permissioned vs Permissionless Blockchains
+## Blockchains com Permissão ou Sem Permissão
 
 In a permissionless blockchain, virtually anyone can participate, and every
 participant is anonymous. In such a context, there can be no trust other than
