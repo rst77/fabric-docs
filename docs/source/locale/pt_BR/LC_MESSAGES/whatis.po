@@ -29,7 +29,7 @@ msgid ""
 "maintain a copy of the ledger by applying transactions that have been "
 "validated by a consensus protocol, grouped into blocks that include a "
 "hash that bind each block to the preceding block."
-msgstr "Em termos gerais..."
+msgstr ""
 
 #: ../../source/whatis.md:9
 msgid ""

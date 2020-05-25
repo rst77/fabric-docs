@@ -1,79 +1,84 @@
-# Introduction
+# Introdução
 
-In general terms, a blockchain is an immutable transaction ledger, maintained
-within a distributed network of _peer nodes_. These nodes each maintain a copy
-of the ledger by applying transactions that have been validated by a _consensus
-protocol_, grouped into blocks that include a hash that bind each block to the
-preceding block.
+Em termos gerais, blockchain é um sistema de livro-razão com registros imutáveis,
+mantido em uma rede distribuída por múltiplos nós pares (_peer nodes_). Esses nós 
+mantêm uma cópia do livro-razão contendo as transações que foram validadas por 
+um protocolo de consenso e agrupadas em blocos que inclue um hash que liga cada
+bloco ao bloco anterior.
 
-The first and most widely recognized application of blockchain is the
-[Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) cryptocurrency, though others
-have followed in its footsteps. Ethereum, an alternative cryptocurrency, took a
-different approach, integrating many of the same characteristics as Bitcoin but
-adding _smart contracts_ to create a platform for distributed applications.
-Bitcoin and Ethereum fall into a class of blockchain that we would classify as
-_public permissionless_ blockchain technology. Basically, these are public
-networks, open to anyone, where participants interact anonymously.
+A aplicação amplamente reconhecida do blockchain é a criptomoeda 
+[Bitcoin](https://en.wikipedia.org/wiki/Bitcoin), embora outras moedas tenham 
+seguido seus passos. A Ethereum, uma criptomoeda alternativa, adotou uma abordagem 
+diferente, integrando muitas das mesmas características do Bitcoin, mas 
+adicionando contratos inteligentes (_smart contracts_) para criar uma plataforma 
+para aplicativos distribuídos. Bitcoin e Ethereum se enquadram em uma classe de
+blockchain que classificamos como tecnologia de blockchain de permissão pública 
+(_public permissionless_). Basicamente, são redes públicas, abertas a qualquer 
+pessoa, onde os participantes interagem anonimamente.
 
-As the popularity of Bitcoin, Ethereum and a few other derivative technologies
-grew, interest in applying the underlying technology of the blockchain,
-distributed ledger and distributed application platform to more innovative
-_enterprise_ use cases also grew. However, many enterprise use cases require
-performance characteristics that the permissionless blockchain technologies are
-unable (presently) to deliver. In addition, in many use cases, the identity of
-the participants is a hard requirement, such as in the case of financial
-transactions where Know-Your-Customer (KYC) and Anti-Money Laundering (AML)
-regulations must be followed.
+À medida que a popularidade do Bitcoin, Ethereum e algumas outras tecnologias 
+derivadas aumentavam, o interesse em aplicar as tecnologias subjacentes do blockchain, 
+como, registro distribuído e a plataforma de aplicativos distribuídos em casos 
+de uso mais inovadores para _empresas_ também crescia. No entanto, muitos casos 
+de uso corporativos exigem características de desempenho que as tecnologias blockchain 
+sem permissão não conseguem (atualmente) atender. Além disso, em muitos casos de
+uso, a identidade dos participantes é um requisito obrigatório, como no caso de 
+transações financeiras, onde é obrigatório conhecer o consumidor 
+(_Know-Your-Customer - KYC_) e regras antí-lavagem de dinheiro devem ser seguidas 
+(_Anti-Money Laundering - AML_).
 
-For enterprise use, we need to consider the following requirements:
+Para uso corporativo, precisamos considerar os seguintes requisitos:
 
-- Participants must be identified/identifiable
-- Networks need to be _permissioned_
-- High transaction throughput performance
-- Low latency of transaction confirmation
-- Privacy and confidentiality of transactions and data pertaining to business
-  transactions
+- Os participantes devem ser identificados/identificáveis
+- As redes precisam ser _permissionadas_
+- Alta performance nas transações
+- Baixa latência na confirmação das transações
+- Privacidade e confidencialidade nas transações e nos dados referentes as
+transações comerciais
 
-While many early blockchain platforms are currently being _adapted_ for
-enterprise use, Hyperledger Fabric has been _designed_ for enterprise use from
-the outset. The following sections describe how Hyperledger Fabric (Fabric)
-differentiates itself from other blockchain platforms and describes some of the
-motivation for its architectural decisions.
+Embora muitas plataformas de blockchain antigas estejam sendo _adaptadas_ para 
+uso corporativo, o Hyperledger Fabric foi _projetado_ para uso corporativo 
+desde o início. As seções a seguir descrevem como o Hyperledger Fabric 
+(Fabric) se diferencia de outras plataformas de blockchain e descreve algumas
+das motivações para suas decisões de arquitetura.
 
 ## Hyperledger Fabric
 
-Hyperledger Fabric is an open source enterprise-grade permissioned distributed
-ledger technology (DLT) platform, designed for use in enterprise contexts,
-that delivers some key differentiating capabilities over other popular
-distributed ledger or blockchain platforms.
+O Hyperledger Fabric é uma plataforma de tecnologia de registro de livro-razão 
+distribuído (Distributed Ledger Technology - DLT) de nível empresarial e código
+aberto, projetada para uso em ambientes empresariais e que fornece alguns
+recursos diferenciados importantes em relação a outras plataformas populares de
+livro-razão distribuído ou blockchain.
 
-One key point of differentiation is that Hyperledger was established under the
-Linux Foundation, which itself has a long and very successful history of
-nurturing open source projects under **open governance** that grow strong
-sustaining communities and thriving ecosystems. Hyperledger is governed by a
-diverse technical steering committee, and the Hyperledger Fabric project by a
-diverse set of maintainers from multiple organizations. It has a development
-community that has grown to over 35 organizations and nearly 200 developers
-since its earliest commits.
+Um ponto chave de diferenciação é que o Hyperledger foi estabelecido sob a Linux 
+Foundation, que possui uma história longa e muito bem-sucedida de fomentar 
+projetos de código aberto sob **governança aberta** que desenvolvem 
+comunidades sustentáveis fortes e ecossistemas prósperos. O Hyperledger é 
+governado por um comitê de direção técnica diversificada e o projeto Hyperledger
+Fabric por um conjunto diversificado de mantenedores de várias organizações. 
+Tem uma comunidade de desenvolvimento que ultrapassa 35 organizações e
+quase 200 desenvolvedores desde suas primeiras versões.
 
-Fabric has a highly **modular** and **configurable** architecture, enabling
-innovation, versatility and optimization for a broad range of industry use cases
-including banking, finance, insurance, healthcare, human resources, supply
-chain and even digital music delivery.
+A Fabric possui uma arquitetura altamente **modular** e **configurável**,
+permitindo inovação, versatilidade e otimização para uma ampla gama de casos de
+uso da indústria, incluindo bancos, finanças, seguros, assistência médica,
+recursos humanos, cadeia de suprimentos e até distribuição de música digital.
 
-Fabric is the first distributed ledger platform to support **smart contracts
-authored in general-purpose programming languages** such as Java, Go and
-Node.js, rather than constrained domain-specific languages (DSL). This means
-that most enterprises already have the skill set needed to develop smart
-contracts, and no additional training to learn a new language or DSL is needed.
+A Fabric, é a primeira plataforma de livro-razão distribuído a suportar 
+**contratos inteligentes criados em linguagens de programação de uso geral** 
+como Java, Go e Node.js, em vez de linguagens específicas de domínio restrito 
+(Domain-specific Languages - DSL). Isso significa que a maioria das empresas já
+possui o conjunto de habilidades necessárias para desenvolver contratos 
+inteligentes e não é necessário treinamento adicional para aprender um novo 
+idioma ou DSL.
 
-The Fabric platform is also **permissioned**, meaning that, unlike with a public
-permissionless network, the participants are known to each other, rather than
-anonymous and therefore fully untrusted. This means that while the participants
-may not _fully_ trust one another (they may, for example, be competitors in the
-same industry), a network can be operated under a governance model that is built
-off of what trust _does_ exist between participants, such as a legal agreement
-or framework for handling disputes.
+A plataforma Fabric também é **permissionada**, o que significa que, 
+diferente de uma rede pública, sem identificação, os participantes são 
+conhecidos uns pelos outros, em vez de anônimos, e _totalmente_ não confiáveis. 
+Isso significa que, embora os participantes não confiem plenamente uns nos outros
+(eles podem, por exemplo, ser concorrentes no mesmo mercado), uma rede pode ser 
+operada sob um modelo de governança baseada na confiança que _existe_ entre os
+participantes, como um contrato ou modelo para reger divergências.
 
 One of the most important of the platform's differentiators is its support for
 **pluggable consensus protocols** that enable the platform to be more
