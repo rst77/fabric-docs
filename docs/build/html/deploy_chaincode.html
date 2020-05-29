@@ -1,0 +1,901 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying a smart contract to a channel &mdash; hyperledger-fabricdocs master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
+        <link rel="up" title="Tutorials" href="tutorials.html"/>
+        <link rel="next" title="Writing Your First Application" href="write_first_app.html"/>
+        <link rel="prev" title="Tutorials" href="tutorials.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+
+          
+            <a href="index.html" class="icon icon-home"> hyperledger-fabricdocs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+<br><img style="background-color: #fff; height: unset; width: unset;" alt="Hyperledger Fabric" src=_images/hyperledger_fabric_logo_color.png />
+<br>
+<a href="https://github.com/hyperledger/fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="GitHub" src="_static/images/github_button.png"/></a>
+&nbsp;<a href="https://stackoverflow.com/questions/tagged/hyperledger-fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="StackOverflow" src="_static/images/stackoverflow_button.png"/></a>
+&nbsp;<a href="https://chat.hyperledger.org"><img style="padding: 0px; margin: auto auto auto auto;" alt="Rocket Chat" src="_static/images/rocketchat_button.png"/></a>
+&nbsp;<a href="https://www.youtube.com/playlist?list=PL0MZ85B_96CH7wvtrRzV7SvtRY0sI0DEg"><img style="padding: 0px; margin: auto auto auto auto;" alt="Youtube Channel" src="_static/images/youtube_button.png"/></a>
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whatis.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html#release-notes">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developapps/developing_applications.html">Developing Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="test_network.html">Using the Fabric test network</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deploying a smart contract to a channel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start-the-network">Start the network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-logspout-optional">Setup Logspout (optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#package-the-smart-contract">Package the smart contract</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#go">Go</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#javascript">JavaScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#java">Java</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-chaincode-package">Install the chaincode package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approve-a-chaincode-definition">Approve a chaincode definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#committing-the-chaincode-definition-to-the-channel">Committing the chaincode definition to the channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#invoking-the-chaincode">Invoking the chaincode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upgrading-a-smart-contract">Upgrading a smart contract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clean-up">Clean up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chaincode-not-agreed-to-by-this-org">Chaincode not agreed to by this org</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invoke-failure">Invoke failure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#endorsement-policy-failure">Endorsement policy failure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="write_first_app.html">Writing Your First Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/commercial_paper.html">Commercial paper tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="private_data_tutorial.html">Using Private Data in Fabric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchdb_tutorial.html">Using CouchDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel_update_tutorial.html">Adding an Org to a Channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_update.html">Updating a channel configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chaincode4ade.html">Chaincode for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_network.html">Building Your First Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment_guide_overview.html">Deploying a production network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ops_guide.html">Operations Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading to the latest release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_ref.html">Commands Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fabric-FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contributions Welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">Still Have Questions?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">Status</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hyperledger-fabricdocs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Deploying a smart contract to a channel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/deploy_chaincode.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-a-smart-contract-to-a-channel">
+<span id="deploying-a-smart-contract-to-a-channel"></span><h1>Deploying a smart contract to a channel<a class="headerlink" href="#deploying-a-smart-contract-to-a-channel" title="Permalink to this headline">¶</a></h1>
+<p>End users interact with the blockchain ledger by invoking smart contracts. In Hyperledger Fabric, smart contracts are deployed in packages referred to as chaincode. Organizations that want to validate transactions or query the ledger need to install a chaincode on their peers. After a chaincode has been installed on the peers joined to a channel, channel members can deploy the chaincode to the channel and use the smart contracts in the chaincode to create or update assets on the channel ledger.</p>
+<p>A chaincode is deployed to a channel using a process known as the Fabric chaincode lifecycle. The Fabric chaincode lifecycle allows multiple organizations to agree how a chaincode will be operated before it can be used to create transactions. For example, while an endorsement policy specifies which organizations need to execute a chaincode to validate a transaction, channel members need to use the Fabric chaincode lifecycle to agree on the chaincode endorsement policy. For a more in depth overview about how to deploy and manage a chaincode on a channel, see <a class="reference external" href="./chaincode_lifecycle.html">Fabric chaincode lifecyle</a>.</p>
+<p>You can use this tutorial to learn how to use the <a class="reference external" href="./commands/peerlifecycle.html">peer lifecycle chaincode commands</a> to deploy a chaincode to a channel of the Fabric test network. Once you have an understanding of the commands, you can use the steps in this tutorial to deploy your own chaincode to the test network, or to deploy chaincode to a production network. In this tutorial, you will deploy the Fabcar chaincode that is used by the <a class="reference external" href="./write_first_app.html">Writing your first application tutorial</a>.</p>
+<p><strong>Note:</strong> These instructions use the Fabric chaincode lifecycle introduced in the v2.0 release. If you would like to use the previous lifecycle to install and instantiate a chaincode, visit the <a class="reference external" href="https://hyperledger-fabric.readthedocs.io/en/release-1.4">v1.4 version of the Fabric documentation</a>.</p>
+<div class="section" id="start-the-network">
+<span id="start-the-network"></span><h2>Start the network<a class="headerlink" href="#start-the-network" title="Permalink to this headline">¶</a></h2>
+<p>We will start by deploying an instance of the Fabric test network. Before you begin, make sure that that you have installed the <a class="reference external" href="prereqs.html">Prerequisites</a> and <a class="reference external" href="install.html">Installed the Samples, Binaries and Docker Images</a>. Use the following command to navigate to the test network directory within your local clone of the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>For the sake of this tutorial, we want to operate from a known initial state. The following command will kill any active or stale docker containers and remove previously generated artifacts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">network</span><span class="o">.</span><span class="n">sh</span> <span class="n">down</span>
+</pre></div>
+</div>
+<p>You can then use the following command to start the test network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">network</span><span class="o">.</span><span class="n">sh</span> <span class="n">up</span> <span class="n">createChannel</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">createChannel</span></code> command creates a channel named <code class="docutils literal notranslate"><span class="pre">mychannel</span></code> with two channel members, Org1 and Org2. The command also joins a peer that belongs to each organization to the channel. If the network and the channel are created successfully, you can see the following message printed in the logs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=========</span> <span class="n">Channel</span> <span class="n">successfully</span> <span class="n">joined</span> <span class="o">===========</span>
+</pre></div>
+</div>
+<p>We can now use the Peer CLI to deploy the Fabcar chaincode to the channel using the following steps:</p>
+<ul class="simple">
+<li><a class="reference external" href="#package-the-smart-contract">Step one: Package the smart contract</a></li>
+<li><a class="reference external" href="#install-the-chaincode-package">Step two: Install the chaincode package</a></li>
+<li><a class="reference external" href="#approve-a-chaincode-definition">Step three: Approve a chaincode definition</a></li>
+<li><a class="reference external" href="#committing-the-chaincode-definition-to-the-channel">Step four: Committing the chaincode definition to the channel</a></li>
+</ul>
+</div>
+<div class="section" id="setup-logspout-optional">
+<span id="setup-logspout-optional"></span><h2>Setup Logspout (optional)<a class="headerlink" href="#setup-logspout-optional" title="Permalink to this headline">¶</a></h2>
+<p>This step is not required, but is extremely useful for troubleshooting chaincode. To monitor the logs of the smart contract, an administrator can view the aggregated output from a set of Docker containers using the <code class="docutils literal notranslate"><span class="pre">logspout</span></code> <a class="reference external" href="https://logdna.com/what-is-logspout/">tool</a>. The tool collects the output streams from different Docker containers into one place, making it easy to see what’s happening from a single window. This can help administrators debug problems when they install smart contracts or developers when they invoke smart contracts. Because some containers are created purely for the purposes of starting a smart contract and only exist for a short time, it is helpful to collect all of the logs from your network.</p>
+<p>A script to install and configure Logspout, <code class="docutils literal notranslate"><span class="pre">monitordocker.sh</span></code>, is already included in the <code class="docutils literal notranslate"><span class="pre">commercial-paper</span></code> sample in the Fabric samples. We will use the same script in this tutorial as well. The Logspout tool will continuously stream logs to your terminal, so you will need to use a new terminal window. Open a new terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>You can run the <code class="docutils literal notranslate"><span class="pre">monitordocker.sh</span></code> script from any directory. For ease of use, we will copy the <code class="docutils literal notranslate"><span class="pre">monitordocker.sh</span></code> script from the <code class="docutils literal notranslate"><span class="pre">commercial-paper</span></code> sample to your working directory</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">../</span><span class="n">commercial</span><span class="o">-</span><span class="n">paper</span><span class="o">/</span><span class="n">organization</span><span class="o">/</span><span class="n">digibank</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">cli</span><span class="o">/</span><span class="n">monitordocker</span><span class="o">.</span><span class="n">sh</span> <span class="o">.</span>
+<span class="c1"># if you&#39;re not sure where it is</span>
+<span class="n">find</span> <span class="o">.</span> <span class="o">-</span><span class="n">name</span> <span class="n">monitordocker</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>You can then start Logspout by running the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">monitordocker</span><span class="o">.</span><span class="n">sh</span> <span class="n">net_test</span>
+</pre></div>
+</div>
+<p>You should see output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Starting</span> <span class="n">monitoring</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">containers</span> <span class="n">on</span> <span class="n">the</span> <span class="n">network</span> <span class="n">net_basic</span>
+<span class="n">Unable</span> <span class="n">to</span> <span class="n">find</span> <span class="n">image</span> <span class="s1">&#39;gliderlabs/logspout:latest&#39;</span> <span class="n">locally</span>
+<span class="n">latest</span><span class="p">:</span> <span class="n">Pulling</span> <span class="kn">from</span> <span class="nn">gliderlabs</span><span class="o">/</span><span class="n">logspout</span>
+<span class="mi">4</span><span class="n">fe2ade4980c</span><span class="p">:</span> <span class="n">Pull</span> <span class="n">complete</span>
+<span class="n">decca452f519</span><span class="p">:</span> <span class="n">Pull</span> <span class="n">complete</span>
+<span class="n">ad60f6b6c009</span><span class="p">:</span> <span class="n">Pull</span> <span class="n">complete</span>
+<span class="n">Digest</span><span class="p">:</span> <span class="n">sha256</span><span class="p">:</span><span class="mi">374</span><span class="n">e06b17b004bddc5445525796b5f7adb8234d64c5c5d663095fccafb6e4c26</span>
+<span class="n">Status</span><span class="p">:</span> <span class="n">Downloaded</span> <span class="n">newer</span> <span class="n">image</span> <span class="k">for</span> <span class="n">gliderlabs</span><span class="o">/</span><span class="n">logspout</span><span class="p">:</span><span class="n">latest</span>
+<span class="mi">1</span><span class="n">f99d130f15cf01706eda3e1f040496ec885036d485cb6bcc0da4a567ad84361</span>
+</pre></div>
+</div>
+<p>You will not see any logs at first, but this will change when we deploy our chaincode. It can be helpful to make this terminal window wide and the font small.</p>
+</div>
+<div class="section" id="package-the-smart-contract">
+<span id="package-the-smart-contract"></span><h2>Package the smart contract<a class="headerlink" href="#package-the-smart-contract" title="Permalink to this headline">¶</a></h2>
+<p>We need to package the chaincode before it can be installed on our peers. The steps are different if you want to install a smart contract written in <a class="reference external" href="#go">Go</a>, <a class="reference external" href="#java">Java</a>, or <a class="reference external" href="#javascript">JavaScript</a>.</p>
+<div class="section" id="go">
+<span id="go"></span><h3>Go<a class="headerlink" href="#go" title="Permalink to this headline">¶</a></h3>
+<p>Before we package the chaincode, we need to install the chaincode dependences. Navigate to the folder that contains the Go version of the Fabcar chaincode.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">go</span>
+</pre></div>
+</div>
+<p>The sample uses a Go module to install the chaincode dependencies. The dependencies are listed in a <code class="docutils literal notranslate"><span class="pre">go.mod</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabcar/go</span></code> directory. You should take a moment to examine this file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat go.mod
+module github.com/hyperledger/fabric-samples/chaincode/fabcar/go
+
+go 1.13
+
+require github.com/hyperledger/fabric-contract-api-go v0.0.0-20191118113407-4c6ff12b4f96
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">go.mod</span></code> file imports the Fabric contract API into the smart contract package. You can open <code class="docutils literal notranslate"><span class="pre">fabcar.go</span></code> in a text editor to see how the contract API is used to define the <code class="docutils literal notranslate"><span class="pre">SmartContract</span></code> type at the beginning of the smart contract:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">SmartContract</span> <span class="n">provides</span> <span class="n">functions</span> <span class="k">for</span> <span class="n">managing</span> <span class="n">a</span> <span class="n">car</span>
+<span class="nb">type</span> <span class="n">SmartContract</span> <span class="n">struct</span> <span class="p">{</span>
+    <span class="n">contractapi</span><span class="o">.</span><span class="n">Contract</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SmartContract</span></code> type is then used to create the transaction context for the functions defined within the smart contract that read and write data to the blockchain ledger.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">CreateCar</span> <span class="n">adds</span> <span class="n">a</span> <span class="n">new</span> <span class="n">car</span> <span class="n">to</span> <span class="n">the</span> <span class="n">world</span> <span class="n">state</span> <span class="k">with</span> <span class="n">given</span> <span class="n">details</span>
+<span class="n">func</span> <span class="p">(</span><span class="n">s</span> <span class="o">*</span><span class="n">SmartContract</span><span class="p">)</span> <span class="n">CreateCar</span><span class="p">(</span><span class="n">ctx</span> <span class="n">contractapi</span><span class="o">.</span><span class="n">TransactionContextInterface</span><span class="p">,</span> <span class="n">carNumber</span> <span class="n">string</span><span class="p">,</span> <span class="n">make</span> <span class="n">string</span><span class="p">,</span> <span class="n">model</span> <span class="n">string</span><span class="p">,</span> <span class="n">colour</span> <span class="n">string</span><span class="p">,</span> <span class="n">owner</span> <span class="n">string</span><span class="p">)</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="n">car</span> <span class="p">:</span><span class="o">=</span> <span class="n">Car</span><span class="p">{</span>
+        <span class="n">Make</span><span class="p">:</span>   <span class="n">make</span><span class="p">,</span>
+        <span class="n">Model</span><span class="p">:</span>  <span class="n">model</span><span class="p">,</span>
+        <span class="n">Colour</span><span class="p">:</span> <span class="n">colour</span><span class="p">,</span>
+        <span class="n">Owner</span><span class="p">:</span>  <span class="n">owner</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">carAsBytes</span><span class="p">,</span> <span class="n">_</span> <span class="p">:</span><span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">Marshal</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">GetStub</span><span class="p">()</span><span class="o">.</span><span class="n">PutState</span><span class="p">(</span><span class="n">carNumber</span><span class="p">,</span> <span class="n">carAsBytes</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can learn more about the Go contract API by visiting the <a class="reference external" href="https://github.com/hyperledger/fabric-contract-api-go">API documentation</a> and the <a class="reference external" href="developapps/smartcontract.html">smart contract processing topic</a>.</p>
+<p>To install the smart contract dependencies, run the following command from the <code class="docutils literal notranslate"><span class="pre">fabcar/go</span></code> directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GO111MODULE</span><span class="o">=</span><span class="n">on</span> <span class="n">go</span> <span class="n">mod</span> <span class="n">vendor</span>
+</pre></div>
+</div>
+<p>If the command is successful, the go packages will be installed inside a <code class="docutils literal notranslate"><span class="pre">vendor</span></code> folder.</p>
+<p>Now that we that have our dependences, we can create the chaincode package. Navigate back to our working directory in the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> folder so that we can package the chaincode together with our other network artifacts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../../../</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI to create a chaincode package in the required format. The <code class="docutils literal notranslate"><span class="pre">peer</span></code> binaries are located in the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder of the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository. Use the following command to add those binaries to your CLI Path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=${PWD}/../bin:${PWD}:$PATH
+</pre></div>
+</div>
+<p>You also need to set the <code class="docutils literal notranslate"><span class="pre">FABRIC_CFG_PATH</span></code> to point to the <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export FABRIC_CFG_PATH=$PWD/../config/
+</pre></div>
+</div>
+<p>To confirm that you are able to use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI, check the version of the binaries. The binaries need to be version <code class="docutils literal notranslate"><span class="pre">2.0.0</span></code> or later to run this tutorial.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">version</span>
+</pre></div>
+</div>
+<p>You can now create the chaincode package using the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-package">peer lifecycle chaincode package</a> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">package</span> <span class="n">fabcar</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">path</span> <span class="o">../</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">go</span><span class="o">/</span> <span class="o">--</span><span class="n">lang</span> <span class="n">golang</span> <span class="o">--</span><span class="n">label</span> <span class="n">fabcar_1</span>
+</pre></div>
+</div>
+<p>This command will create a package named <code class="docutils literal notranslate"><span class="pre">fabcar.tar.gz</span></code> in your current directory. The <code class="docutils literal notranslate"><span class="pre">--lang</span></code> flag is used to specify the chaincode language and the <code class="docutils literal notranslate"><span class="pre">--path</span></code> flag provides the location of your smart contract code. The <code class="docutils literal notranslate"><span class="pre">--label</span></code> flag is used to specify a chaincode label that will identity your chaincode after it is installed. It is recommended that your label include the chaincode name and version.</p>
+<p>Now that we created the chaincode package, we can <a class="reference external" href="#install-the-chaincode-package">install the chaincode</a> on the peers of the test network.</p>
+</div>
+<div class="section" id="javascript">
+<span id="javascript"></span><h3>JavaScript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h3>
+<p>Before we package the chaincode, we need to install the chaincode dependences. Navigate to the folder that contains the JavaScript version of the Fabcar chaincode.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">javascript</span>
+</pre></div>
+</div>
+<p>The dependencies are listed in the <code class="docutils literal notranslate"><span class="pre">package.json</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabcar/javascript</span></code> directory. You should take a moment to examine this file. You can find the dependences section displayed below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;fabric-contract-api&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.0.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fabric-shim&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.0.0&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">package.json</span></code> file imports the Fabric contract class into the smart contract package. You can open <code class="docutils literal notranslate"><span class="pre">lib/fabcar.js</span></code> in a text editor to see the contract class imported into the smart contract and used to create the FabCar class.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="p">{</span> <span class="n">Contract</span> <span class="p">}</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s1">&#39;fabric-contract-api&#39;</span><span class="p">);</span>
+
+<span class="k">class</span> <span class="nc">FabCar</span> <span class="n">extends</span> <span class="n">Contract</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">FabCar</span></code> class provides the transaction context for the functions defined within the smart contract that read and write data to the blockchain ledger.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="n">createCar</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">carNumber</span><span class="p">,</span> <span class="n">make</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;============= START : Create Car ===========&#39;</span><span class="p">);</span>
+
+    <span class="n">const</span> <span class="n">car</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">docType</span><span class="p">:</span> <span class="s1">&#39;car&#39;</span><span class="p">,</span>
+        <span class="n">make</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">owner</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="k">await</span> <span class="n">ctx</span><span class="o">.</span><span class="n">stub</span><span class="o">.</span><span class="n">putState</span><span class="p">(</span><span class="n">carNumber</span><span class="p">,</span> <span class="n">Buffer</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">car</span><span class="p">)));</span>
+    <span class="n">console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;============= END : Create Car ===========&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can learn more about the JavaScript contract API by visiting the <a class="reference external" href="https://hyperledger.github.io/fabric-chaincode-node/{branch}/api/">API documentation</a> and the <a class="reference external" href="developapps/smartcontract.html">smart contract processing topic</a>.</p>
+<p>To install the smart contract dependencies, run the following command from the <code class="docutils literal notranslate"><span class="pre">fabcar/javascript</span></code> directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>If the command is successful, the JavaScript packages will be installed inside a <code class="docutils literal notranslate"><span class="pre">npm_modules</span></code> folder.</p>
+<p>Now that we that have our dependences, we can create the chaincode package. Navigate back to our working directory in the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> folder so that we can package the chaincode together with our other network artifacts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../../../</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI to create a chaincode package in the required format. The <code class="docutils literal notranslate"><span class="pre">peer</span></code> binaries are located in the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder of the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository. Use the following command to add those binaries to your CLI Path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=${PWD}/../bin:${PWD}:$PATH
+</pre></div>
+</div>
+<p>You also need to set the <code class="docutils literal notranslate"><span class="pre">FABRIC_CFG_PATH</span></code> to point to the <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export FABRIC_CFG_PATH=$PWD/../config/
+</pre></div>
+</div>
+<p>To confirm that you are able to use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI, check the version of the binaries. The binaries need to be version <code class="docutils literal notranslate"><span class="pre">2.0.0</span></code> or later to run this tutorial.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">version</span>
+</pre></div>
+</div>
+<p>You can now create the chaincode package using the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-package">peer lifecycle chaincode package</a> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">package</span> <span class="n">fabcar</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">path</span> <span class="o">../</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">javascript</span><span class="o">/</span> <span class="o">--</span><span class="n">lang</span> <span class="n">node</span> <span class="o">--</span><span class="n">label</span> <span class="n">fabcar_1</span>
+</pre></div>
+</div>
+<p>This command will create a package named <code class="docutils literal notranslate"><span class="pre">fabcar.tar.gz</span></code> in your current directory. The <code class="docutils literal notranslate"><span class="pre">--lang</span></code> flag is used to specify the chaincode language and the <code class="docutils literal notranslate"><span class="pre">--path</span></code> flag provides the location of your smart contract code. The <code class="docutils literal notranslate"><span class="pre">--label</span></code> flag is used to specify a chaincode label that will identity your chaincode after it is installed. It is recommended that your label include the chaincode name and version.</p>
+<p>Now that we created the chaincode package, we can <a class="reference external" href="#install-the-chaincode-package">install the chaincode</a> on the peers of the test network.</p>
+</div>
+<div class="section" id="java">
+<span id="java"></span><h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
+<p>Before we package the chaincode, we need to install the chaincode dependences. Navigate to the folder that contains the Java version of the Fabcar chaincode.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">java</span>
+</pre></div>
+</div>
+<p>The sample uses Gradle to install the chaincode dependencies. The dependencies are listed in the <code class="docutils literal notranslate"><span class="pre">build.gradle</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabcar/java</span></code> directory. You should take a moment to examine this file. You can find the dependences section displayed below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dependencies</span> <span class="p">{</span>
+    <span class="n">compileOnly</span> <span class="s1">&#39;org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:2.0.+&#39;</span>
+    <span class="n">implementation</span> <span class="s1">&#39;com.owlike:genson:1.5&#39;</span>
+    <span class="n">testImplementation</span> <span class="s1">&#39;org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:2.0.+&#39;</span>
+    <span class="n">testImplementation</span> <span class="s1">&#39;org.junit.jupiter:junit-jupiter:5.4.2&#39;</span>
+    <span class="n">testImplementation</span> <span class="s1">&#39;org.assertj:assertj-core:3.11.1&#39;</span>
+    <span class="n">testImplementation</span> <span class="s1">&#39;org.mockito:mockito-core:2.+&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">build.gradle</span></code> file imports the Java chaincode shim into the smart contract package, which includes the contract class. You can find Fabcar smart contract in the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory. You can navigate to the <code class="docutils literal notranslate"><span class="pre">FabCar.java</span></code> file and open it in a text editor to see how the contract class is used to create the transaction context for the functions defined that read and write data to the blockchain ledger.</p>
+<p>You can learn more about the Java chaincode shim and the contract class by visiting the <a class="reference external" href="https://hyperledger.github.io/fabric-chaincode-java/{branch}/api/">Java chaincode documentation</a> and the <a class="reference external" href="developapps/smartcontract.html">smart contract processing topic</a>.</p>
+<p>To install the smart contract dependencies, run the following command from the <code class="docutils literal notranslate"><span class="pre">fabcar/java</span></code> directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="n">installDist</span>
+</pre></div>
+</div>
+<p>If the command is successful, you will be able to find the built smart contract in the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder.</p>
+<p>Now that we have installed the dependences and built the smart contract, we can create the chaincode package. Navigate back to our working directory in the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> folder so that we can package the chaincode together with our other network artifacts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../../../</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI to create a chaincode package in the required format. The <code class="docutils literal notranslate"><span class="pre">peer</span></code> binaries are located in the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder of the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository. Use the following command to add those binaries to your CLI Path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=${PWD}/../bin:${PWD}:$PATH
+</pre></div>
+</div>
+<p>You also need to set the <code class="docutils literal notranslate"><span class="pre">FABRIC_CFG_PATH</span></code> to point to the <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> file in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export FABRIC_CFG_PATH=$PWD/../config/
+</pre></div>
+</div>
+<p>To confirm that you are able to use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI, check the version of the binaries. The binaries need to be version <code class="docutils literal notranslate"><span class="pre">2.0.0</span></code> or later to run this tutorial.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">version</span>
+</pre></div>
+</div>
+<p>You can now create the chaincode package using the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-package">peer lifecycle chaincode package</a> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">package</span> <span class="n">fabcar</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">--</span><span class="n">path</span> <span class="o">../</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="n">fabcar</span> <span class="o">--</span><span class="n">lang</span> <span class="n">java</span> <span class="o">--</span><span class="n">label</span> <span class="n">fabcar_1</span>
+</pre></div>
+</div>
+<p>This command will create a package named <code class="docutils literal notranslate"><span class="pre">fabcar.tar.gz</span></code> in your current directory. The <code class="docutils literal notranslate"><span class="pre">--lang</span></code> flag is used to specify the chaincode language and the <code class="docutils literal notranslate"><span class="pre">--path</span></code> flag provides the location of your smart contract code. The <code class="docutils literal notranslate"><span class="pre">--label</span></code> flag is used to specify a chaincode label that will identity your chaincode after it is installed. It is recommended that your label include the chaincode name and version.</p>
+<p>Now that we created the chaincode package, we can <a class="reference external" href="#install-the-chaincode-package">install the chaincode</a> on the peers of the test network.</p>
+</div>
+</div>
+<div class="section" id="install-the-chaincode-package">
+<span id="install-the-chaincode-package"></span><h2>Install the chaincode package<a class="headerlink" href="#install-the-chaincode-package" title="Permalink to this headline">¶</a></h2>
+<p>After we package the Fabcar smart contract, we can install the chaincode on our peers. The chaincode needs to be installed on every peer that will endorse a transaction. Because we are going to set the endorsement policy to require endorsements from both Org1 and Org2, we need to install the chaincode on the peers operated by both organizations:</p>
+<ul class="simple">
+<li>peer0.org1.example.com</li>
+<li>peer0.org2.example.com</li>
+</ul>
+<p>Let’s install the chaincode on the Org1 peer first. Set the following environment variables to operate the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI as the Org1 admin user. The <code class="docutils literal notranslate"><span class="pre">CORE_PEER_ADDRESS</span></code> will be set to point to the Org1 peer, <code class="docutils literal notranslate"><span class="pre">peer0.org1.example.com</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=localhost:7051
+</pre></div>
+</div>
+<p>Issue the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-install">peer lifecycle chaincode install</a> command to install the chaincode on the peer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">install</span> <span class="n">fabcar</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>If the command is successful, the peer will generate and return the package identifier. This package ID will be used to approve the chaincode in the next step. You should see output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">12</span> <span class="mi">11</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">02.923</span> <span class="n">EST</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">chaincode</span><span class="p">]</span> <span class="n">submitInstallProposal</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">001</span> <span class="n">Installed</span> <span class="n">remotely</span><span class="p">:</span> <span class="n">response</span><span class="p">:</span><span class="o">&lt;</span><span class="n">status</span><span class="p">:</span><span class="mi">200</span> <span class="n">payload</span><span class="p">:</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ifabcar_1:69de748301770f6ef64b42aa6bb6cb291df20aa39542c3ef94008615704007f3</span><span class="se">\022\010</span><span class="s2">fabcar_1&quot;</span> <span class="o">&gt;</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">12</span> <span class="mi">11</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">02.925</span> <span class="n">EST</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">chaincode</span><span class="p">]</span> <span class="n">submitInstallProposal</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">002</span> <span class="n">Chaincode</span> <span class="n">code</span> <span class="n">package</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">fabcar_1</span><span class="p">:</span><span class="mi">69</span><span class="n">de748301770f6ef64b42aa6bb6cb291df20aa39542c3ef94008615704007f3</span>
+</pre></div>
+</div>
+<p>We can now install the chaincode on the Org2 peer. Set the following environment variables to operate as the Org2 admin and target target the Org2 peer, <code class="docutils literal notranslate"><span class="pre">peer0.org2.example.com</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CORE_PEER_LOCALMSPID=&quot;Org2MSP&quot;
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+export CORE_PEER_ADDRESS=localhost:9051
+</pre></div>
+</div>
+<p>Issue the following command to install the chaincode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">install</span> <span class="n">fabcar</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>The chaincode is built by the peer when the chaicode is installed. The install command will return any build errors from the chaincode if there is a problem with the smart contract code.</p>
+</div>
+<div class="section" id="approve-a-chaincode-definition">
+<span id="approve-a-chaincode-definition"></span><h2>Approve a chaincode definition<a class="headerlink" href="#approve-a-chaincode-definition" title="Permalink to this headline">¶</a></h2>
+<p>After you install the chaincode package, you need to approve a chaincode definition for your organization. The definition includes the important parameters of chaincode governance such as the name, version, and the chaincode endorsement policy.</p>
+<p>The set of channel members who need to approve a chaincode before it can be deployed is governed by the <code class="docutils literal notranslate"><span class="pre">Application/Channel/lifeycleEndorsement</span></code> policy. By default, this policy requires that a majority of channel members need to approve a chaincode before it can used on a channel. Because we have only two organizations on the channel, and a majority of 2 is 2, we need approve a chaincode definition of Fabcar as Org1 and Org2.</p>
+<p>If an organization has installed the chaincode on their peer, they need to include the packageID in the chaincode definition approved by their organization. The package ID is used to associate the chaincode installed on a peer with an approved chaincode definition, and allows an organization to use the chaincode to endorse transactions. You can find the package ID of a chaincode by using the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-queryinstalled">peer lifecycle chaincode queryinstalled</a> command to query your peer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">queryinstalled</span>
+</pre></div>
+</div>
+<p>The package ID is the combination of the chaincode label and a hash of the chaincode binaries. Every peer will generate the same package ID. You should see output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Installed</span> <span class="n">chaincodes</span> <span class="n">on</span> <span class="n">peer</span><span class="p">:</span>
+<span class="n">Package</span> <span class="n">ID</span><span class="p">:</span> <span class="n">fabcar_1</span><span class="p">:</span><span class="mi">69</span><span class="n">de748301770f6ef64b42aa6bb6cb291df20aa39542c3ef94008615704007f3</span><span class="p">,</span> <span class="n">Label</span><span class="p">:</span> <span class="n">fabcar_1</span>
+</pre></div>
+</div>
+<p>We are going to use the package ID when we approve the chaincode, so let’s go ahead and save it as an environment variable. Paste the package ID returned by <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">queryinstalled</span></code> into the command below. <strong>Note:</strong> The package ID will not be the same for all users, so you need to complete this step using the package ID returned from your command window in the previous step.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CC_PACKAGE_ID</span><span class="o">=</span><span class="n">fabcar_1</span><span class="p">:</span><span class="mi">69</span><span class="n">de748301770f6ef64b42aa6bb6cb291df20aa39542c3ef94008615704007f3</span>
+</pre></div>
+</div>
+<p>Because the environment variables have been set to operate the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI as the Org2 admin, we can approve the chaincode definition of Fabcar as Org2. Chaincode is approved at the organization level, so the command only needs to target one peer. The approval is distributed to the other peers within the organization using gossip. Approve the chaincode definition using the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-approveformyorg">peer lifecycle chaincode approveformyorg</a> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 1.0 --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+</pre></div>
+</div>
+<p>The command above uses the <code class="docutils literal notranslate"><span class="pre">--package-id</span></code> flag to include the package identifier in the chaincode definition. The <code class="docutils literal notranslate"><span class="pre">--sequence</span></code> parameter is an integer that keeps track of the number of times a chaincode has been defined or updated. Because the chaincode is being deployed to the channel for the first time, the sequence number is 1. When the Fabcar chaincode is upgraded, the sequence number will be incremented to 2. If you are using the low level APIs provided by the Fabric Chaincode Shim API, you could pass the <code class="docutils literal notranslate"><span class="pre">--init-required</span></code> flag to the command above to request the execution of the Init function to initialize the chaincode. The first invoke of the chaincode would need to target the Init function and include the <code class="docutils literal notranslate"><span class="pre">--isInit</span></code> flag before you could use the other functions in the chaincode to interact with the ledger.</p>
+<p>We could have provided a <code class="docutils literal notranslate"><span class="pre">--signature-policy</span></code> or <code class="docutils literal notranslate"><span class="pre">--channel-config-policy</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">approveformyorg</span></code> command to specify a chaincode endorsement policy. The endorsement policy specifies how many peers belonging to different channel members need to validate a transaction against a given chaincode. Because we did not set a policy, the definition of Fabcar will use the default endorsement policy, which requires that a transaction be endorsed by a majority of channel members present when the transaction is submitted. This implies that if new organizations are added or removed from the channel, the endorsement policy
+is updated automatically to require more or fewer endorsements. In this tutorial, the default policy will require a majority of 2 out of 2 and transactions will need to be endorsed by a peer from Org1 and Org2. If you want to specify a custom endorsement policy, you can use the <a class="reference external" href="endorsement-policies.html">Endorsement Policies</a> operations guide to learn about the policy syntax.</p>
+<p>You need to approve a chaincode definition with an identity that has an admin role. As a result, the <code class="docutils literal notranslate"><span class="pre">CORE_PEER_MSPCONFIGPATH</span></code> variable needs to point to the MSP folder that contains an admin identity. You cannot approve a chaincode definition with a client user. The approval needs to be submitted to the ordering service, which will validate the admin signature and then distribute the approval to your peers.</p>
+<p>We still need to approve the chaincode definition as Org1. Set the following environment variables to operate as the Org1 admin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
+CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+CORE_PEER_ADDRESS=localhost:7051
+</pre></div>
+</div>
+<p>You can now approve the chaincode definition as Org1.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 1.0 --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+</pre></div>
+</div>
+<p>We now have the majority we need to deploy the Fabcar the chaincode to the channel. While only a majority of organizations need to approve a chaincode definition (with the default policies), all organizations need to approve a chaincode definition to start the chaincode on their peers. If you commit the definition before a channel member has approved the chaincode, the organization will not be able to endorse transactions. As a result, it is recommended that all channel members approve a chaincode before committing the chaincode definition.</p>
+</div>
+<div class="section" id="committing-the-chaincode-definition-to-the-channel">
+<span id="committing-the-chaincode-definition-to-the-channel"></span><h2>Committing the chaincode definition to the channel<a class="headerlink" href="#committing-the-chaincode-definition-to-the-channel" title="Permalink to this headline">¶</a></h2>
+<p>After a sufficient number of organizations have approved a chaincode definition, one organization can commit the chaincode definition to the channel. If a majority of channel members have approved the definition, the commit transaction will be successful and the parameters agreed to in the chaincode definition will be implemented on the channel.</p>
+<p>You can use the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-checkcommitreadiness">peer lifecycle chaincode checkcommitreadiness</a> command to check whether channel members have approved the same chaincode definition. The flags used for the <code class="docutils literal notranslate"><span class="pre">checkcommitreadiness</span></code> command are identical to the flags used to approve a chaincode for your organization. However, you do not need to include the <code class="docutils literal notranslate"><span class="pre">--package-id</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1.0 --sequence 1 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --output json
+</pre></div>
+</div>
+<p>The command will produce a JSON map that displays if a channel member has approved the parameters that were specified in the <code class="docutils literal notranslate"><span class="pre">checkcommitreadiness</span></code> command:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span>
+            <span class="nt">&quot;Approvals&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;Org1MSP&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nt">&quot;Org2MSP&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Since both organizations that are members of the channel have approved the same parameters, the chaincode definition is ready to be committed to the channel. You can use the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-commit">peer lifecycle chaincode commit</a> command to commit the chaincode definition to the channel. The commit command also needs to be submitted by an organization admin.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 1.0 --sequence 1 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+</pre></div>
+</div>
+<p>The transaction above uses the <code class="docutils literal notranslate"><span class="pre">--peerAddresses</span></code> flag to target <code class="docutils literal notranslate"><span class="pre">peer0.org1.example.com</span></code> from Org1 and <code class="docutils literal notranslate"><span class="pre">peer0.org2.example.com</span></code> from Org2. The <code class="docutils literal notranslate"><span class="pre">commit</span></code> transaction is submitted to the peers joined to the channel to query the chaincode definition that was approved by the organization that operates the peer. The command needs to target the peers from a sufficient number of organizations to satisfy the policy for deploying a chaincode. Because the approval is distributed within each organization, you can target any peer that belongs to a channel member.</p>
+<p>The chaincode definition endorsements by channel members are submitted to the ordering service to be added to a block and distributed to the channel. The peers on the channel then validate whether a sufficient number of organizations have approved the chaincode definition. The <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">commit</span></code> command will wait for the validations from the peer before returning a response.</p>
+<p>You can use the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-querycommitted">peer lifecycle chaincode querycommitted</a> command to confirm that the chaincode definition has been committed to the channel.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode querycommitted --channelID mychannel --name fabcar --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+</pre></div>
+</div>
+<p>If the chaincode was successful committed to the channel, the <code class="docutils literal notranslate"><span class="pre">querycommitted</span></code> command will return the sequence and version of the chaincode definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Committed</span> <span class="n">chaincode</span> <span class="n">definition</span> <span class="k">for</span> <span class="n">chaincode</span> <span class="s1">&#39;fabcar&#39;</span> <span class="n">on</span> <span class="n">channel</span> <span class="s1">&#39;mychannel&#39;</span><span class="p">:</span>
+<span class="n">Version</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Endorsement</span> <span class="n">Plugin</span><span class="p">:</span> <span class="n">escc</span><span class="p">,</span> <span class="n">Validation</span> <span class="n">Plugin</span><span class="p">:</span> <span class="n">vscc</span><span class="p">,</span> <span class="n">Approvals</span><span class="p">:</span> <span class="p">[</span><span class="n">Org1MSP</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="n">Org2MSP</span><span class="p">:</span> <span class="n">true</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="invoking-the-chaincode">
+<span id="invoking-the-chaincode"></span><h2>Invoking the chaincode<a class="headerlink" href="#invoking-the-chaincode" title="Permalink to this headline">¶</a></h2>
+<p>After the chaincode definition has been committed to a channel, the chaincode will start on the peers joined to the channel where the chaincode was installed. The Fabcar chaincode is now ready to be invoked by client applications. Use the following command create an initial set of cars on the ledger. Note that the invoke command needs target a sufficient number of peers to meet chaincode endorsement policy.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n fabcar --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#39;{&quot;function&quot;:&quot;initLedger&quot;,&quot;Args&quot;:[]}&#39;
+</pre></div>
+</div>
+<p>If the command is successful, you should be able to a response similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">12</span> <span class="mi">18</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mf">20.576</span> <span class="n">EST</span> <span class="p">[</span><span class="n">chaincodeCmd</span><span class="p">]</span> <span class="n">chaincodeInvokeOrQuery</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">001</span> <span class="n">Chaincode</span> <span class="n">invoke</span> <span class="n">successful</span><span class="o">.</span> <span class="n">result</span><span class="p">:</span> <span class="n">status</span><span class="p">:</span><span class="mi">200</span>
+</pre></div>
+</div>
+<p>We can use a query function to read the set of cars that were created by the chaincode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">chaincode</span> <span class="n">query</span> <span class="o">-</span><span class="n">C</span> <span class="n">mychannel</span> <span class="o">-</span><span class="n">n</span> <span class="n">fabcar</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;{&quot;Args&quot;:[&quot;queryAllCars&quot;]}&#39;</span>
+</pre></div>
+</div>
+<p>The response to the query should be the following list of cars:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR0&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Toyota&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Prius&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Tomoko&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR1&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Ford&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Mustang&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Brad&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR2&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Hyundai&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Tucson&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;green&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Jin Soo&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR3&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Volkswagen&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Passat&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Max&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR4&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;S&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;black&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Adriana&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR5&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Peugeot&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;205&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Michel&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR6&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Chery&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;S22L&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;white&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Aarav&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR7&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Fiat&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Punto&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;violet&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Pari&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR8&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Tata&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Nano&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;indigo&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Valeria&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR9&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Holden&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Barina&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Shotaro&quot;</span><span class="p">}}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upgrading-a-smart-contract">
+<span id="upgrading-a-smart-contract"></span><h2>Upgrading a smart contract<a class="headerlink" href="#upgrading-a-smart-contract" title="Permalink to this headline">¶</a></h2>
+<p>You can use the same Fabric chaincode lifecycle process to upgrade a chaincode that has already been deployed to a channel. Channel members can upgrade a chaincode by installing a new chaincode package and then approving a chaincode definition with the new package ID, a new chaincode version, and with the sequence number incremented by one. The new chaincode can be used after the chaincode definition is committed to the channel. This process allows channel members to coordinate on when a chaincode is upgraded, and ensure that a sufficient number of channel members are ready to use the new chaincode before it is deployed to the channel.</p>
+<p>Channel members can also use the upgrade process to change the chaincode endorsement policy. By approving a chaincode definition with a new endorsement policy and committing the chaincode definition to the channel, channel members can change the endorsement policy governing a chaincode without installing a new chaincode package.</p>
+<p>To provide a scenario for upgrading the Fabcar chaincode that we just deployed, let’s assume that Org1 and Org2 would like to install a version of the chaincode that is written in another language. They will use the Fabric chaincode lifecycle to update the chaincode version and ensure that both organizations have installed the new chaincode before it becomes active on the channel.</p>
+<p>We are going to assume that Org1 and Org2 initially installed the GO version of the Fabcar chaincode, but would be more comfortable working with a chaincode written in JavaScript. The first step is to package the JavaScript version of the Fabcar chaincode. If you used the JavaScript instructions to package your chaincode when you went through the tutorial, you can install new chaincode binaries by following the steps for packaging a chaincode written in <a class="reference external" href="#go">Go</a> or <a class="reference external" href="#java">Java</a>.</p>
+<p>Issue the following commands from the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> directory to install the chaincode dependences.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">chaincode</span><span class="o">/</span><span class="n">fabcar</span><span class="o">/</span><span class="n">javascript</span>
+<span class="n">npm</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="o">../../../</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>You can then issue the following commands to package the JavaScript chaincode from the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> directory. We will set the environment variables needed to use the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI again in case you closed your terminal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=${PWD}/../bin:${PWD}:$PATH
+export FABRIC_CFG_PATH=$PWD/../config/
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+peer lifecycle chaincode package fabcar_2.tar.gz --path ../chaincode/fabcar/javascript/ --lang node --label fabcar_2
+</pre></div>
+</div>
+<p>Run the following commands to operate the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI as the Org1 admin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=&quot;Org1MSP&quot;
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=localhost:7051
+</pre></div>
+</div>
+<p>We can now use the following command to install the new chaincode package on the Org1 peer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">install</span> <span class="n">fabcar_2</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>The new chaincode package will create a new package ID. We can find the new package ID by querying our peer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">queryinstalled</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">queryinstalled</span></code> command will return a list of the chaincode that have been installed on your peer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Installed</span> <span class="n">chaincodes</span> <span class="n">on</span> <span class="n">peer</span><span class="p">:</span>
+<span class="n">Package</span> <span class="n">ID</span><span class="p">:</span> <span class="n">fabcar_1</span><span class="p">:</span><span class="mi">69</span><span class="n">de748301770f6ef64b42aa6bb6cb291df20aa39542c3ef94008615704007f3</span><span class="p">,</span> <span class="n">Label</span><span class="p">:</span> <span class="n">fabcar_1</span>
+<span class="n">Package</span> <span class="n">ID</span><span class="p">:</span> <span class="n">fabcar_2</span><span class="p">:</span><span class="mi">1</span><span class="n">d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4</span><span class="p">,</span> <span class="n">Label</span><span class="p">:</span> <span class="n">fabcar_2</span>
+</pre></div>
+</div>
+<p>You can use the package label to find the package ID of the new chaincode and save it as a new environment variable.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NEW_CC_PACKAGE_ID</span><span class="o">=</span><span class="n">fabcar_2</span><span class="p">:</span><span class="mi">1</span><span class="n">d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4</span>
+</pre></div>
+</div>
+<p>Org1 can now approve a new chaincode definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 2.0 --package-id $NEW_CC_PACKAGE_ID --sequence 2 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+</pre></div>
+</div>
+<p>The new chaincode definition uses the package ID of the JavaScript chaincode package and updates the chaincode version. Because the sequence parameter is used by the Fabric chaincode lifecycle to keep track of chaincode upgrades, Org1 also needs to increment the sequence number from 1 to 2. You can use the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-querycommitted">peer lifecycle chaincode querycommitted</a> command to find the sequence of the chaincode that was last committed to the channel.</p>
+<p>We now need to install the chaincode package and approve the chaincode definition as Org2 in order to upgrade the chaincode. Run the following commands to operate the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI as the Org2 admin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export CORE_PEER_LOCALMSPID=&quot;Org2MSP&quot;
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+export CORE_PEER_ADDRESS=localhost:9051
+</pre></div>
+</div>
+<p>We can now use the following command to install the new chaincode package on the Org2 peer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">install</span> <span class="n">fabcar_2</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>You can now approve the new chaincode definition for Org2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 2.0 --package-id $NEW_CC_PACKAGE_ID --sequence 2 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+</pre></div>
+</div>
+<p>Use the <a class="reference external" href="commands/peerlifecycle.html#peer-lifecycle-chaincode-checkcommitreadiness">peer lifecycle chaincode checkcommitreadiness</a> command to check if the chaincode definition with sequence 2 is ready to be committed to the channel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 2.0 --sequence 2 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --output json
+</pre></div>
+</div>
+<p>The chaincode is ready to be upgraded if the command returns the following JSON:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span>
+            <span class="nt">&quot;Approvals&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;Org1MSP&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nt">&quot;Org2MSP&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The chaincode will be upgraded on the channel after the new chaincode definition is committed. Until then, the previous chaincode will continue to run on the peers of both organizations. Org2 can use the following command to upgrade the chaincode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name fabcar --version 2.0 --sequence 2 --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+</pre></div>
+</div>
+<p>A successful commit transaction will start the new chaincode right away. If the chaincode definition changed the endorsement policy, the new policy would be put in effect.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code> command to verify that the new chaincode has started on your peers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$docker ps
+CONTAINER ID        IMAGE                                                                                                                                                                   COMMAND                  CREATED             STATUS              PORTS                              NAMES
+197a4b70a392        dev-peer0.org1.example.com-fabcar_2-1d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4-d305a4e8b4f7c0bc9aedc84c4a3439daed03caedfbce6483058250915d64dd23   &quot;docker-entrypoint.s…&quot;   2 minutes ago       Up 2 minutes                                           dev-peer0.org1.example.com-fabcar_2-1d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4
+b7e4dbfd4ea0        dev-peer0.org2.example.com-fabcar_2-1d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4-9de9cd456213232033c0cf8317cbf2d5abef5aee2529be9176fc0e980f0f7190   &quot;docker-entrypoint.s…&quot;   2 minutes ago       Up 2 minutes                                           dev-peer0.org2.example.com-fabcar_2-1d559f9fb3dd879601ee17047658c7e0c84eab732dca7c841102f20e42a9e7d4
+8b6e9abaef8d        hyperledger/fabric-peer:latest                                                                                                                                          &quot;peer node start&quot;        About an hour ago   Up About an hour    0.0.0.0:7051-&gt;7051/tcp             peer0.org1.example.com
+429dae4757ba        hyperledger/fabric-peer:latest                                                                                                                                          &quot;peer node start&quot;        About an hour ago   Up About an hour    7051/tcp, 0.0.0.0:9051-&gt;9051/tcp   peer0.org2.example.com
+7de5d19400e6        hyperledger/fabric-orderer:latest                                                                                                                                       &quot;orderer&quot;                About an hour ago   Up About an hour    0.0.0.0:7050-&gt;7050/tcp             orderer.example.com
+</pre></div>
+</div>
+<p>If you used the <code class="docutils literal notranslate"><span class="pre">--init-required</span></code> flag, you need to invoke the Init function before you can use the upgraded chaincode. Because we did not request the execution of Init, we can test our new JavaScript chaincode by creating a new car:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls true --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n fabcar --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c &#39;{&quot;function&quot;:&quot;createCar&quot;,&quot;Args&quot;:[&quot;CAR11&quot;,&quot;Honda&quot;,&quot;Accord&quot;,&quot;Black&quot;,&quot;Tom&quot;]}&#39;
+</pre></div>
+</div>
+<p>You can query all the cars on the ledger again to see the new car:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">chaincode</span> <span class="n">query</span> <span class="o">-</span><span class="n">C</span> <span class="n">mychannel</span> <span class="o">-</span><span class="n">n</span> <span class="n">fabcar</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;{&quot;Args&quot;:[&quot;queryAllCars&quot;]}&#39;</span>
+</pre></div>
+</div>
+<p>You should see the following result from the JavaScript chaincode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR0&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Toyota&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Prius&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Tomoko&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR1&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Ford&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Mustang&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Brad&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR11&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s2">&quot;Black&quot;</span><span class="p">,</span><span class="s2">&quot;docType&quot;</span><span class="p">:</span><span class="s2">&quot;car&quot;</span><span class="p">,</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Honda&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Accord&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Tom&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR2&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Hyundai&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Tucson&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;green&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Jin Soo&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR3&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Volkswagen&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Passat&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Max&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR4&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Tesla&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;S&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;black&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Adriana&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR5&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Peugeot&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;205&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Michel&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR6&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Chery&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;S22L&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;white&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Aarav&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR7&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Fiat&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Punto&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;violet&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Pari&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR8&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Tata&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Nano&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;indigo&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Valeria&quot;</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">&quot;Key&quot;</span><span class="p">:</span><span class="s2">&quot;CAR9&quot;</span><span class="p">,</span><span class="s2">&quot;Record&quot;</span><span class="p">:{</span><span class="s2">&quot;make&quot;</span><span class="p">:</span><span class="s2">&quot;Holden&quot;</span><span class="p">,</span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="s2">&quot;Barina&quot;</span><span class="p">,</span><span class="s2">&quot;colour&quot;</span><span class="p">:</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span><span class="s2">&quot;owner&quot;</span><span class="p">:</span><span class="s2">&quot;Shotaro&quot;</span><span class="p">}}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clean-up">
+<span id="clean-up"></span><h2>Clean up<a class="headerlink" href="#clean-up" title="Permalink to this headline">¶</a></h2>
+<p>When you are finished using the chaincode, you can also use the following commands to remove the Logspout tool.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">stop</span> <span class="n">logspout</span>
+<span class="n">docker</span> <span class="n">rm</span> <span class="n">logspout</span>
+</pre></div>
+</div>
+<p>You can then bring down the test network by issuing the following command from the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">network</span><span class="o">.</span><span class="n">sh</span> <span class="n">down</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<span id="next-steps"></span><h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>After you write your smart contract and deploy it to a channel, you can use the APIs provided by the Fabric SDKs to invoke the smart contracts from a client application. This allows end users to interact with the assets on the blockchain ledger. To get started with the Fabric SDKs, see the <a class="reference external" href="write_first_app.html">Writing Your first application tutorial</a>.</p>
+</div>
+<div class="section" id="troubleshooting">
+<span id="troubleshooting"></span><h2>troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="chaincode-not-agreed-to-by-this-org">
+<span id="chaincode-not-agreed-to-by-this-org"></span><h3>Chaincode not agreed to by this org<a class="headerlink" href="#chaincode-not-agreed-to-by-this-org" title="Permalink to this headline">¶</a></h3>
+<p><strong>Problem:</strong> When I try to commit a new chaincode definition to the channel, the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">commit</span></code> command fails with the following error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">create</span> <span class="n">signed</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">proposal</span> <span class="n">response</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">successful</span><span class="p">,</span> <span class="n">error</span> <span class="n">code</span> <span class="mi">500</span><span class="p">,</span> <span class="n">msg</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">invoke</span> <span class="n">backing</span> <span class="n">implementation</span> <span class="n">of</span> <span class="s1">&#39;CommitChaincodeDefinition&#39;</span><span class="p">:</span> <span class="n">chaincode</span> <span class="n">definition</span> <span class="ow">not</span> <span class="n">agreed</span> <span class="n">to</span> <span class="n">by</span> <span class="n">this</span> <span class="n">org</span> <span class="p">(</span><span class="n">Org1MSP</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Solution:</strong> You can try to resolve this error by using the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">checkcommitreadiness</span></code> command to check which channel members have approved the chaincode definition that you are trying to commit. If any organization used a different value for any parameter of the chaincode definition, the commit transaction will fail. The <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">checkcommitreadiness</span></code> will reveal which organizations did not approve the chaincode definition you are trying to commit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;approvals&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Org1MSP&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">&quot;Org2MSP&quot;</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="invoke-failure">
+<span id="invoke-failure"></span><h3>Invoke failure<a class="headerlink" href="#invoke-failure" title="Permalink to this headline">¶</a></h3>
+<p><strong>Problem:</strong> The <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">commit</span></code> transaction is successful, but when I try to invoke the chaincode for the first time, it fails with the following error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">endorsement</span> <span class="n">failure</span> <span class="n">during</span> <span class="n">invoke</span><span class="o">.</span> <span class="n">response</span><span class="p">:</span> <span class="n">status</span><span class="p">:</span><span class="mi">500</span> <span class="n">message</span><span class="p">:</span><span class="s2">&quot;make sure the chaincode fabcar has been successfully defined on channel mychannel and try again: chaincode definition for &#39;fabcar&#39; exists, but chaincode is not installed&quot;</span>
+</pre></div>
+</div>
+<p><strong>Solution:</strong> You may not have set the correct <code class="docutils literal notranslate"><span class="pre">--package-id</span></code> when you approved your chaincode definition. As a result, the chaincode definition that was committed to the channel was not associated with the chaincode package you installed and the chaincode was not started on your peers. If you are running a docker based network, you can use the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code> command to check if your chaincode is running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>                               <span class="n">COMMAND</span>             <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>                              <span class="n">NAMES</span>
+<span class="mi">7</span><span class="n">fe1ae0a69fa</span>        <span class="n">hyperledger</span><span class="o">/</span><span class="n">fabric</span><span class="o">-</span><span class="n">orderer</span><span class="p">:</span><span class="n">latest</span>   <span class="s2">&quot;orderer&quot;</span>           <span class="mi">5</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">4</span> <span class="n">minutes</span>        <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">7050</span><span class="o">-&gt;</span><span class="mi">7050</span><span class="o">/</span><span class="n">tcp</span>             <span class="n">orderer</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="mi">2</span><span class="n">b9c684bd07e</span>        <span class="n">hyperledger</span><span class="o">/</span><span class="n">fabric</span><span class="o">-</span><span class="n">peer</span><span class="p">:</span><span class="n">latest</span>      <span class="s2">&quot;peer node start&quot;</span>   <span class="mi">5</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">4</span> <span class="n">minutes</span>        <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">7051</span><span class="o">-&gt;</span><span class="mi">7051</span><span class="o">/</span><span class="n">tcp</span>             <span class="n">peer0</span><span class="o">.</span><span class="n">org1</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="mi">39</span><span class="n">a3e41b2573</span>        <span class="n">hyperledger</span><span class="o">/</span><span class="n">fabric</span><span class="o">-</span><span class="n">peer</span><span class="p">:</span><span class="n">latest</span>      <span class="s2">&quot;peer node start&quot;</span>   <span class="mi">5</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">4</span> <span class="n">minutes</span>        <span class="mi">7051</span><span class="o">/</span><span class="n">tcp</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">9051</span><span class="o">-&gt;</span><span class="mi">9051</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">peer0</span><span class="o">.</span><span class="n">org2</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>If you do not see any chaincode containers listed, use the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">approveformyorg</span></code> command approve a chaincode definition with the correct package ID.</p>
+</div>
+</div>
+<div class="section" id="endorsement-policy-failure">
+<span id="endorsement-policy-failure"></span><h2>Endorsement policy failure<a class="headerlink" href="#endorsement-policy-failure" title="Permalink to this headline">¶</a></h2>
+<p><strong>Problem:</strong> When I try to commit the chaincode definition to the channel, the transaction fails with the following error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">07</span> <span class="mi">20</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mf">23.306</span> <span class="n">EDT</span> <span class="p">[</span><span class="n">chaincodeCmd</span><span class="p">]</span> <span class="n">ClientWait</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">001</span> <span class="n">txid</span> <span class="p">[</span><span class="mi">5</span><span class="n">f569e50ae58efa6261c4ad93180d49ac85ec29a07b58f576405b826a8213aeb</span><span class="p">]</span> <span class="n">committed</span> <span class="k">with</span> <span class="n">status</span> <span class="p">(</span><span class="n">ENDORSEMENT_POLICY_FAILURE</span><span class="p">)</span> <span class="n">at</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">7051</span>
+<span class="n">Error</span><span class="p">:</span> <span class="n">transaction</span> <span class="n">invalidated</span> <span class="k">with</span> <span class="n">status</span> <span class="p">(</span><span class="n">ENDORSEMENT_POLICY_FAILURE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Solution:</strong> This error is a result of the commit transaction not gathering enough endorsements to meet the Lifecycle endorsement policy. This problem could be a result of your transaction not targeting a sufficient number of peers to meet the policy. This could also be the result of some of the peer organizations not including the <code class="docutils literal notranslate"><span class="pre">Endorsement:</span></code> signature policy referenced by the default <code class="docutils literal notranslate"><span class="pre">/Channel/Application/Endorsement</span></code> policy in their <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Readers</span><span class="p">:</span>
+        <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+        <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;Org2MSP.admin&#39;, &#39;Org2MSP.peer&#39;, &#39;Org2MSP.client&#39;)&quot;</span>
+<span class="n">Writers</span><span class="p">:</span>
+        <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+        <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;Org2MSP.admin&#39;, &#39;Org2MSP.client&#39;)&quot;</span>
+<span class="n">Admins</span><span class="p">:</span>
+        <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+        <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;Org2MSP.admin&#39;)&quot;</span>
+<span class="n">Endorsement</span><span class="p">:</span>
+        <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+        <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;Org2MSP.peer&#39;)&quot;</span>
+</pre></div>
+</div>
+<p>When you <a class="reference external" href="enable_cc_lifecycle.html">enable the Fabric chaincode lifecycle</a>, you also need to use the new Fabric 2.0 channel policies in addition to upgrading your channel to the <code class="docutils literal notranslate"><span class="pre">V2_0</span></code> capabilitiy. Your channel needs to include the new <code class="docutils literal notranslate"><span class="pre">/Channel/Application/LifecycleEndorsement</span></code> and <code class="docutils literal notranslate"><span class="pre">/Channel/Application/Endorsement</span></code> policies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Policies</span><span class="p">:</span>
+        <span class="n">Readers</span><span class="p">:</span>
+                <span class="n">Type</span><span class="p">:</span> <span class="n">ImplicitMeta</span>
+                <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;ANY Readers&quot;</span>
+        <span class="n">Writers</span><span class="p">:</span>
+                <span class="n">Type</span><span class="p">:</span> <span class="n">ImplicitMeta</span>
+                <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;ANY Writers&quot;</span>
+        <span class="n">Admins</span><span class="p">:</span>
+                <span class="n">Type</span><span class="p">:</span> <span class="n">ImplicitMeta</span>
+                <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;MAJORITY Admins&quot;</span>
+        <span class="n">LifecycleEndorsement</span><span class="p">:</span>
+                <span class="n">Type</span><span class="p">:</span> <span class="n">ImplicitMeta</span>
+                <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;MAJORITY Endorsement&quot;</span>
+        <span class="n">Endorsement</span><span class="p">:</span>
+                <span class="n">Type</span><span class="p">:</span> <span class="n">ImplicitMeta</span>
+                <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;MAJORITY Endorsement&quot;</span>
+</pre></div>
+</div>
+<p>If you do not include the new channel policies in the channel configuration, you will get the following error when you approve a chaincode definition for your organization:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">proposal</span> <span class="n">failed</span> <span class="k">with</span> <span class="n">status</span><span class="p">:</span> <span class="mi">500</span> <span class="o">-</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">invoke</span> <span class="n">backing</span> <span class="n">implementation</span> <span class="n">of</span> <span class="s1">&#39;ApproveChaincodeDefinitionForMyOrg&#39;</span><span class="p">:</span> <span class="n">could</span> <span class="ow">not</span> <span class="nb">set</span> <span class="n">defaults</span> <span class="k">for</span> <span class="n">chaincode</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">channel</span> <span class="n">mychannel</span><span class="p">:</span> <span class="n">policy</span> <span class="s1">&#39;/Channel/Application/Endorsement&#39;</span> <span class="n">must</span> <span class="n">be</span> <span class="n">defined</span> <span class="k">for</span> <span class="n">channel</span> <span class="s1">&#39;mychannel&#39;</span> <span class="n">before</span> <span class="n">chaincode</span> <span class="n">operations</span> <span class="n">can</span> <span class="n">be</span> <span class="n">attempted</span>
+</pre></div>
+</div>
+<!--- Licensed under Creative Commons Attribution 4.0 International License
+https://creativecommons.org/licenses/by/4.0/) --></div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="write_first_app.html" class="btn btn-neutral float-right" title="Writing Your First Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorials.html" class="btn btn-neutral" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'master',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

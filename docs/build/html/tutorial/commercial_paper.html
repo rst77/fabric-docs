@@ -1,0 +1,1193 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Commercial paper tutorial &mdash; hyperledger-fabricdocs master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="hyperledger-fabricdocs master documentation" href="../index.html"/>
+        <link rel="up" title="Tutorials" href="../tutorials.html"/>
+        <link rel="next" title="Using Private Data in Fabric" href="../private_data_tutorial.html"/>
+        <link rel="prev" title="Writing Your First Application" href="../write_first_app.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+
+          
+            <a href="../index.html" class="icon icon-home"> hyperledger-fabricdocs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+<br><img style="background-color: #fff; height: unset; width: unset;" alt="Hyperledger Fabric" src=../_images/hyperledger_fabric_logo_color.png />
+<br>
+<a href="https://github.com/hyperledger/fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="GitHub" src="../_static/images/github_button.png"/></a>
+&nbsp;<a href="https://stackoverflow.com/questions/tagged/hyperledger-fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="StackOverflow" src="../_static/images/stackoverflow_button.png"/></a>
+&nbsp;<a href="https://chat.hyperledger.org"><img style="padding: 0px; margin: auto auto auto auto;" alt="Rocket Chat" src="../_static/images/rocketchat_button.png"/></a>
+&nbsp;<a href="https://www.youtube.com/playlist?list=PL0MZ85B_96CH7wvtrRzV7SvtRY0sI0DEg"><img style="padding: 0px; margin: auto auto auto auto;" alt="Youtube Channel" src="../_static/images/youtube_button.png"/></a>
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../whatis.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html#release-notes">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developapps/developing_applications.html">Developing Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../test_network.html">Using the Fabric test network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deploy_chaincode.html">Deploying a smart contract to a channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../write_first_app.html">Writing Your First Application</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Commercial paper tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download-samples">Download samples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-network">Create the network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitor-the-network-as-magnetocorp">Monitor the network as MagnetoCorp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examine-the-commercial-paper-smart-contract">Examine the commercial paper smart contract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy-the-smart-contract-to-the-channel">Deploy the smart contract to the channel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-and-approve-the-smart-contract-as-magnetocorp">Install and approve the smart contract as MagnetoCorp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-and-approve-the-smart-contract-as-digibank">Install and approve the smart contract as DigiBank</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commit-the-chaincode-definition-to-the-channel">Commit the chaincode definition to the channel</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#application-structure">Application structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-dependencies">Application dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wallet">Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#issue-application">Issue application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#digibank-applications">Digibank applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-as-digibank">Run as DigiBank</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buy-application">Buy application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redeem-application">Redeem application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clean-up">Clean up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../private_data_tutorial.html">Using Private Data in Fabric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../couchdb_tutorial.html">Using CouchDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../channel_update_tutorial.html">Adding an Org to a Channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_update.html">Updating a channel configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chaincode4ade.html">Chaincode for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_network.html">Building Your First Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../videos.html">Videos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment_guide_overview.html">Deploying a production network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ops_guide.html">Operations Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../upgrade.html">Upgrading to the latest release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../command_ref.html">Commands Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fabric-FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributions Welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../questions.html">Still Have Questions?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../status.html">Status</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hyperledger-fabricdocs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Commercial paper tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorial/commercial_paper.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="commercial-paper-tutorial">
+<span id="commercial-paper-tutorial"></span><h1>Commercial paper tutorial<a class="headerlink" href="#commercial-paper-tutorial" title="Permalink to this headline">¶</a></h1>
+<p><strong>Audience:</strong> Architects, application and smart contract developers,
+administrators</p>
+<p>This tutorial will show you how to install and use a commercial paper sample
+application and smart contract. It is a task-oriented topic, so it emphasizes
+procedures above concepts. When you’d like to understand the concepts in more
+detail, you can read the
+<a class="reference external" href="../developapps/developing_applications.html">Developing Applications</a> topic.</p>
+<p><img alt="commercialpaper.tutorial" src="../_images/commercial_paper.diagram.1.png" /> <em>In this tutorial
+two organizations, MagnetoCorp and DigiBank, trade commercial paper with each
+other using PaperNet, a Hyperledger Fabric blockchain network.</em></p>
+<p>Once you’ve set up the test network, you’ll act as Isabella, an employee of
+MagnetoCorp, who will issue a commercial paper on its behalf. You’ll then switch
+roles to take the role of Balaji, an employee of DigiBank, who will buy this
+commercial paper, hold it for a period of time, and then redeem it with
+MagnetoCorp for a small profit.</p>
+<p>You’ll act as an developer, end user, and administrator, each in different
+organizations, performing the following steps designed to help you understand
+what it’s like to collaborate as two different organizations working
+independently, but according to mutually agreed rules in a Hyperledger Fabric
+network.</p>
+<ul class="simple">
+<li><a class="reference external" href="#prerequisites">Set up machine</a> and <a class="reference external" href="#download-samples">download samples</a></li>
+<li><a class="reference external" href="#create-the-network">Create the network</a></li>
+<li><a class="reference external" href="#examine-the-commercial-paper-smart-contract">Examine the commercial paper smart contract</a></li>
+<li><a class="reference external" href="#deploy-the-smart-contract-to-the-channel">Deploy the smart contract to the channel</a>
+by approving the chaincode definition as MagnetoCorp and Digibank.</li>
+<li>Understand the structure of a MagnetoCorp <a class="reference external" href="#application-structure">application</a>,
+including its <a class="reference external" href="#application-dependencies">dependencies</a></li>
+<li>Configure and use a <a class="reference external" href="#wallet">wallet and identities</a></li>
+<li>Run a MagnetoCorp application to <a class="reference external" href="#issue-application">issue a commercial paper</a></li>
+<li>Understand how DigiBank uses the smart contract in their <a class="reference external" href="#digibank-applications">applications</a></li>
+<li>As Digibank, run applications that
+<a class="reference external" href="#buy-application">buy</a> and <a class="reference external" href="#redeem-application">redeem</a> commercial paper</li>
+</ul>
+<p>This tutorial has been tested on MacOS and Ubuntu, and should work on other
+Linux distributions. A Windows version is under development.</p>
+<div class="section" id="prerequisites">
+<span id="prerequisites"></span><h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Before you start, you must install some prerequisite technology required by the
+tutorial. We’ve kept these to a minimum so that you can get going quickly.</p>
+<p>You <strong>must</strong> have the following technologies installed:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://nodejs.org/en/about/"><strong>Node</strong></a> version 8.9.0, or higher. Node is
+a JavaScript runtime that you can use to run applications and smart
+contracts. You are recommended to use the LTS (Long Term Support) version
+of node. Install node <a class="reference external" href="https://nodejs.org/en/">here</a>.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="https://www.docker.com/get-started"><strong>Docker</strong></a> version 18.06, or higher.
+Docker help developers and administrators create standard environments for
+building and running applications and smart contracts. Hyperledger Fabric is
+provided as a set of Docker images, and the PaperNet smart contract will run
+in a Docker container. Install Docker
+<a class="reference external" href="https://www.docker.com/get-started">here</a>.</li>
+</ul>
+<p>You <strong>will</strong> find it helpful to install the following technologies:</p>
+<ul>
+<li><p class="first">A source code editor, such as
+<a class="reference external" href="https://code.visualstudio.com/"><strong>Visual Studio Code</strong></a> version 1.28, or
+higher. VS Code will help you develop and test your application and smart
+contract. Install VS Code <a class="reference external" href="https://code.visualstudio.com/Download">here</a>.</p>
+<p>Many excellent code editors are available including
+<a class="reference external" href="https://atom.io/">Atom</a>, <a class="reference external" href="http://www.sublimetext.com/">Sublime Text</a> and
+<a class="reference external" href="http://www.sublimetext.com/">Brackets</a>.</p>
+</li>
+</ul>
+<p>You <strong>may</strong> find it helpful to install the following technologies as you become
+more experienced with application and smart contract development. There’s no
+requirement to install these when you first run the tutorial:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/creationix/nvm"><strong>Node Version Manager</strong></a>. NVM helps you
+easily switch between different versions of node – it can be really helpful
+if you’re working on multiple projects at the same time. Install NVM
+<a class="reference external" href="https://github.com/creationix/nvm#installation">here</a>.</li>
+</ul>
+</div>
+<div class="section" id="download-samples">
+<span id="download-samples"></span><h2>Download samples<a class="headerlink" href="#download-samples" title="Permalink to this headline">¶</a></h2>
+<p>The commercial paper tutorial is one of the samples in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code>
+directory. Before you begin this tutorial, ensure that you have followed the
+instructions to install the Fabric <a class="reference external" href="../prereqs.html">Prerequisites</a> and
+<a class="reference external" href="../install.html">Download the Samples, Binaries and Docker Images</a>.
+When you are finished, you will have cloned the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository that
+contains the tutorial scripts, smart contract, and application files.</p>
+<p><img alt="commercialpaper.download" src="../_images/commercial_paper.diagram.2.png" /> <em>Download the
+<code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> GitHub repository to your local machine.</em></p>
+<p>After downloading, feel free to examine the directory structure of <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd fabric-samples
+$ ls
+
+CODEOWNERS            basic-network             first-network
+CODE_OF_CONDUCT.md    chaincode                 high-throughput
+CONTRIBUTING.md       chaincode-docker-devmode  interest_rate_swaps
+Jenkinsfile           ci                        off_chain_data
+LICENSE               ci.properties             scripts
+MAINTAINERS.md        commercial-paper          test-network
+README.md             docs
+SECURITY.md           fabcar
+</pre></div>
+</div>
+<p>Notice the <code class="docutils literal notranslate"><span class="pre">commercial-paper</span></code> directory – that’s where our sample is located!</p>
+<p>You’ve now completed the first stage of the tutorial! As you proceed, you’ll
+open multiple command windows for different users and components. For example:</p>
+<ul class="simple">
+<li>To show peer, orderer and CA log output from your network.</li>
+<li>To approve the chaincode as an administrator from MagnetoCorp and as an
+administrator from DigiBank.</li>
+<li>To run applications on behalf of Isabella and Balaji, who will use the smart
+contract to trade commercial paper with each other.</li>
+</ul>
+<p>We’ll make it clear when you should run a command from particular command
+window; for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ ls
+</pre></div>
+</div>
+<p>indicates that you should run the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command from Isabella’s window.</p>
+</div>
+<div class="section" id="create-the-network">
+<span id="create-the-network"></span><h2>Create the network<a class="headerlink" href="#create-the-network" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will deploy a smart contract using the Fabric test network.
+The test network consists of two peer organizations and an ordering organization.
+The two peer organizations operate one peer each, while the ordering organization
+operates a single node raft ordering service. We will also use the test network
+to create a single channel named <code class="docutils literal notranslate"><span class="pre">mychannel</span></code> that both peer organizations will
+be members of.</p>
+<p><img alt="commercialpaper.network" src="../_images/commercial_paper.diagram.testnet.png" />
+<em>The Fabric test network is comprised of two peer organizations, Org1 and Org2,
+each with one peer and its ledger database, an ordering node. Each of these
+components runs as a Docker container.</em></p>
+<p>The two peers, the peer <a class="reference external" href="../ledger/ledger.html#world-state-database-options">ledgers</a>, the
+orderer and the CA each run in the their own Docker container. In production
+environments, organizations typically use existing CAs that are shared with
+other systems; they’re not dedicated to the Fabric network.</p>
+<p>The two organizations of the test network allow us to interact with a blockchain
+ledger as two organizations that operate separate peers. In this tutorial,
+we will operate Org1 of the test network as DigiBank and Org2 as MagnetoCorp.</p>
+<p>You can start the test network and create the channel with a script provided in
+the commercial paper directory. Change to the <code class="docutils literal notranslate"><span class="pre">commercial-paper</span></code> directory in
+the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">commercial</span><span class="o">-</span><span class="n">paper</span>
+</pre></div>
+</div>
+<p>Then use the script to start the test network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">network</span><span class="o">-</span><span class="n">starter</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>If the command is successful, you will see the test network being created in your
+logs. You can use the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code> command to see the Fabric nodes running on your
+local machine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker ps
+
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                                        NAMES
+321cc489b10f        hyperledger/fabric-peer:latest      &quot;peer node start&quot;        2 minutes ago       Up 2 minutes        0.0.0.0:7051-&gt;7051/tcp                       peer0.org1.example.com
+ad668671f95f        hyperledger/fabric-peer:latest      &quot;peer node start&quot;        2 minutes ago       Up 2 minutes        7051/tcp, 0.0.0.0:9051-&gt;9051/tcp             peer0.org2.example.com
+caadbe4d8592        hyperledger/fabric-couchdb          &quot;tini -- /docker-ent…&quot;   2 minutes ago       Up 2 minutes        4369/tcp, 9100/tcp, 0.0.0.0:7984-&gt;5984/tcp   couchdb1
+ebabe52903b8        hyperledger/fabric-couchdb          &quot;tini -- /docker-ent…&quot;   2 minutes ago       Up 2 minutes        4369/tcp, 9100/tcp, 0.0.0.0:5984-&gt;5984/tcp   couchdb0
+7c72711c6e18        hyperledger/fabric-orderer:latest   &quot;orderer&quot;                2 minutes ago       Up 2 minutes        0.0.0.0:7050-&gt;7050/tcp                       orderer.example.com
+</pre></div>
+</div>
+<p>See if you can map these containers to the nodes of the test network (you may
+need to horizontally scroll to locate the information):</p>
+<ul class="simple">
+<li>The Org1 peer, <code class="docutils literal notranslate"><span class="pre">peer0.org1.example.com</span></code>, is running in container <code class="docutils literal notranslate"><span class="pre">321cc489b10f</span></code></li>
+<li>The Org2 peer, <code class="docutils literal notranslate"><span class="pre">peer0.org2.example.com</span></code>, is running in container <code class="docutils literal notranslate"><span class="pre">ad668671f95f</span></code></li>
+<li>The CouchDB database for the Org1 peer, <code class="docutils literal notranslate"><span class="pre">couchdb0</span></code>, is running in container <code class="docutils literal notranslate"><span class="pre">ebabe52903b8</span></code></li>
+<li>The CouchDB database for the Org2 peer, <code class="docutils literal notranslate"><span class="pre">couchdb1</span></code>, is running in container <code class="docutils literal notranslate"><span class="pre">caadbe4d8592</span></code></li>
+<li>The ordering node <code class="docutils literal notranslate"><span class="pre">orderer.example.com</span></code> is running in container <code class="docutils literal notranslate"><span class="pre">7c72711c6e18</span></code></li>
+</ul>
+<p>These containers all form a <a class="reference external" href="https://docs.docker.com/network/">Docker network</a>
+called <code class="docutils literal notranslate"><span class="pre">net_test</span></code>. You can view the network with the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker network inspect net_test
+
+    {
+          &quot;Name&quot;: &quot;net_test&quot;,
+          &quot;Id&quot;: &quot;b77b99d29e37677fac48b7ecd78383bdebf09ebdd6b00e87e3d9444252b1ce31&quot;,
+          &quot;Created&quot;: &quot;2020-01-30T23:04:39.6157465Z&quot;,
+          &quot;Containers&quot;: {
+              &quot;321cc489b10ff46554d0b215da307d38daf35b68bbea635ae0ae3176c3ae0945&quot;: {
+                  &quot;Name&quot;: &quot;peer0.org1.example.com&quot;,
+                  &quot;IPv4Address&quot;: &quot;192.168.224.5/20&quot;,
+              },
+              &quot;7c72711c6e18caf7bff4cf78c27efc9ef3b2359a749c926c8aba1beacfdb0211&quot;: {
+                  &quot;Name&quot;: &quot;orderer.example.com&quot;,
+                  &quot;IPv4Address&quot;: &quot;192.168.224.4/20&quot;,
+              },
+              &quot;ad668671f95f351f0119320198e1d1e19ebbb0d75766c6c8b9bb7bd36ba506af&quot;: {
+                  &quot;Name&quot;: &quot;peer0.org2.example.com&quot;,
+                  &quot;IPv4Address&quot;: &quot;192.168.224.6/20&quot;,
+              },
+              &quot;caadbe4d8592aa558fe14d07a424a9e04365620ede1143b6ce5902ce038c0851&quot;: {
+                  &quot;Name&quot;: &quot;couchdb1&quot;,
+                  &quot;IPv4Address&quot;: &quot;192.168.224.2/20&quot;,
+              },
+              &quot;ebabe52903b8597d016dbc0d0ca4373ef75162d3400efbe6416975abafd08a8f&quot;: {
+                  &quot;Name&quot;: &quot;couchdb0&quot;,
+                  &quot;IPv4Address&quot;: &quot;192.168.224.3/20&quot;,
+              }
+          },
+          &quot;Labels&quot;: {}
+      }
+  ]
+</pre></div>
+</div>
+<p>See how the five containers use different IP addresses, while being part of a
+single Docker network. (We’ve abbreviated the output for clarity.)</p>
+<p>Because we are operating the test network as DigiBank and MagnetoCorp,
+<code class="docutils literal notranslate"><span class="pre">peer0.org1.example.com</span></code> will belong to the DigiBank organization while
+<code class="docutils literal notranslate"><span class="pre">peer0.org2.example.com</span></code> will be operated by MagnetoCorp. Now that the test
+network is up and running, we can refer our network as PaperNet from this point
+forward.</p>
+<p>To recap: you’ve downloaded the Hyperledger Fabric samples repository from
+GitHub and you’ve got the test network running on your local machine. Let’s now
+start to play the role of MagnetoCorp, who wish to trade commercial paper.</p>
+</div>
+<div class="section" id="monitor-the-network-as-magnetocorp">
+<span id="monitor-the-network-as-magnetocorp"></span><h2>Monitor the network as MagnetoCorp<a class="headerlink" href="#monitor-the-network-as-magnetocorp" title="Permalink to this headline">¶</a></h2>
+<p>The commercial paper tutorial allows you to act as two organizations by
+providing two separate folders for DigiBank and MagnetoCorp. The two folders
+contain the smart contracts and application files for each organization. Because
+the two organizations have different roles in the trading of the commercial paper,
+the application files are different for each organization. Open a new window in
+the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> repository and use the following command to change into
+the MagnetoCorp directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">commercial</span><span class="o">-</span><span class="n">paper</span><span class="o">/</span><span class="n">organization</span><span class="o">/</span><span class="n">magnetocorp</span>
+</pre></div>
+</div>
+<p>The first thing we are going to do as MagnetoCorp is monitor the components
+of PaperNet. An administrator can view the aggregated output from a set
+of Docker containers using the <code class="docutils literal notranslate"><span class="pre">logspout</span></code> <a class="reference external" href="https://github.com/gliderlabs/logspout#logspout">tool</a>.
+The tool collects the different output streams into one place, making it easy
+to see what’s happening from a single window. This can be really helpful for
+administrators when installing smart contracts or for developers when invoking
+smart contracts, for example.</p>
+<p>In the MagnetoCorp directory, run the following command to run the
+<code class="docutils literal notranslate"><span class="pre">monitordocker.sh</span></code>  script and start the <code class="docutils literal notranslate"><span class="pre">logspout</span></code> tool for the containers
+associated with PaperNet running on <code class="docutils literal notranslate"><span class="pre">net_test</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp admin)$ ./configuration/cli/monitordocker.sh net_test
+...
+latest: Pulling from gliderlabs/logspout
+4fe2ade4980c: Pull complete
+decca452f519: Pull complete
+(...)
+Starting monitoring on all containers on the network net_test
+b7f3586e5d0233de5a454df369b8eadab0613886fc9877529587345fc01a3582
+</pre></div>
+</div>
+<p>Note that you can pass a port number to the above command if the default port in <code class="docutils literal notranslate"><span class="pre">monitordocker.sh</span></code> is already in use.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp admin)$ ./monitordocker.sh net_test &lt;port_number&gt;
+</pre></div>
+</div>
+<p>This window will now show output from the Docker containers for the remainder of the
+tutorial, so go ahead and open another command window. The next thing we will do is
+examine the smart contract that MagnetoCorp will use to issue to the commercial
+paper.</p>
+</div>
+<div class="section" id="examine-the-commercial-paper-smart-contract">
+<span id="examine-the-commercial-paper-smart-contract"></span><h2>Examine the commercial paper smart contract<a class="headerlink" href="#examine-the-commercial-paper-smart-contract" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">issue</span></code>, <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> are the three functions at the heart of the commercial
+paper smart contract. It is used by applications to submit transactions which
+correspondingly issue, buy and redeem commercial paper on the ledger. Our next
+task is to examine this smart contract.</p>
+<p>Open a new terminal in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> directory and change into the
+MagnetoCorp folder to act as the MagnetoCorp developer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">commercial</span><span class="o">-</span><span class="n">paper</span><span class="o">/</span><span class="n">organization</span><span class="o">/</span><span class="n">magnetocorp</span>
+</pre></div>
+</div>
+<p>You can then view the smart contract in the <code class="docutils literal notranslate"><span class="pre">contract</span></code> directory using your chosen
+editor (VS Code in this tutorial):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp developer)$ code contract
+</pre></div>
+</div>
+<p>In the <code class="docutils literal notranslate"><span class="pre">lib</span></code> directory of the folder, you’ll see <code class="docutils literal notranslate"><span class="pre">papercontract.js</span></code> file – this
+contains the commercial paper smart contract!</p>
+<p><img alt="commercialpaper.vscode1" src="../_images/commercial_paper.vscode.papercontract.png" /> <em>An
+example code editor displaying the commercial paper smart contract in <code class="docutils literal notranslate"><span class="pre">papercontract.js</span></code></em></p>
+<p><code class="docutils literal notranslate"><span class="pre">papercontract.js</span></code> is a JavaScript program designed to run in the Node.js
+environment. Note the following key program lines:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">{</span> <span class="pre">Contract,</span> <span class="pre">Context</span> <span class="pre">}</span> <span class="pre">=</span> <span class="pre">require('fabric-contract-api');</span></code></p>
+<p>This statement brings into scope two key Hyperledger Fabric classes that will
+be used extensively by the smart contract  – <code class="docutils literal notranslate"><span class="pre">Contract</span></code> and <code class="docutils literal notranslate"><span class="pre">Context</span></code>. You
+can learn more about these classes in the
+<a class="reference external" href="https://hyperledger.github.io/fabric-chaincode-node/"><code class="docutils literal notranslate"><span class="pre">fabric-shim</span></code> JSDOCS</a>.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">CommercialPaperContract</span> <span class="pre">extends</span> <span class="pre">Contract</span> <span class="pre">{</span></code></p>
+<p>This defines the smart contract class <code class="docutils literal notranslate"><span class="pre">CommercialPaperContract</span></code> based on the
+built-in Fabric <code class="docutils literal notranslate"><span class="pre">Contract</span></code> class.  The methods which implement the key
+transactions to <code class="docutils literal notranslate"><span class="pre">issue</span></code>, <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> commercial paper are defined
+within this class.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">issue(ctx,</span> <span class="pre">issuer,</span> <span class="pre">paperNumber,</span> <span class="pre">issueDateTime,</span> <span class="pre">maturityDateTime...)</span> <span class="pre">{</span></code></p>
+<p>This method defines the commercial paper <code class="docutils literal notranslate"><span class="pre">issue</span></code> transaction for PaperNet. The
+parameters that are passed to this method will be used to create the new
+commercial paper.</p>
+<p>Locate and examine the <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> transactions within the smart
+contract.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">paper</span> <span class="pre">=</span> <span class="pre">CommercialPaper.createInstance(issuer,</span> <span class="pre">paperNumber,</span> <span class="pre">issueDateTime...);</span></code></p>
+<p>Within the <code class="docutils literal notranslate"><span class="pre">issue</span></code> transaction, this statement creates a new commercial paper
+in memory using the <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> class with the supplied transaction
+inputs. Examine the <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> transactions to see how they similarly
+use this class.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">ctx.paperList.addPaper(paper);</span></code></p>
+<p>This statement adds the new commercial paper to the ledger using
+<code class="docutils literal notranslate"><span class="pre">ctx.paperList</span></code>, an instance of a <code class="docutils literal notranslate"><span class="pre">PaperList</span></code> class that was created when the
+smart contract context <code class="docutils literal notranslate"><span class="pre">CommercialPaperContext</span></code> was initialized. Again,
+examine the <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> methods to see how they use this class.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">paper;</span></code></p>
+<p>This statement returns a binary buffer as response from the <code class="docutils literal notranslate"><span class="pre">issue</span></code>
+transaction for processing by the caller of the smart contract.</p>
+</li>
+</ul>
+<p>Feel free to examine other files in the <code class="docutils literal notranslate"><span class="pre">contract</span></code> directory to understand how
+the smart contract works, and read in detail how <code class="docutils literal notranslate"><span class="pre">papercontract.js</span></code> is
+designed in the smart contract <a class="reference external" href="../developapps/smartcontract.html">topic</a>.</p>
+</div>
+<div class="section" id="deploy-the-smart-contract-to-the-channel">
+<span id="deploy-the-smart-contract-to-the-channel"></span><h2>Deploy the smart contract to the channel<a class="headerlink" href="#deploy-the-smart-contract-to-the-channel" title="Permalink to this headline">¶</a></h2>
+<p>Before <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> can be invoked by applications, it must be installed onto
+the appropriate peer nodes of the test network and then defined on the channel
+using the <a class="reference external" href="../chaincode_lifecycle.html#chaincode-lifecycle">Fabric chaincode lifecycle</a>. The Fabric chaincode
+lifecycle allows multiple organizations to agree to the parameters of a chaincode
+before the chainocde is deployed to a channel. As a result, we need to install
+and approve the chaincode as administrators of both MagnetoCorp and DigiBank.</p>
+<p><img alt="commercialpaper.install" src="../_images/commercial_paper.diagram.install.png" />  <em>A MagnetoCorp
+administrator installs a copy of the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> onto a MagnetoCorp peer.</em></p>
+<p>Smart contracts are the focus of application development, and are contained
+within a Hyperledger Fabric artifact called <a class="reference external" href="../chaincode.html">chaincode</a>. One
+or more smart contracts can be defined within a single chaincode, and installing
+a chaincode will allow them to be consumed by the different organizations in
+PaperNet. It means that only administrators need to worry about chaincode;
+everyone else can think in terms of smart contracts.</p>
+<div class="section" id="install-and-approve-the-smart-contract-as-magnetocorp">
+<span id="install-and-approve-the-smart-contract-as-magnetocorp"></span><h3>Install and approve the smart contract as MagnetoCorp<a class="headerlink" href="#install-and-approve-the-smart-contract-as-magnetocorp" title="Permalink to this headline">¶</a></h3>
+<p>We will first install and approve the smart contract as the MagnetoCorp admin. Make
+sure that you are operating from the <code class="docutils literal notranslate"><span class="pre">magnetocorp</span></code> folder, or navigate back to that
+folder using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">commercial</span><span class="o">-</span><span class="n">paper</span><span class="o">/</span><span class="n">organization</span><span class="o">/</span><span class="n">magnetocorp</span>
+</pre></div>
+</div>
+<p>A MagnetoCorp administrator can interact with PaperNet using the <code class="docutils literal notranslate"><span class="pre">peer</span></code> CLI. However,
+the administrator needs to set certain environment variables in their command
+window to use the correct set of <code class="docutils literal notranslate"><span class="pre">peer</span></code> binaries, send commands to the address
+of the MagnetoCorp peer, and sign requests with the correct crypto material.</p>
+<p>You can use a script provided by the sample to set the environment variables in
+your command window. Run the following command in the <code class="docutils literal notranslate"><span class="pre">magnetocorp</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">magnetocorp</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>You will see the full list of environment variables printed in your window. We
+can now use this command window to interact with PaperNet as the MagnetoCorp
+administrator.</p>
+<p>The first step is to install the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> smart contract. The smart
+contract can be packaged into a chaincode using the
+<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">package</span></code> command. In the MagnetoCorp administrator’s
+command window, run the following command to create the chaincode package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp admin)$ peer lifecycle chaincode package cp.tar.gz --lang node --path ./contract --label cp_0
+</pre></div>
+</div>
+<p>The MagnetoCorp admin can now install the chaincode on the MagnetoCorp peer using
+the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">install</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp admin)$ peer lifecycle chaincode install cp.tar.gz
+</pre></div>
+</div>
+<p>If the command is successful, you will see messages similar to the following
+printed in your terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">30</span> <span class="mi">18</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">33.762</span> <span class="n">EST</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">chaincode</span><span class="p">]</span> <span class="n">submitInstallProposal</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">001</span> <span class="n">Installed</span> <span class="n">remotely</span><span class="p">:</span> <span class="n">response</span><span class="p">:</span><span class="o">&lt;</span><span class="n">status</span><span class="p">:</span><span class="mi">200</span> <span class="n">payload</span><span class="p">:</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ecp_0:ffda93e26b183e231b7e9d5051e1ee7ca47fbf24f00a8376ec54120b1a2a335c</span><span class="se">\022\004</span><span class="s2">cp_0&quot;</span> <span class="o">&gt;</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">30</span> <span class="mi">18</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mf">33.762</span> <span class="n">EST</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">chaincode</span><span class="p">]</span> <span class="n">submitInstallProposal</span> <span class="o">-&gt;</span> <span class="n">INFO</span> <span class="mi">002</span> <span class="n">Chaincode</span> <span class="n">code</span> <span class="n">package</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">cp_0</span><span class="p">:</span><span class="n">ffda93e26b183e231b7e9d5051e1ee7ca47fbf24f00a8376ec54120b1a2a335c</span>
+</pre></div>
+</div>
+<p>Because the MagnetoCorp admin has set <code class="docutils literal notranslate"><span class="pre">CORE_PEER_ADDRESS=localhost:9051</span></code> to
+target its commands to <code class="docutils literal notranslate"><span class="pre">peer0.org2.example.com</span></code>, the <code class="docutils literal notranslate"><span class="pre">INFO</span> <span class="pre">001</span> <span class="pre">Installed</span> <span class="pre">remotely...</span></code>
+indicates that <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> has been successfully installed on this peer.</p>
+<p>After we install the smart contract, we need to approve the chaincode definition
+for <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> as MagnetoCorp. The first step is to find the packageID of
+the chaincode we installed on our peer. We can query the packageID using the
+<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">queryinstalled</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">peer</span> <span class="n">lifecycle</span> <span class="n">chaincode</span> <span class="n">queryinstalled</span>
+</pre></div>
+</div>
+<p>The command will return the same package identifier as the install command. You
+should see output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Installed</span> <span class="n">chaincodes</span> <span class="n">on</span> <span class="n">peer</span><span class="p">:</span>
+<span class="n">Package</span> <span class="n">ID</span><span class="p">:</span> <span class="n">cp_0</span><span class="p">:</span><span class="n">ffda93e26b183e231b7e9d5051e1ee7ca47fbf24f00a8376ec54120b1a2a335c</span><span class="p">,</span> <span class="n">Label</span><span class="p">:</span> <span class="n">cp_0</span>
+</pre></div>
+</div>
+<p>We will need the package ID in the next step, so we will save it as an environment
+variable. The package ID may not be the same for all users, so you need to
+complete this step using the package ID returned from your command window.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PACKAGE_ID</span><span class="o">=</span><span class="n">cp_0</span><span class="p">:</span><span class="n">ffda93e26b183e231b7e9d5051e1ee7ca47fbf24f00a8376ec54120b1a2a335c</span>
+</pre></div>
+</div>
+<p>The admin can now approve the chaincode definition for MagnetoCorp using the
+<code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">approveformyorg</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(magnetocorp admin)$ peer lifecycle chaincode approveformyorg --orderer localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name papercontract -v 0 --package-id $PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA
+</pre></div>
+</div>
+<p>One of the most important chaincode parameters that channel members need to
+agree to using the chaincode definition is the chaincode <a class="reference external" href="../endorsement-policies.html">endorsement policy</a>.
+The endorsement policy describes the set of organizations that must endorse
+(execute and sign) a transaction before it can be determined to be valid. By
+approving the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> chaincode without the <code class="docutils literal notranslate"><span class="pre">--policy</span></code> flag, the
+MagnetoCorp admin agrees to using the default endorsement policy, which requires a
+majority of organizations on the channel to endorse a transaction. All transactions,
+whether valid or invalid, will be recorded on the <a class="reference external" href="../ledger/ledger.html#blockchain">ledger blockchain</a>,
+but only valid transactions will update the <a class="reference external" href="../ledger/ledger.html#world-state">world state</a>.</p>
+</div>
+<div class="section" id="install-and-approve-the-smart-contract-as-digibank">
+<span id="install-and-approve-the-smart-contract-as-digibank"></span><h3>Install and approve the smart contract as DigiBank<a class="headerlink" href="#install-and-approve-the-smart-contract-as-digibank" title="Permalink to this headline">¶</a></h3>
+<p>By default, the Fabric Chaincode lifecycle requires a majority of organizations
+on the channel to successfully commit the chaincode definition to the channel.
+This implies that we need to approve the <code class="docutils literal notranslate"><span class="pre">papernet</span></code> chaincode as both MagnetoCorp
+and DigiBank to get the required majority of 2 out of 2. Open a new terminal
+window in the <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> and navigate to the older that contains the
+DigiBank smart contract and application files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ cd commercial-paper/organization/digibank/
+</pre></div>
+</div>
+<p>Use the script in the DigiBank folder to set the environment variables that will
+allow you to act as the DigiBank admin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">digibank</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>We can now install and approve <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> as the DigiBank. Run the following
+command to package the chaincode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ peer lifecycle chaincode package cp.tar.gz --lang node --path ./contract --label cp_0
+</pre></div>
+</div>
+<p>The admin can now install the chaincode on the DigiBank peer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ peer lifecycle chaincode install cp.tar.gz
+</pre></div>
+</div>
+<p>We then need to query and save the packageID of the chaincode that was just
+installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ peer lifecycle chaincode queryinstalled
+</pre></div>
+</div>
+<p>Save the package ID as an environment variable. Complete this step using the
+package ID returned from your console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PACKAGE_ID</span><span class="o">=</span><span class="n">cp_0</span><span class="p">:</span><span class="n">ffda93e26b183e231b7e9d5051e1ee7ca47fbf24f00a8376ec54120b1a2a335c</span>
+</pre></div>
+</div>
+<p>The Digibank admin can now approve the chaincode definition of <code class="docutils literal notranslate"><span class="pre">papercontract</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ peer lifecycle chaincode approveformyorg --orderer localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name papercontract -v 0 --package-id $PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA
+</pre></div>
+</div>
+</div>
+<div class="section" id="commit-the-chaincode-definition-to-the-channel">
+<span id="commit-the-chaincode-definition-to-the-channel"></span><h3>Commit the chaincode definition to the channel<a class="headerlink" href="#commit-the-chaincode-definition-to-the-channel" title="Permalink to this headline">¶</a></h3>
+<p>Now that DigiBank and MagnetoCorp have both approved the <code class="docutils literal notranslate"><span class="pre">papernet</span></code> chaincode, we
+have the majority we need (2 out of 2) to commit the chaincode definition to the
+channel. Once the chaincode is successfully defined on the channel, the
+<code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> smart contract inside the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> chaincode can be
+invoked by client applications on the channel. Since either organization can
+commit the chaincode to the channel, we will continue operating as the
+DigiBank admin:</p>
+<p><img alt="commercialpaper.commit" src="../_images/commercial_paper.diagram.commit.png" />  <em>After the DigiBank administrator commits the definition of the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> chaincode to the channel, a new Docker chaincode container will be created to run <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> on both PaperNet peers</em></p>
+<p>The DigiBank administrator uses the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">commit</span></code> command
+to commit the chaincode definition of <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> to <code class="docutils literal notranslate"><span class="pre">mychannel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --peerAddresses localhost:7051 --tlsRootCertFiles ${PEER0_ORG1_CA} --peerAddresses localhost:9051 --tlsRootCertFiles ${PEER0_ORG2_CA} --channelID mychannel --name papercontract -v 0 --sequence 1 --tls --cafile $ORDERER_CA --waitForEvent
+</pre></div>
+</div>
+<p>The chaincode container will start after the chaincode definition has been
+committed to the channel. You can use the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code> command to see
+<code class="docutils literal notranslate"><span class="pre">papercontract</span></code> container starting on both peers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ docker ps
+
+CONTAINER ID        IMAGE                                                                                                                                                               COMMAND                  CREATED             STATUS              PORTS                                        NAMES
+d4ba9dc9c55f        dev-peer0.org1.example.com-cp_0-ebef35e7f1f25eea1dcc6fcad5019477cd7f434c6a5dcaf4e81744e282903535-05cf67c20543ee1c24cf7dfe74abce99785374db15b3bc1de2da372700c25608   &quot;docker-entrypoint.s…&quot;   30 seconds ago      Up 28 seconds                                                    dev-peer0.org1.example.com-cp_0-ebef35e7f1f25eea1dcc6fcad5019477cd7f434c6a5dcaf4e81744e282903535
+a944c0f8b6d6        dev-peer0.org2.example.com-cp_0-1487670371e56d107b5e980ce7f66172c89251ab21d484c7f988c02912ddeaec-1a147b6fd2a8bd2ae12db824fad8d08a811c30cc70bc5b6bc49a2cbebc2e71ee   &quot;docker-entrypoint.s…&quot;   31 seconds ago      Up 28 seconds                                                    dev-peer0.org2.example.com-cp_0-1487670371e56d107b5e980ce7f66172c89251ab21d484c7f988c02912ddeaec
+</pre></div>
+</div>
+<p>Notice that the containers are named to indicate the peer that started it, and
+the fact that it’s running <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> version <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>Now that we have deployed the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> chaincode to the channel, we can
+use the MagnetoCorp application to issue the commercial paper. Let’s take a
+moment to examine the application structure.</p>
+</div>
+</div>
+<div class="section" id="application-structure">
+<span id="application-structure"></span><h2>Application structure<a class="headerlink" href="#application-structure" title="Permalink to this headline">¶</a></h2>
+<p>The smart contract contained in <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> is called by MagnetoCorp’s
+application <code class="docutils literal notranslate"><span class="pre">issue.js</span></code>. Isabella uses this application to submit a transaction
+to the ledger which issues commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code>. Let’s quickly examine how
+the <code class="docutils literal notranslate"><span class="pre">issue</span></code> application works.</p>
+<p><img alt="commercialpaper.application" src="../_images/commercial_paper.diagram.8.png" /> <em>A gateway
+allows an application to focus on transaction generation, submission and
+response. It coordinates transaction proposal, ordering and notification
+processing between the different network components.</em></p>
+<p>Because the <code class="docutils literal notranslate"><span class="pre">issue</span></code> application submits transactions on behalf of Isabella, it
+starts by retrieving Isabella’s X.509 certificate from her
+<a class="reference external" href="../developapps/wallet.html">wallet</a>, which might be stored on the local file
+system or a Hardware Security Module
+<a class="reference external" href="https://en.wikipedia.org/wiki/Hardware_security_module">HSM</a>. The <code class="docutils literal notranslate"><span class="pre">issue</span></code>
+application is then able to utilize the gateway to submit transactions on the
+channel. The Hyperledger Fabric SDK provides a
+<a class="reference external" href="../developapps/gateway.html">gateway</a> abstraction so that applications can
+focus on application logic while delegating network interaction to the
+gateway. Gateways and wallets make it straightforward to write Hyperledger
+Fabric applications.</p>
+<p>So let’s examine the <code class="docutils literal notranslate"><span class="pre">issue</span></code> application that Isabella is going to use. Open a
+separate terminal window for her, and in <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code> locate the MagnetoCorp
+<code class="docutils literal notranslate"><span class="pre">/application</span></code> folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ cd commercial-paper/organization/magnetocorp/application/
+(isabella)$ ls
+
+addToWallet.js      issue.js        package.json
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">addToWallet.js</span></code> is the program that Isabella is going to use to load her
+identity into her wallet, and <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> will use this identity to create
+commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code> on behalf of MagnetoCorp by invoking <code class="docutils literal notranslate"><span class="pre">papercontract</span></code>.</p>
+<p>Change to the directory that contains MagnetoCorp’s copy of the application
+<code class="docutils literal notranslate"><span class="pre">issue.js</span></code>, and use your code editor to examine it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ cd commercial-paper/organization/magnetocorp/application
+(isabella)$ code issue.js
+</pre></div>
+</div>
+<p>Examine this directory; it contains the issue application and all its
+dependencies.</p>
+<p><img alt="commercialpaper.vscode2" src="../_images/commercial_paper.vscode.issue.png" /> <em>A code editor
+displaying the contents of the commercial paper application directory.</em></p>
+<p>Note the following key program lines in <code class="docutils literal notranslate"><span class="pre">issue.js</span></code>:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">{</span> <span class="pre">Wallets,</span> <span class="pre">Gateway</span> <span class="pre">}</span> <span class="pre">=</span> <span class="pre">require('fabric-network');</span></code></p>
+<p>This statement brings two key Hyperledger Fabric SDK classes into scope –
+<code class="docutils literal notranslate"><span class="pre">Wallet</span></code> and <code class="docutils literal notranslate"><span class="pre">Gateway</span></code>.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">wallet</span> <span class="pre">=</span> <span class="pre">await</span> <span class="pre">Wallets.newFileSystemWallet('../identity/user/isabella/wallet');</span></code></p>
+<p>This statement identifies that the application will use <code class="docutils literal notranslate"><span class="pre">isabella</span></code> wallet when
+it connects to the blockchain network channel. Because Isabella’s X.509 certificate
+is in the local file system, the application creates a new <code class="docutils literal notranslate"><span class="pre">FileSystemWallet</span></code>. The
+application will select a particular identity within <code class="docutils literal notranslate"><span class="pre">isabella</span></code> wallet.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">gateway.connect(connectionProfile,</span> <span class="pre">connectionOptions);</span></code></p>
+<p>This line of code connects to the network using the gateway identified by
+<code class="docutils literal notranslate"><span class="pre">connectionProfile</span></code>, using the identity referred to in <code class="docutils literal notranslate"><span class="pre">ConnectionOptions</span></code>.</p>
+<p>See how <code class="docutils literal notranslate"><span class="pre">../gateway/networkConnection.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">User1&#64;org1.example.com</span></code> are
+used for these values respectively.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">network</span> <span class="pre">=</span> <span class="pre">await</span> <span class="pre">gateway.getNetwork('mychannel');</span></code></p>
+<p>This connects the application to the network channel <code class="docutils literal notranslate"><span class="pre">mychannel</span></code>, where the
+<code class="docutils literal notranslate"><span class="pre">papercontract</span></code> was previously instantiated.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">contract</span> <span class="pre">=</span> <span class="pre">await</span> <span class="pre">network.getContract('papercontract');</span></code></p>
+<p>This statement gives the application access to the <code class="docutils literal notranslate"><span class="pre">papercontract</span></code> chaincode.
+Once an application has issued getContract, it can submit to any smart contract
+transaction implemented within the chaincode.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">issueResponse</span> <span class="pre">=</span> <span class="pre">await</span> <span class="pre">contract.submitTransaction('issue',</span> <span class="pre">'MagnetoCorp',</span> <span class="pre">'00001',</span> <span class="pre">...);</span></code></p>
+<p>This line of code submits the a transaction to the network using the <code class="docutils literal notranslate"><span class="pre">issue</span></code>
+transaction defined within the smart contract. <code class="docutils literal notranslate"><span class="pre">MagnetoCorp</span></code>, <code class="docutils literal notranslate"><span class="pre">00001</span></code>… are
+the values to be used by the <code class="docutils literal notranslate"><span class="pre">issue</span></code> transaction to create a new commercial
+paper.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">paper</span> <span class="pre">=</span> <span class="pre">CommercialPaper.fromBuffer(issueResponse);</span></code></p>
+<p>This statement processes the response from the <code class="docutils literal notranslate"><span class="pre">issue</span></code> transaction. The
+response needs to deserialized from a buffer into <code class="docutils literal notranslate"><span class="pre">paper</span></code>, a <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code>
+object which can interpreted correctly by the application.</p>
+</li>
+</ul>
+<p>Feel free to examine other files in the <code class="docutils literal notranslate"><span class="pre">/application</span></code> directory to understand
+how <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> works, and read in detail how it is implemented in the
+application <a class="reference external" href="../developapps/application.html">topic</a>.</p>
+</div>
+<div class="section" id="application-dependencies">
+<span id="application-dependencies"></span><h2>Application dependencies<a class="headerlink" href="#application-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> application is written in JavaScript and designed to run in the
+Node.js environment that acts as a client to the PaperNet network.
+As is common practice, MagnetoCorp’s application is built on many
+external node packages — to improve quality and speed of development. Consider
+how <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> includes the <code class="docutils literal notranslate"><span class="pre">js-yaml</span></code>
+<a class="reference external" href="https://www.npmjs.com/package/js-yaml">package</a> to process the YAML gateway
+connection profile, or the <code class="docutils literal notranslate"><span class="pre">fabric-network</span></code>
+<a class="reference external" href="https://www.npmjs.com/package/fabric-network">package</a> to access the <code class="docutils literal notranslate"><span class="pre">Gateway</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Wallet</span></code> classes:</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">yaml</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;js-yaml&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">Wallets</span><span class="p">,</span> <span class="nx">Gateway</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fabric-network&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>These packages have to be downloaded from <a class="reference external" href="https://www.npmjs.com/">npm</a> to the
+local file system using the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> command. By convention, packages must
+be installed into an application-relative <code class="docutils literal notranslate"><span class="pre">/node_modules</span></code> directory for use at
+runtime.</p>
+<p>Examine the <code class="docutils literal notranslate"><span class="pre">package.json</span></code> file to see how <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> identifies the packages to
+download and their exact versions:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>  &quot;dependencies&quot;: {
+    &quot;fabric-network&quot;: &quot;~1.4.0&quot;,
+    &quot;fabric-client&quot;: &quot;~1.4.0&quot;,
+    &quot;js-yaml&quot;: &quot;^3.12.0&quot;
+  },
+</pre></div>
+</div>
+<p><strong>npm</strong> versioning is very powerful; you can read more about it
+<a class="reference external" href="https://docs.npmjs.com/getting-started/semantic-versioning">here</a>.</p>
+<p>Let’s install these packages with the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> command – this may take up
+to a minute to complete:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ cd commercial-paper/organization/magnetocorp/application/
+(isabella)$ npm install
+
+(           ) extract:lodash: sill extract ansi-styles@3.2.1
+(...)
+added 738 packages in 46.701s
+</pre></div>
+</div>
+<p>See how this command has updated the directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ ls
+
+addToWallet.js      node_modules            package.json
+issue.js            package-lock.json
+</pre></div>
+</div>
+<p>Examine the <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> directory to see the packages that have been
+installed. There are lots, because <code class="docutils literal notranslate"><span class="pre">js-yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">fabric-network</span></code> are themselves
+built on other npm packages! Helpfully, the <code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code>
+<a class="reference external" href="https://docs.npmjs.com/files/package-lock.json">file</a> identifies the exact
+versions installed, which can prove invaluable if you want to exactly reproduce
+environments; to test, diagnose problems or deliver proven applications for
+example.</p>
+</div>
+<div class="section" id="wallet">
+<span id="wallet"></span><h2>Wallet<a class="headerlink" href="#wallet" title="Permalink to this headline">¶</a></h2>
+<p>Isabella is almost ready to run <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> to issue MagnetoCorp commercial paper
+<code class="docutils literal notranslate"><span class="pre">00001</span></code>; there’s just one remaining task to perform! As <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> acts on
+behalf of Isabella, and therefore MagnetoCorp, it will use identity from her
+<a class="reference external" href="../developapps/wallet.html">wallet</a> that reflects these facts. We now need to
+perform this one-time activity of adding appropriate X.509 credentials to her
+wallet.</p>
+<p>In Isabella’s terminal window, run the <code class="docutils literal notranslate"><span class="pre">addToWallet.js</span></code> program to add identity
+information to her wallet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ node addToWallet.js
+
+done
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">addToWallet.js</span></code> is a simple file-copying program which you can examine at your
+leisure. It moves an identity from the test network sample to Isabella’s
+wallet. Let’s focus on the result of this program — the contents of
+the wallet which will be used to submit transactions to PaperNet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ ls ../identity/user/isabella/wallet/
+
+isabella.id
+</pre></div>
+</div>
+<p>Isabella can store multiple identities in her wallet, though in our example, she
+only uses one. The <code class="docutils literal notranslate"><span class="pre">wallet</span></code> folder contains an <code class="docutils literal notranslate"><span class="pre">isabella.id</span></code> file that provides
+the information that Isabella needs to connect to the network. Other identities
+used by Isabella would have their own file. You can open this file to see the
+identity information that <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> will use on behalf of Isabella inside a JSON
+file. The output has been formatted for clarity.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$  cat ../identity/user/isabella/wallet/*
+
+{
+  &quot;credentials&quot;: {
+    &quot;certificate&quot;: &quot;-----BEGIN CERTIFICATE-----\nMIICKTCCAdCgAwIBAgIQWKwvLG+sqeO3LwwQK6avZDAKBggqhkjOPQQDAjBzMQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEZMBcGA1UEChMQb3JnMi5leGFtcGxlLmNvbTEcMBoGA1UEAxMTY2Eu\nb3JnMi5leGFtcGxlLmNvbTAeFw0yMDAyMDQxOTA5MDBaFw0zMDAyMDExOTA5MDBa\nMGwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMQ8wDQYDVQQLEwZjbGllbnQxHzAdBgNVBAMMFlVzZXIxQG9y\nZzIuZXhhbXBsZS5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAT4TnTblx0k\ngfqX+NN7F76Me33VTq3K2NUWZRreoJzq6bAuvdDR+iFvVPKXbdORnVvRSATcXsYl\nt20yU7n/53dbo00wSzAOBgNVHQ8BAf8EBAMCB4AwDAYDVR0TAQH/BAIwADArBgNV\nHSMEJDAigCDOCdm4irsZFU3D6Hak4+84QRg1N43iwg8w1V6DRhgLyDAKBggqhkjO\nPQQDAgNHADBEAiBhzKix1KJcbUy9ey5ulWHRUMbqdVCNHe/mRtUdaJagIgIgYpbZ\nXf0CSiTXIWOJIsswN4Jp+ZxkJfFVmXndqKqz+VM=\n-----END CERTIFICATE-----\n&quot;,
+    &quot;privateKey&quot;: &quot;-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQggs55vQg2oXi8gNi8\nNidE8Fy5zenohArDq3FGJD8cKU2hRANCAAT4TnTblx0kgfqX+NN7F76Me33VTq3K\n2NUWZRreoJzq6bAuvdDR+iFvVPKXbdORnVvRSATcXsYlt20yU7n/53db\n-----END PRIVATE KEY-----\n&quot;
+  },
+  &quot;mspId&quot;: &quot;Org2MSP&quot;,
+  &quot;type&quot;: &quot;X.509&quot;,
+  &quot;version&quot;: 1
+}
+</pre></div>
+</div>
+<p>In the file you can notice the following:</p>
+<ul class="simple">
+<li>a <code class="docutils literal notranslate"><span class="pre">&quot;privateKey&quot;:</span></code> used to sign transactions on Isabella’s behalf, but not
+distributed outside of her immediate control.</li>
+<li>a <code class="docutils literal notranslate"><span class="pre">&quot;certificate&quot;:</span></code> which contains Isabella’s public key and other X.509
+attributes added by the Certificate Authority at certificate creation. This
+certificate is distributed to the network so that different actors at different
+times can cryptographically verify information created by Isabella’s private key.</li>
+</ul>
+<p>You can Learn more about certificates <a class="reference external" href="../identity/identity.html#digital-certificates">here</a>. In practice, the
+certificate file also contains some Fabric-specific metadata such as
+Isabella’s organization and role – read more in the <a class="reference external" href="../developapps/wallet.html">wallet</a> topic.</p>
+</div>
+<div class="section" id="issue-application">
+<span id="issue-application"></span><h2>Issue application<a class="headerlink" href="#issue-application" title="Permalink to this headline">¶</a></h2>
+<p>Isabella can now use <code class="docutils literal notranslate"><span class="pre">issue.js</span></code> to submit a transaction that will issue
+MagnetoCorp commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(isabella)$ node issue.js
+
+Connect to Fabric gateway.
+Use network channel: mychannel.
+Use org.papernet.commercialpaper smart contract.
+Submit commercial paper issue transaction.
+Process issue transaction response.{&quot;class&quot;:&quot;org.papernet.commercialpaper&quot;,&quot;key&quot;:&quot;\&quot;MagnetoCorp\&quot;:\&quot;00001\&quot;&quot;,&quot;currentState&quot;:1,&quot;issuer&quot;:&quot;MagnetoCorp&quot;,&quot;paperNumber&quot;:&quot;00001&quot;,&quot;issueDateTime&quot;:&quot;2020-05-31&quot;,&quot;maturityDateTime&quot;:&quot;2020-11-30&quot;,&quot;faceValue&quot;:&quot;5000000&quot;,&quot;owner&quot;:&quot;MagnetoCorp&quot;}
+MagnetoCorp commercial paper : 00001 successfully issued for value 5000000
+Transaction complete.
+Disconnect from Fabric gateway.
+Issue program complete.
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">node</span></code> command initializes a Node.js environment, and runs <code class="docutils literal notranslate"><span class="pre">issue.js</span></code>. We
+can see from the program output that MagnetoCorp commercial paper 00001 was
+issued with a face value of 5M USD.</p>
+<p>As you’ve seen, to achieve this, the application invokes the <code class="docutils literal notranslate"><span class="pre">issue</span></code> transaction
+defined in the <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> smart contract within <code class="docutils literal notranslate"><span class="pre">papercontract.js</span></code>. This
+had been installed and instantiated in the network by the MagnetoCorp
+administrator. It’s the smart contract which interacts with the ledger via the
+Fabric APIs, most notably <code class="docutils literal notranslate"><span class="pre">putState()</span></code> and <code class="docutils literal notranslate"><span class="pre">getState()</span></code>, to represent the new
+commercial paper as a vector state within the world state. We’ll see how this
+vector state is subsequently manipulated by the <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> transactions
+also defined within the smart contract.</p>
+<p>All the time, the underlying Fabric SDK handles the transaction endorsement,
+ordering and notification process, making the application’s logic
+straightforward; the SDK uses a <a class="reference external" href="../developapps/gateway.html">gateway</a> to
+abstract away network details and
+<a class="reference external" href="../developapps/connectoptions.html">connectionOptions</a> to declare more advanced
+processing strategies such as transaction retry.</p>
+<p>Let’s now follow the lifecycle of MagnetoCorp 00001 by switching our emphasis
+to an employee of DigiBank, Balaji, who will buy the commercial paper using a
+DigiBank application.</p>
+</div>
+<div class="section" id="digibank-applications">
+<span id="digibank-applications"></span><h2>Digibank applications<a class="headerlink" href="#digibank-applications" title="Permalink to this headline">¶</a></h2>
+<p>Balaji uses DigiBank’s <code class="docutils literal notranslate"><span class="pre">buy</span></code> application to submit a transaction to the ledger
+which transfers ownership of commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code> from MagnetoCorp to
+DigiBank. The <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> smart contract is the same as that used by
+MagnetoCorp’s application, however the transaction is different this time –
+it’s <code class="docutils literal notranslate"><span class="pre">buy</span></code> rather than <code class="docutils literal notranslate"><span class="pre">issue</span></code>. Let’s examine how DigiBank’s application works.</p>
+<p>Open a separate terminal window for Balaji. In <code class="docutils literal notranslate"><span class="pre">fabric-samples</span></code>, change to the
+DigiBank application directory that contains the application, <code class="docutils literal notranslate"><span class="pre">buy.js</span></code>, and open
+it with your editor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(balaji)$ cd commercial-paper/organization/digibank/application/
+(balaji)$ code buy.js
+</pre></div>
+</div>
+<p>As you can see, this directory contains both the <code class="docutils literal notranslate"><span class="pre">buy</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem</span></code> applications
+that will be used by Balaji.</p>
+<p><img alt="commercialpaper.vscode3" src="../_images/commercial_paper.diagram.12.png" /> <em>DigiBank’s
+commercial paper directory containing the <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem.js</span></code>
+applications.</em></p>
+<p>DigiBank’s <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> application is very similar in structure to MagnetoCorp’s
+<code class="docutils literal notranslate"><span class="pre">issue.js</span></code> with two important differences:</p>
+<ul>
+<li><p class="first"><strong>Identity</strong>: the user is a DigiBank user <code class="docutils literal notranslate"><span class="pre">Balaji</span></code> rather than MagnetoCorp’s
+<code class="docutils literal notranslate"><span class="pre">Isabella</span></code></p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">wallet</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">Wallets</span><span class="p">.</span><span class="nx">newFileSystemWallet</span><span class="p">(</span><span class="s1">&#39;../identity/user/balaji/wallet&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See how the application uses the <code class="docutils literal notranslate"><span class="pre">balaji</span></code> wallet when it connects to the
+PaperNet network channel. <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> selects a particular identity within
+<code class="docutils literal notranslate"><span class="pre">balaji</span></code> wallet.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><strong>Transaction</strong>: the invoked transaction is <code class="docutils literal notranslate"><span class="pre">buy</span></code> rather than <code class="docutils literal notranslate"><span class="pre">issue</span></code></p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">buyResponse</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">contract</span><span class="p">.</span><span class="nx">submitTransaction</span><span class="p">(</span><span class="s1">&#39;buy&#39;</span><span class="p">,</span> <span class="s1">&#39;MagnetoCorp&#39;</span><span class="p">,</span> <span class="s1">&#39;00001&#39;</span><span class="p">,</span> <span class="p">...);</span>
+</pre></div>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">buy</span></code> transaction is submitted with the values <code class="docutils literal notranslate"><span class="pre">MagnetoCorp</span></code>, <code class="docutils literal notranslate"><span class="pre">00001</span></code>, …,
+that are used by the <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> smart contract class to transfer
+ownership of commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code> to DigiBank.</p>
+</li>
+</ul>
+<p>Feel free to examine other files in the <code class="docutils literal notranslate"><span class="pre">application</span></code> directory to understand
+how the application works, and read in detail how <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> is implemented in
+the application <a class="reference external" href="../developapps/application.html">topic</a>.</p>
+</div>
+<div class="section" id="run-as-digibank">
+<span id="run-as-digibank"></span><h2>Run as DigiBank<a class="headerlink" href="#run-as-digibank" title="Permalink to this headline">¶</a></h2>
+<p>The DigiBank applications which buy and redeem commercial paper have a very
+similar structure to MagnetoCorp’s issue application. Therefore, let’s install
+their dependencies and set up Balaji’s wallet so that he can use these
+applications to buy and redeem commercial paper.</p>
+<p>Like MagnetoCorp, Digibank must the install the required application packages
+using the <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> command, and again, this make take a short time to
+complete.</p>
+<p>In the DigiBank administrator window, install the application dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(digibank admin)$ cd commercial-paper/organization/digibank/application/
+(digibank admin)$ npm install
+
+(            ) extract:lodash: sill extract ansi-styles@3.2.1
+(...)
+added 738 packages in 46.701s
+</pre></div>
+</div>
+<p>In Balaji’s command window, run the <code class="docutils literal notranslate"><span class="pre">addToWallet.js</span></code> program to add the identity
+to his wallet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(balaji)$ node addToWallet.js
+
+done
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">addToWallet.js</span></code> program has added identity information for <code class="docutils literal notranslate"><span class="pre">balaji</span></code>, to his
+wallet, which will be used by <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> and <code class="docutils literal notranslate"><span class="pre">redeem.js</span></code> to submit transactions to
+<code class="docutils literal notranslate"><span class="pre">PaperNet</span></code>.</p>
+<p>Like Isabella, Balaji can store multiple identities in his wallet, though in our
+example, he only uses one. His corresponding id file at
+<code class="docutils literal notranslate"><span class="pre">digibank/identity/user/balaji/wallet/balaji.id</span></code> is very similar Isabella’s —
+feel free to examine it.</p>
+</div>
+<div class="section" id="buy-application">
+<span id="buy-application"></span><h2>Buy application<a class="headerlink" href="#buy-application" title="Permalink to this headline">¶</a></h2>
+<p>Balaji can now use <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> to submit a transaction that will transfer ownership
+of MagnetoCorp commercial paper 00001 to DigiBank.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">buy</span></code> application in Balaji’s window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(balaji)$ node buy.js
+
+Connect to Fabric gateway.
+Use network channel: mychannel.
+Use org.papernet.commercialpaper smart contract.
+Submit commercial paper buy transaction.
+Process buy transaction response.
+MagnetoCorp commercial paper : 00001 successfully purchased by DigiBank
+Transaction complete.
+Disconnect from Fabric gateway.
+Buy program complete.
+</pre></div>
+</div>
+<p>You can see the program output that MagnetoCorp commercial paper 00001 was
+successfully purchased by Balaji on behalf of DigiBank. <code class="docutils literal notranslate"><span class="pre">buy.js</span></code> invoked the
+<code class="docutils literal notranslate"><span class="pre">buy</span></code> transaction defined in the <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code> smart contract which updated
+commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code> within the world state using the <code class="docutils literal notranslate"><span class="pre">putState()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">getState()</span></code> Fabric APIs. As you’ve seen, the application logic to buy and issue
+commercial paper is very similar, as is the smart contract logic.</p>
+</div>
+<div class="section" id="redeem-application">
+<span id="redeem-application"></span><h2>Redeem application<a class="headerlink" href="#redeem-application" title="Permalink to this headline">¶</a></h2>
+<p>The final transaction in the lifecycle of commercial paper 00001 is for
+DigiBank to redeem it with MagnetoCorp. Balaji uses <code class="docutils literal notranslate"><span class="pre">redeem.js</span></code> to submit a
+transaction to perform the redeem logic within the smart contract.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">redeem</span></code> transaction in Balaji’s window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(balaji)$ node redeem.js
+
+Connect to Fabric gateway.
+Use network channel: mychannel.
+Use org.papernet.commercialpaper smart contract.
+Submit commercial paper redeem transaction.
+Process redeem transaction response.
+MagnetoCorp commercial paper : 00001 successfully redeemed with MagnetoCorp
+Transaction complete.
+Disconnect from Fabric gateway.
+Redeem program complete.
+</pre></div>
+</div>
+<p>Again, see how the commercial paper 00001 was successfully redeemed when
+<code class="docutils literal notranslate"><span class="pre">redeem.js</span></code> invoked the <code class="docutils literal notranslate"><span class="pre">redeem</span></code> transaction defined in <code class="docutils literal notranslate"><span class="pre">CommercialPaper</span></code>.
+Again, it updated commercial paper <code class="docutils literal notranslate"><span class="pre">00001</span></code> within the world state to reflect
+that the ownership returned to MagnetoCorp, the issuer of the paper.</p>
+</div>
+<div class="section" id="clean-up">
+<span id="clean-up"></span><h2>Clean up<a class="headerlink" href="#clean-up" title="Permalink to this headline">¶</a></h2>
+<p>When you are finished using the Commercial Paper tutorial, you can use a script
+to clean up your environment. Use a command window to navigate back to the root
+directory of the commercial paper sample:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">commercial</span><span class="o">-</span><span class="n">paper</span>
+</pre></div>
+</div>
+<p>You can then bring down the network with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">network</span><span class="o">-</span><span class="n">clean</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>This command will bring down the peers, CouchDB containers, and ordering node of the network, in addition to the logspout tool. It will also remove the identities that we created for Isabella and Balaji. Note that all of the data on the ledger will be lost. If you want to go through the tutorial again, you will start from a clean initial state.</p>
+</div>
+<div class="section" id="further-reading">
+<span id="further-reading"></span><h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>To understand how applications and smart contracts shown in this tutorial work
+in more detail, you’ll find it helpful to read
+<a class="reference external" href="../developapps/developing_applications.html">Developing Applications</a>. This
+topic will give you a fuller explanation of the commercial paper scenario, the
+PaperNet business network, its actors, and how the applications and smart
+contracts they use work in detail.</p>
+<p>Also feel free to use this sample to start creating your own applications and
+smart contracts!</p>
+<!--- Licensed under Creative Commons Attribution 4.0 International License
+https://creativecommons.org/licenses/by/4.0/ --></div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../private_data_tutorial.html" class="btn btn-neutral float-right" title="Using Private Data in Fabric" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../write_first_app.html" class="btn btn-neutral" title="Writing Your First Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'master',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

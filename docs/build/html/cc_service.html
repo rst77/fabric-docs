@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Chaincode as an external service &mdash; hyperledger-fabricdocs master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
+        <link rel="up" title="Operations Guides" href="ops_guide.html"/>
+        <link rel="next" title="Error handling" href="error-handling.html"/>
+        <link rel="prev" title="External Builders and Launchers" href="cc_launcher.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+
+          
+            <a href="index.html" class="icon icon-home"> hyperledger-fabricdocs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                master
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+<br><img style="background-color: #fff; height: unset; width: unset;" alt="Hyperledger Fabric" src=_images/hyperledger_fabric_logo_color.png />
+<br>
+<a href="https://github.com/hyperledger/fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="GitHub" src="_static/images/github_button.png"/></a>
+&nbsp;<a href="https://stackoverflow.com/questions/tagged/hyperledger-fabric"><img style="padding: 0px; margin: auto auto auto auto;" alt="StackOverflow" src="_static/images/stackoverflow_button.png"/></a>
+&nbsp;<a href="https://chat.hyperledger.org"><img style="padding: 0px; margin: auto auto auto auto;" alt="Rocket Chat" src="_static/images/rocketchat_button.png"/></a>
+&nbsp;<a href="https://www.youtube.com/playlist?list=PL0MZ85B_96CH7wvtrRzV7SvtRY0sI0DEg"><img style="padding: 0px; margin: auto auto auto auto;" alt="Youtube Channel" src="_static/images/youtube_button.png"/></a>
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="whatis.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html#release-notes">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developapps/developing_applications.html">Developing Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment_guide_overview.html">Deploying a production network</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ops_guide.html">Operations Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="orderer_deploy.html">Setting up an ordering node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msp.html">Membership Service Providers (MSP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hsm.html">Using a Hardware Security Module (HSM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configtx.html">Channel Configuration (configtx)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endorsement-policies.html">Endorsement policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pluggable_endorsement_and_validation.html">Pluggable transaction endorsement and validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access_control.html">Access Control Lists (ACL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="idemix.html">MSP Implementation with Identity Mixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="idemixgen.html">Identity Mixer MSP configuration generator (idemixgen)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations_service.html">The Operations Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics_reference.html">Metrics Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc_launcher.html">External Builders and Launchers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Chaincode as an external service</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packaging-chaincode">Packaging chaincode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-a-peer-to-process-external-chaincode">Configuring a peer to process external chaincode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modify-the-peer-core-yaml-to-include-the-externalbuilder">Modify the peer core.yaml to include the externalBuilder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#external-builder-and-launcher-sample-scripts">External builder and launcher sample scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-chaincode-to-run-as-an-external-service">Writing chaincode to run as an external service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploying-the-chaincode">Deploying the chaincode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-chaincode-as-an-external-service">Running the chaincode as an external service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error-handling.html">Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging-control.html">Logging Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enable_tls.html">Securing Communication With Transport Layer Security (TLS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raft_configuration.html">Configuring and operating a Raft ordering service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kafka_raft_migration.html">Migrating from Kafka to Raft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kafka.html">Bringing up a Kafka-based Ordering Service</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading to the latest release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_ref.html">Commands Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fabric-FAQ.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contributions Welcome!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">Still Have Questions?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="status.html">Status</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hyperledger-fabricdocs</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="ops_guide.html">Operations Guides</a> &raquo;</li>
+        
+      <li>Chaincode as an external service</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cc_service.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="chaincode-as-an-external-service">
+<span id="chaincode-as-an-external-service"></span><h1>Chaincode as an external service<a class="headerlink" href="#chaincode-as-an-external-service" title="Permalink to this headline">¶</a></h1>
+<p>Fabric v2.0 supports chaincode deployment and execution outside of Fabric that enables users to manage a chaincode runtime independently of the peer. This facilitates deployment of chaincode on Fabric cloud deployments such as Kubernetes. Instead of building and launching the chaincode on every peer, chaincode can now run as a service whose lifecycle is managed outside of Fabric. This capability leverages the Fabric v2.0 external builder and launcher functionality which enables operators to extend a peer with programs to build, launch, and discover chaincode. Before reading this topic you should become familiar with the <a class="reference external" href="./cc_launcher.html">External Builder and Launcher</a> content.</p>
+<p>Prior to the availability of the external builders, the chaincode package content was required to be a set of source code files for a particular language which could be built and launched as a chaincode binary. The new external build and launcher functionality now allows users to optionally customize the build process. With respect to running the chaincode as an external service, the build process allows you to specify the endpoint information of the server where the chaincode is running. Hence the package simply consists of the externally running chaincode server endpoint information and TLS artifacts for secure connection. TLS is optional but highly recommended for all environments except a simple test environment.</p>
+<p>The rest of this topic describes how to configure chaincode as an external service:</p>
+<ul class="simple">
+<li><a class="reference external" href="#packaging-chaincode">Packaging chaincode</a></li>
+<li><a class="reference external" href="#configuring-a-peer-to-process-external-chaincode">Configuring a peer to process external chaincode</a></li>
+<li><a class="reference external" href="#external-builder-and-launcher-sample-scripts">External builder and launcher sample scripts</a></li>
+<li><a class="reference external" href="#writing-chaincode-to-run-as-an-external-service">Writing chaincode to run as an external service</a></li>
+<li><a class="reference external" href="#deploying-the-chaincode">Deploying the chaincode</a></li>
+<li><a class="reference external" href="#running-the-chaincode-as-an-external-service">Running the chaincode as an external service</a></li>
+</ul>
+<div class="section" id="packaging-chaincode">
+<span id="packaging-chaincode"></span><h2>Packaging chaincode<a class="headerlink" href="#packaging-chaincode" title="Permalink to this headline">¶</a></h2>
+<p>With the Fabric v2.0 chaincode lifecycle, chaincode is <a class="reference external" href="./cc_launcher.html#chaincode-packages">packaged</a> and installed in a <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> format. The following <code class="docutils literal notranslate"><span class="pre">myccpackage.tgz</span></code> archive  demonstrates the required structure:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ tar xvfz myccpackage.tgz
+metadata.json
+code.tar.gz
+</pre></div>
+</div>
+<p>The chaincode package should be used to provide two pieces of information to the external builder and launcher process</p>
+<ul class="simple">
+<li>identify if the chaincode is an external service. The <code class="docutils literal notranslate"><span class="pre">bin/detect</span></code> section describes an approach using the <code class="docutils literal notranslate"><span class="pre">metadata.json</span></code> file</li>
+<li>provide chaincode endpoint information in a <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> file placed in the release directory. The <code class="docutils literal notranslate"><span class="pre">bin/run</span></code> section describes the <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> file</li>
+</ul>
+<p>There is plenty of flexibility to gathering the above information. The sample scripts in the <a class="reference external" href="#external-builder-and-launcher-sample-scripts">External builder and launcher sample scripts</a> illustrate a simple approach to providing the information.
+As an example of flexibility, consider packaging couchdb index files (see <a class="reference external" href="couchdb_tutorial.html#add-the-index-to-your-chaincode-folder">Add the index to your chaincode folder</a>). Sample scripts below describe an approach to packaging the files into code.tar.gz.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tar cfz code.tar.gz connection.json metadata
+tar cfz $1-pkg.tgz metadata.json code.tar.gz
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-a-peer-to-process-external-chaincode">
+<span id="configuring-a-peer-to-process-external-chaincode"></span><h2>Configuring a peer to process external chaincode<a class="headerlink" href="#configuring-a-peer-to-process-external-chaincode" title="Permalink to this headline">¶</a></h2>
+<p>In this section we go over the configuration needed</p>
+<ul class="simple">
+<li>to detect if the chaincode package identifies an external chaincode service</li>
+<li>to create the <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> file in the release directory</li>
+</ul>
+<div class="section" id="modify-the-peer-core-yaml-to-include-the-externalbuilder">
+<span id="modify-the-peer-core-yaml-to-include-the-externalbuilder"></span><h3>Modify the peer core.yaml to include the externalBuilder<a class="headerlink" href="#modify-the-peer-core-yaml-to-include-the-externalbuilder" title="Permalink to this headline">¶</a></h3>
+<p>Assume the scripts are on the peer in the <code class="docutils literal notranslate"><span class="pre">bin</span></code> directory as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    &lt;fully qualified path on the peer&#39;s env&gt;
+    └── bin
+        ├── build
+        ├── detect
+        └── release
+</pre></div>
+</div>
+<p>Modify the <code class="docutils literal notranslate"><span class="pre">chaincode</span></code> stanza of the peer <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> file to include the <code class="docutils literal notranslate"><span class="pre">externalBuilders</span></code> configuration element:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">externalBuilders</span><span class="p p-Indicator">:</span>
+     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">myexternal</span>
+       <span class="l l-Scalar l-Scalar-Plain">path</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;fully qualified path on the peer&#39;s env&gt;</span>   
+</pre></div>
+</div>
+</div>
+<div class="section" id="external-builder-and-launcher-sample-scripts">
+<span id="external-builder-and-launcher-sample-scripts"></span><h3>External builder and launcher sample scripts<a class="headerlink" href="#external-builder-and-launcher-sample-scripts" title="Permalink to this headline">¶</a></h3>
+<p>To help understand what each script needs to contain to work with the chaincode as an external service, this section contains samples of  <code class="docutils literal notranslate"><span class="pre">bin/detect</span></code> <code class="docutils literal notranslate"><span class="pre">bin/build</span></code>, <code class="docutils literal notranslate"><span class="pre">bin/release</span></code>, and <code class="docutils literal notranslate"><span class="pre">bin/run</span></code> scripts.</p>
+<p><strong>Note:</strong> These samples use the <code class="docutils literal notranslate"><span class="pre">jq</span></code> command to parse json. You can run <code class="docutils literal notranslate"><span class="pre">jq</span> <span class="pre">--version</span></code> to check if you have it installed. Otherwise, install <code class="docutils literal notranslate"><span class="pre">jq</span></code> or suitably modify the scripts.</p>
+<div class="section" id="bin-detect">
+<span id="bin-detect"></span><h4>bin/detect<a class="headerlink" href="#bin-detect" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">bin/detect</span> <span class="pre">script</span></code> is responsible for determining whether or not a buildpack should be used to build a chaincode package and launch it.  For chaincode as an external service, the sample script looks for a <code class="docutils literal notranslate"><span class="pre">type</span></code> property set to <code class="docutils literal notranslate"><span class="pre">external</span></code> in the <code class="docutils literal notranslate"><span class="pre">metadata.json</span></code> file:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;external&quot;</span><span class="p">,</span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;mycc&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The peer invokes detect with two arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">detect</span> <span class="n">CHAINCODE_SOURCE_DIR</span> <span class="n">CHAINCODE_METADATA_DIR</span>
+</pre></div>
+</div>
+<p>A sample <code class="docutils literal notranslate"><span class="pre">bin/detect</span></code> script could contain:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -euo pipefail
+
+<span class="nv">METADIR</span><span class="o">=</span><span class="nv">$2</span>
+<span class="c1">#check if the &quot;type&quot; field is set to &quot;external&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="k">$(</span>jq -r .type <span class="s2">&quot;</span><span class="nv">$METADIR</span><span class="s2">/metadata.json&quot;</span><span class="k">)</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="s2">&quot;external&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">exit</span> 0
+<span class="k">fi</span>
+
+<span class="nb">exit</span> 1
+</pre></div>
+</div>
+</div>
+<div class="section" id="bin-build">
+<span id="bin-build"></span><h4>bin/build<a class="headerlink" href="#bin-build" title="Permalink to this headline">¶</a></h4>
+<p>For chaincode as an external service, the sample build script assumes the chaincode package’s <code class="docutils literal notranslate"><span class="pre">code.tar.gz</span></code> file contains <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> which it simply copies to the <code class="docutils literal notranslate"><span class="pre">BUILD_OUTPUT_DIR</span></code>. The peer invokes the build script with three arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">build</span> <span class="n">CHAINCODE_SOURCE_DIR</span> <span class="n">CHAINCODE_METADATA_DIR</span> <span class="n">BUILD_OUTPUT_DIR</span>
+</pre></div>
+</div>
+<p>A sample <code class="docutils literal notranslate"><span class="pre">bin/build</span></code> script could contain:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -euo pipefail
+
+<span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">OUTPUT</span><span class="o">=</span><span class="nv">$3</span>
+
+<span class="c1">#external chaincodes expect connection.json file in the chaincode package</span>
+<span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">/connection.json&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">/connection.json not found&quot;</span>
+    <span class="nb">exit</span> 1
+<span class="k">fi</span>
+
+<span class="c1">#simply copy the endpoint information to specified output location</span>
+cp <span class="nv">$SOURCE</span>/connection.json <span class="nv">$OUTPUT</span>/connection.json
+
+<span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$SOURCE</span><span class="s2">/metadata&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    cp -a <span class="nv">$SOURCE</span>/metadata <span class="nv">$OUTPUT</span>/metadata
+<span class="k">fi</span>
+
+<span class="nb">exit</span> 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="bin-release">
+<span id="bin-release"></span><h4>bin/release<a class="headerlink" href="#bin-release" title="Permalink to this headline">¶</a></h4>
+<p>For chaincode as an external service, the <code class="docutils literal notranslate"><span class="pre">bin/release</span></code> script is responsible for providing the <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> to the peer by placing it in the <code class="docutils literal notranslate"><span class="pre">RELEASE_OUTPUT_DIR</span></code>.  The <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> file has the following JSON structure</p>
+<ul class="simple">
+<li><strong>address</strong> - chaincode server endpoint accessible from peer. Must be specified in “<host>:<port>” format.</li>
+<li><strong>dial_timeout</strong> - interval to wait for connection to complete. Specified as a string qualified with time units (e.g, “10s”, “500ms”, “1m”). Default is “3s” if not specified.</li>
+<li><strong>tls_required</strong> - true or false. If false, “client_auth_required”, “client_key”, “client_cert”, and “root_cert” are not required. Default is “true”.</li>
+<li><strong>client_auth_required</strong> - if true, “client_key” and “client_cert” are required. Default is false. It is ignored if tls_required is false.</li>
+<li><strong>client_key</strong> - PEM encoded string of the client private key.</li>
+<li><strong>client_cert</strong>  - PEM encoded string of the client certificate.</li>
+<li><strong>root_cert</strong>  - PEM encoded string of the server (peer) root certificate.</li>
+</ul>
+<p>For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;your.chaincode.host.com:9999&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dial_timeout&quot;</span><span class="p">:</span> <span class="s2">&quot;10s&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;tls_required&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_auth_required&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_key&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN EC PRIVATE KEY----- ... -----END EC PRIVATE KEY-----&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_cert&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;root_cert&quot;</span><span class="p">:</span> <span class="s2">&quot;-----BEGIN CERTIFICATE---- ... -----END CERTIFICATE-----&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As noted in the <code class="docutils literal notranslate"><span class="pre">bin/build</span></code> section, this sample assumes the chaincode package directly contains the <code class="docutils literal notranslate"><span class="pre">connection.json</span></code> file which the build script copies to the <code class="docutils literal notranslate"><span class="pre">BUILD_OUTPUT_DIR</span></code>. The peer invokes the release script with two arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bin</span><span class="o">/</span><span class="n">release</span> <span class="n">BUILD_OUTPUT_DIR</span> <span class="n">RELEASE_OUTPUT_DIR</span>
+</pre></div>
+</div>
+<p>A sample <code class="docutils literal notranslate"><span class="pre">bin/release</span></code> script could contain:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -euo pipefail
+
+<span class="nv">BLD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="nv">RELEASE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;</span><span class="nv">$BLD</span><span class="s2">/metadata&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   cp -a <span class="s2">&quot;</span><span class="nv">$BLD</span><span class="s2">/metadata/&quot;</span>* <span class="s2">&quot;</span><span class="nv">$RELEASE</span><span class="s2">/&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1">#external chaincodes expect artifacts to be placed under &quot;$RELEASE&quot;/chaincode/server</span>
+<span class="k">if</span> <span class="o">[</span> -f <span class="nv">$BLD</span>/connection.json <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+   mkdir -p <span class="s2">&quot;</span><span class="nv">$RELEASE</span><span class="s2">&quot;</span>/chaincode/server
+   cp <span class="nv">$BLD</span>/connection.json <span class="s2">&quot;</span><span class="nv">$RELEASE</span><span class="s2">&quot;</span>/chaincode/server
+
+   <span class="c1">#if tls_required is true, copy TLS files (using above example, the fully qualified path for these fils would be &quot;$RELEASE&quot;/chaincode/server/tls)</span>
+
+   <span class="nb">exit</span> 0
+<span class="k">fi</span>
+
+<span class="nb">exit</span> 1
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-chaincode-to-run-as-an-external-service">
+<span id="writing-chaincode-to-run-as-an-external-service"></span><h2>Writing chaincode to run as an external service<a class="headerlink" href="#writing-chaincode-to-run-as-an-external-service" title="Permalink to this headline">¶</a></h2>
+<p>Currently, the chaincode as an external service model is only supported by GO chaincode shim. In Fabric v2.0, the GO shim API adds a <code class="docutils literal notranslate"><span class="pre">ChaincodeServer</span></code> type that developers should use to create a chaincode server.  The <code class="docutils literal notranslate"><span class="pre">Invoke</span></code> and <code class="docutils literal notranslate"><span class="pre">Query</span></code> APIs are unaffected. Developers should write to the <code class="docutils literal notranslate"><span class="pre">shim.ChaincodeServer</span></code> API, then build the chaincode and run it in the external environment of choice. Here is a simple sample chaincode program to illustrate the pattern:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+        <span class="s">&quot;fmt&quot;</span>
+
+        <span class="s">&quot;github.com/hyperledger/fabric-chaincode-go/shim&quot;</span>
+        <span class="nx">pb</span> <span class="s">&quot;github.com/hyperledger/fabric-protos-go/peer&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// SimpleChaincode example simple Chaincode implementation</span>
+<span class="kd">type</span> <span class="nx">SimpleChaincode</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">SimpleChaincode</span><span class="p">)</span> <span class="nx">Init</span><span class="p">(</span><span class="nx">stub</span> <span class="nx">shim</span><span class="p">.</span><span class="nx">ChaincodeStubInterface</span><span class="p">)</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Response</span> <span class="p">{</span>
+        <span class="c1">// init code</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">SimpleChaincode</span><span class="p">)</span> <span class="nx">Invoke</span><span class="p">(</span><span class="nx">stub</span> <span class="nx">shim</span><span class="p">.</span><span class="nx">ChaincodeStubInterface</span><span class="p">)</span> <span class="nx">pb</span><span class="p">.</span><span class="nx">Response</span> <span class="p">{</span>
+        <span class="c1">// invoke code</span>
+<span class="p">}</span>
+
+<span class="c1">//NOTE - parameters such as ccid and endpoint information are hard coded here for illustration. This can be passed in in a variety of standard ways</span>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+       <span class="c1">//The ccid is assigned to the chaincode on install (using the “peer lifecycle chaincode install &lt;package&gt;” command) for instance</span>
+        <span class="nx">ccid</span> <span class="o">:=</span> <span class="s">&quot;mycc:fcbf8724572d42e859a7dd9a7cd8e2efb84058292017df6e3d89178b64e6c831&quot;</span>
+
+        <span class="nx">server</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">shim</span><span class="p">.</span><span class="nx">ChaincodeServer</span><span class="p">{</span>
+                        <span class="nx">CCID</span><span class="p">:</span> <span class="nx">ccid</span><span class="p">,</span>
+                        <span class="nx">Address</span><span class="p">:</span> <span class="s">&quot;myhost:9999&quot;</span>
+                        <span class="nx">CC</span><span class="p">:</span> <span class="nb">new</span><span class="p">(</span><span class="nx">SimpleChaincode</span><span class="p">),</span>
+                        <span class="nx">TLSProps</span><span class="p">:</span> <span class="nx">shim</span><span class="p">.</span><span class="nx">TLSProperties</span><span class="p">{</span>
+                                <span class="nx">Disabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                        <span class="p">},</span>
+                <span class="p">}</span>
+        <span class="nx">err</span> <span class="o">:=</span> <span class="nx">server</span><span class="p">.</span><span class="nx">Start</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error starting Simple chaincode: %s&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The key to running the chaincode as an external service is the use of <code class="docutils literal notranslate"><span class="pre">shim.ChaincodeServer</span></code>. This uses the new shim API <code class="docutils literal notranslate"><span class="pre">shim.ChaincodeServer</span></code> with the chaincode service properties described below:</p>
+<ul class="simple">
+<li><strong>CCID</strong> (string)- CCID should match chaincode’s package name on peer. This is the <code class="docutils literal notranslate"><span class="pre">CCID</span></code> associated with the installed chaincode as returned by the <code class="docutils literal notranslate"><span class="pre">peer</span> <span class="pre">lifecycle</span> <span class="pre">chaincode</span> <span class="pre">install</span> <span class="pre">&lt;package&gt;</span></code> CLI command. This can be obtained post-install using the “peer lifecycle chaincode queryinstalled” command.</li>
+<li><strong>Address</strong> (string) - Address is the listen address of the chaincode server</li>
+<li><strong>CC</strong> (Chaincode) -  CC is the chaincode that handles Init and Invoke</li>
+<li><strong>TLSProps</strong> (TLSProperties) - TLSProps is the TLS properties passed to chaincode server</li>
+<li><strong>KaOpts</strong> (keepalive.ServerParameters) -  KaOpts keepalive options, sensible defaults provided if nil</li>
+</ul>
+<p>Then build the chaincode as suitable to your GO environment.</p>
+</div>
+<div class="section" id="deploying-the-chaincode">
+<span id="deploying-the-chaincode"></span><h2>Deploying the chaincode<a class="headerlink" href="#deploying-the-chaincode" title="Permalink to this headline">¶</a></h2>
+<p>When the GO chaincode is ready for deployment, you can package the chaincode as explained in the <a class="reference external" href="#packaging-chaincode">Packaging chaincode</a> section and deploy the chaincode as explained in the <a class="reference external" href="./chaincode_lifecycle.html">Fabric chaincode lifecycle</a> concept topic.</p>
+</div>
+<div class="section" id="running-the-chaincode-as-an-external-service">
+<span id="running-the-chaincode-as-an-external-service"></span><h2>Running the chaincode as an external service<a class="headerlink" href="#running-the-chaincode-as-an-external-service" title="Permalink to this headline">¶</a></h2>
+<p>Create the chaincode as specified in the <a class="reference external" href="#writing-chaincode-to-run-as-an-external-service">Writing chaincode to run as an external service</a> section. Run the built executable in your environment of choice, such as Kubernetes or directly as a process on the peer machine.</p>
+<p>Using this chaincode as an external service model, installing the chaincode on each peer is no longer required. With the chaincode endpoint deployed to the peer instead and the chaincode running, you can continue the normal process of committing the
+chaincode definition to the channel and invoking the chaincode.</p>
+<!---
+Licensed under Creative Commons Attribution 4.0 International License https://creativecommons.org/licenses/by/4.0/
+--></div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="error-handling.html" class="btn btn-neutral float-right" title="Error handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cc_launcher.html" class="btn btn-neutral" title="External Builders and Launchers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'master',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
