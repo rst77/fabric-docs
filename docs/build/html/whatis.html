@@ -105,8 +105,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introdução</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#hyperledger-fabric">Hyperledger Fabric</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#modularidade">Modularidade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#blockchains-com-permissao-ou-sem-permissao">Blockchains Com Permissão ou Sem Permissão</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#smart-contracts">Smart Contracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#blockchains-permissionada-ou-nao-permissionada">Blockchains Permissionada ou Não Permissionada</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contratos-inteligentes">Contratos Inteligentes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#uma-nova-abordagem">Uma Nova Abordagem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#privacidade-e-confidencialidade">Privacidade e Confidencialidade</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#consenso-conectavel">Consenso Conectável</a></li>
@@ -117,7 +117,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html#release-notes">Release notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Conceitos Chaves</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developapps/developing_applications.html">Developing Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
@@ -197,29 +197,32 @@
             
   <div class="section" id="introducao">
 <span id="introducao"></span><h1>Introdução<a class="headerlink" href="#introducao" title="Permalink to this headline">¶</a></h1>
-<p>Em termos gerais, blockchain é um sistema de livro-razão com registros imutáveis,
-mantido em uma rede distribuída por múltiplos nós pares (<em>peer nodes</em>). Esses nós
-mantêm uma cópia do livro-razão contendo as transações que foram validadas por
-um protocolo de consenso e agrupadas em blocos que inclue um hash que liga cada
-bloco ao bloco anterior.</p>
+<p>Em termos gerais, blockchain é um sistema de livro-razão com registros
+imutáveis, mantido em uma rede distribuída por múltiplos nós pares
+(<em>peer nodes</em>). Esses nós mantêm uma cópia do livro-razão contendo as
+transações que foram validadas por um protocolo de consenso e agrupadas
+em blocos que inclue um hash que liga cada bloco ao bloco anterior.</p>
 <p>A aplicação amplamente reconhecida do blockchain é a criptomoeda
-<a class="reference external" href="https://en.wikipedia.org/wiki/Bitcoin">Bitcoin</a>, embora outras moedas tenham
-seguido seus passos. A Ethereum, uma criptomoeda alternativa, adotou uma abordagem
-diferente, integrando muitas das mesmas características do Bitcoin, mas
-adicionando contratos inteligentes (<em>smart contracts</em>) para criar uma plataforma
-para aplicativos distribuídos. Bitcoin e Ethereum se enquadram em uma classe de
-blockchain que classificamos como tecnologia de blockchain de permissão pública
-(<em>public permissionless</em>). Basicamente, são redes públicas, abertas a qualquer
-pessoa, onde os participantes interagem anonimamente.</p>
-<p>À medida que a popularidade do Bitcoin, Ethereum e algumas outras tecnologias
-derivadas aumentavam, o interesse em aplicar as tecnologias subjacentes do blockchain,
-como, registro distribuído e a plataforma de aplicativos distribuídos em casos
-de uso mais inovadores para <em>empresas</em> também crescia. No entanto, muitos casos
-de uso corporativos exigem características de desempenho que as tecnologias blockchain
-sem permissão não conseguem (atualmente) atender. Além disso, em muitos casos de
-uso, a identidade dos participantes é um requisito obrigatório, como no caso de
-transações financeiras, onde é obrigatório conhecer o consumidor
-(<em>Know-Your-Customer - KYC</em>) e regras antí-lavagem de dinheiro devem ser seguidas
+<a class="reference external" href="https://en.wikipedia.org/wiki/Bitcoin">Bitcoin</a>, embora outras moedas
+tenham seguido seus passos. A Ethereum, uma criptomoeda alternativa,
+adotou uma abordagem diferente, integrando muitas das características
+do Bitcoin, mas adicionando contratos inteligentes (<em>smart contracts</em>)
+para criar uma plataforma para aplicativos distribuídos. Bitcoin e
+Ethereum se enquadram em uma classe de blockchain que classificamos
+como tecnologia de blockchain pública não permissionada
+(<em>public permissionless</em>). Basicamente, são redes públicas, abertas a
+qualquer pessoa, onde os participantes interagem anonimamente.</p>
+<p>À medida que a popularidade do Bitcoin, Ethereum e algumas outras
+tecnologias derivadas aumentavam, o interesse em aplicar as tecnologias
+subjacentes do blockchain, como, registro distribuído e a plataforma
+de aplicativos distribuídos em casos de uso mais inovadores para
+<em>empresas</em> também crescia. No entanto, muitos casos de uso corporativos
+exigem características de desempenho que as tecnologias blockchain
+sem permissão não conseguem (atualmente) atender. Além disso, em
+muitos casos de uso, a identidade dos participantes é um requisito
+obrigatório, como no caso de transações financeiras, onde é
+obrigatório conhecer o consumidor (<em>Know-Your-Customer - KYC</em>) e
+regras antí-lavagem de dinheiro devem ser seguidas
 (<em>Anti-Money Laundering - AML</em>).</p>
 <p>Para uso corporativo, precisamos considerar os seguintes requisitos:</p>
 <ul class="simple">
@@ -227,62 +230,66 @@ transações financeiras, onde é obrigatório conhecer o consumidor
 <li>As redes precisam ser <em>permissionadas</em></li>
 <li>Alta performance nas transações</li>
 <li>Baixa latência na confirmação das transações</li>
-<li>Privacidade e confidencialidade nas transações e nos dados referentes as
-transações comerciais</li>
+<li>Privacidade e confidencialidade nas transações e nos dados
+referentes as transações comerciais</li>
 </ul>
-<p>Embora muitas plataformas de blockchain antigas estejam sendo <em>adaptadas</em> para
-uso corporativo, o Hyperledger Fabric foi <em>projetado</em> para uso corporativo
-desde o início. As seções a seguir descrevem como o Hyperledger Fabric
-(Fabric) se diferencia de outras plataformas de blockchain e descreve algumas
-das motivações para suas decisões de arquitetura.</p>
+<p>Embora muitas plataformas de blockchain antigas estejam sendo
+<em>adaptadas</em> para uso corporativo, a Hyperledger Fabric foi <em>projetada</em>
+para uso corporativo desde o início. As seções a seguir descrevem como
+a Hyperledger Fabric (Fabric) se diferencia de outras plataformas de
+blockchain e descreve algumas das motivações para suas decisões de
+arquitetura.</p>
 <div class="section" id="hyperledger-fabric">
 <span id="hyperledger-fabric"></span><h2>Hyperledger Fabric<a class="headerlink" href="#hyperledger-fabric" title="Permalink to this headline">¶</a></h2>
-<p>O Hyperledger Fabric é uma plataforma de tecnologia de livro-razão
-distribuído (Distributed Ledger Technology - DLT) de nível empresarial e código
-aberto, projetada para uso em ambientes empresariais e que fornece alguns
-recursos diferenciados importantes em relação a outras plataformas populares de
-livro-razão distribuído ou blockchain.</p>
-<p>Um ponto chave de diferenciação é que o Hyperledger foi estabelecido sob a Linux
-Foundation, que possui uma história longa e muito bem-sucedida de fomentar
-projetos de código aberto sob <strong>governança aberta</strong> que desenvolvem
-comunidades sustentáveis fortes e ecossistemas prósperos. O Hyperledger é
-governado por um comitê de direção técnica diversificada e o projeto Hyperledger
-Fabric por um conjunto diversificado de mantenedores de várias organizações.
-Tem uma comunidade de desenvolvimento que ultrapassa 35 organizações e
+<p>A Hyperledger Fabric é uma plataforma de tecnologia de livro-razão
+distribuído (Distributed Ledger Technology - DLT) de nível empresarial
+e código aberto, projetada para uso em ambientes empresariais e que
+fornece alguns recursos diferenciados importantes em relação a outras
+plataformas populares de livro-razão distribuído ou blockchain.</p>
+<p>Um ponto chave de diferenciação é que o Hyperledger foi estabelecido
+sob a Linux Foundation, que possui uma longa e muito bem-sucedida
+história de fomentar projetos de código aberto sob
+<strong>governança aberta</strong>, que desenvolvem comunidades sustentáveis fortes
+e ecossistemas prósperos. A Hyperledger é governada por um comitê de
+direção técnica diversificada e o projeto Hyperledger Fabric por um
+conjunto diversificado de mantenedores de várias organizações. Tem uma
+comunidade de desenvolvimento que ultrapassa 35 organizações e
 quase 200 desenvolvedores desde suas primeiras versões.</p>
-<p>A Fabric possui uma arquitetura altamente <strong>modular</strong> e <strong>configurável</strong>,
-permitindo inovação, versatilidade e otimização para uma ampla gama de casos de
-uso da indústria, incluindo bancos, finanças, seguros, assistência médica,
-recursos humanos, cadeia de suprimentos e até distribuição de música digital.</p>
-<p>A Fabric, é a primeira plataforma de livro-razão distribuído a suportar
-<strong>contratos inteligentes criados em linguagens de programação de uso geral</strong>
-como Java, Go e Node.js, em vez de linguagens específicas de domínio restrito
-(Domain-specific Languages - DSL). Isso significa que a maioria das empresas já
-possui o conjunto de habilidades necessárias para desenvolver contratos
-inteligentes e não é necessário treinamento adicional para aprender um novo
+<p>A Fabric possui uma arquitetura altamente <strong>modular</strong> e
+<strong>configurável</strong>, permitindo inovação, versatilidade e otimização para
+uma ampla gama de casos de uso da indústria, incluindo bancos,
+finanças, seguros, assistência médica, recursos humanos, cadeia de
+suprimentos e até distribuição de música digital.</p>
+<p>A Fabric, é a primeira plataforma de livro-razão distribuído a
+suportar <strong>contratos inteligentes criados em linguagens de programação
+de uso geral</strong> como Java, Go e Node.js, em vez de linguagens
+específicas de domínio restrito (Domain-specific Languages - DSL).
+Isso significa que a maioria das empresas já possui o conjunto de
+habilidades necessárias para desenvolver contratos inteligentes e não
+é necessário treinamento adicional para aprender um novo
 idioma ou DSL.</p>
 <p>A plataforma Fabric também é <strong>permissionada</strong>, o que significa que,
 diferente de uma rede pública, sem identificação, os participantes são
-conhecidos uns pelos outros, em vez de anônimos, e <em>totalmente</em> não
+conhecidos uns pelos outros, em vez de anônimos e <em>totalmente</em> não
 confiáveis. Isso significa que, embora os participantes não confiem
 plenamente uns nos outros (eles podem, por exemplo, ser concorrentes
 no mesmo mercado), uma rede pode ser operada sob um modelo de
 governança baseada na confiança que <em>existe</em> entre os participantes,
 como um contrato ou modelo para reger divergências.</p>
 <p>Um dos diferenciais mais importantes da plataforma é o suporte aos
-<strong>protocolos de consenso plugáveis</strong> o que permite que a plataforma
+<strong>protocolos de consenso conectáveis</strong>, o que permite que a plataforma
 seja mais customizável e atenda modelos de confiança e casos de uso
-específicos. Paro exemplo, quando implantado em uma única empresa ou
-operado por uma autoridade confiável, consenso bizantino tolerante a
-falhas pode ser considerado desnecessário pois impacta na performance
+específicos. Por exemplo, quando implantado em uma única empresa, ou
+operado por uma autoridade confiável, consenso tolerante a falha
+bizantina pode ser considerado desnecessário pois impacta na performance
 e na taxa de transferência de dados. Em situações assim, um protocolo
-de consenso <a class="reference external" href="https://en.wikipedia.org/wiki/Fault_tolerance">Tolerante a Falhas por Quebras</a> (CFT)
+de consenso <a class="reference external" href="https://en.wikipedia.org/wiki/Fault_tolerance">tolerante a falhas</a> (CFT)
 pode ser mais do que adequado, enquanto que, em caso de uso
 descentralizado, um método mais tradicional de consenso com um
-protocolo <a class="reference external" href="https://en.wikipedia.org/wiki/Byzantine_fault_tolerance">Bizantino de Tolerância a Falhas</a>
+protocolo <a class="reference external" href="https://en.wikipedia.org/wiki/Byzantine_fault_tolerance">tolerante a falha bizantina</a>
 (BFT) pode ser necessário.</p>
 <p>A Fabric pode suportar protocolos de consenso que <strong>não se baseiam em
-criptomoeda</strong> para incentivar mineração ou para alimentar a execução
+criptomoeda</strong> para incentivar mineração ou para promover a execução
 de contratos inteligentes. Evitar uma criptomoeda reduz alguns vetores
 significativos de risco/ataque. A ausência de operações de mineração
 criptográfica significa que a plataforma pode ser implementado com
@@ -290,7 +297,7 @@ aproximadamente o mesmo custo operacional que qualquer outro sistema
 distribuído.</p>
 <p>A combinação desses recursos de design diferenciados faz da Fabric uma
 das <strong>plataformas com melhor desempenho</strong> disponíveis hoje, tanto em
-termos de processamento de transações, latência na confirmação da
+termos de processamento de transações e da latência na confirmação da
 transação, além de permitir <strong>privacidade e confidencialidade</strong> nas
 transações e nos contratos inteligentes (o que a Fabric chama
 “chaincode”) que os implementa.</p>
@@ -298,13 +305,14 @@ transações e nos contratos inteligentes (o que a Fabric chama
 </div>
 <div class="section" id="modularidade">
 <span id="modularidade"></span><h2>Modularidade<a class="headerlink" href="#modularidade" title="Permalink to this headline">¶</a></h2>
-<p>O Hyperledger Fabric foi arquitetado especificamente para ter uma
-arquitetura modular. Seja com consenso plugável, gerenciamento de
-identidade conectável protocolos como LDAP ou OpenID Connect,
+<p>A Hyperledger Fabric foi arquitetada especificamente para ter uma
+arquitetura modular. Seja com consenso conectável, gerenciamento de
+identidade conectável de protocolos como LDAP ou OpenID Connect,
 protocolos de gerenciamento de chaves ou bibliotecas criptográficas, a
 plataforma foi projetada em seu núcleo para ser configurada para
 atender à diversidade de requisitos de casos de uso corporativos.</p>
-<p>Em alto nível, o Fabric é composto pelos seguintes componentes modulares:</p>
+<p>Em alto nível, a Fabric é composta pelos seguintes componentes
+modulares:</p>
 <ul class="simple">
 <li>Um <em>serviço de pedidos</em> conectável estabelece um consenso na ordem
 das transações e depois transmite blocos aos pares.</li>
@@ -321,47 +329,49 @@ SGBDs.</li>
 <li>Ter políticas de reconhecimento e validação conectáveis e que possam
 ser configurados independentemente por cada aplicativo.</li>
 </ul>
-<p>Existe um acordo justo no setor de que não existe “um blockchain único
-para tudo”. A Hyperledger Fabric pode ser configurada de várias maneiras
-para satisfazer as diversas necessidades para vários casos de uso.</p>
+<p>Existe consenso no mercado de que não existe “um blockchain único
+para tudo”. A Hyperledger Fabric pode ser configurada de várias
+maneiras para satisfazer as diversas necessidades de vários casos de
+uso.</p>
 </div>
-<div class="section" id="blockchains-com-permissao-ou-sem-permissao">
-<span id="blockchains-com-permissao-ou-sem-permissao"></span><h2>Blockchains Com Permissão ou Sem Permissão<a class="headerlink" href="#blockchains-com-permissao-ou-sem-permissao" title="Permalink to this headline">¶</a></h2>
-<p>Em uma blockchain sem permissão, praticamente qualquer um pode
-participar e todos os participants são anônimos. Nesse contexto, não
-pode haver outra confiança senão o estado da blockchain, que antes de
-mais nada, é imutável. Para atenuar essa falta de confiança,
-blockchains sem permissão normalmente empregam uma criptomoeda nativa
-“minerada” ou taxa por transação para fornecer incentivo econômico para
-compensar os custos extraordinários na participação em uma forma de
-consenso bizantino tolerante a falhas com base na “prova de trabalho”
-(PoW).</p>
-<p>As blockchains <strong>com permissão</strong>, por outro lado, operam uma blockchain
-em um conjunto de participantes conhecidos, identificados e
-frequentemente controlados, que operam sob um modelo de governança que
-gera um certo grau de confiança. Uma blockchain com permissão fornece
-uma maneira de proteger as interações entre um grupo de entidades que
-têm um objetivo em comum, mas que podem não confiar totalmente uma na
-outra. Ao confiar nas identidades dos participantes, uma blockchain
-com permissão pode usar protocolos de consenso mais tolerantes a
-falhas de falha (CFT) ou tolerantes a falhas bizantinas (BFT) que não
-exigem mineração dispendiosa.</p>
-<p>Além disso, no contexto com permissão, o risco da introdução
+<div class="section" id="blockchains-permissionada-ou-nao-permissionada">
+<span id="blockchains-permissionada-ou-nao-permissionada"></span><h2>Blockchains Permissionada ou Não Permissionada<a class="headerlink" href="#blockchains-permissionada-ou-nao-permissionada" title="Permalink to this headline">¶</a></h2>
+<p>Em uma blockchain <strong>sem permissão</strong> (ou não permissionada), praticamente
+qualquer um pode participar e todos os participants são anônimos.
+Nesse contexto, pode não haver outra confiança senão o estado da
+blockchain, que antes de mais nada, é imutável. Para atenuar essa
+falta de confiança, blockchains não permissionadas normalmente
+empregam uma criptomoeda nativa “minerada” ou taxa por transação para
+fornecer incentivo econômico para compensar os custos extraordinários
+na participação em um protocolo de consenso bizantino tolerante a
+falhas com base na “prova de trabalho” (PoW).</p>
+<p>As blockchains <strong>com permissão</strong> (ou permissionadas), por outro lado,
+operam uma blockchain com um conjunto conhecido de participantes,
+identificados e frequentemente controlados, que operam sob um modelo
+de governança que promove um certo grau de confiança. Uma blockchain
+permissionada fornece uma maneira de proteger as interações entre um
+grupo de entidades que têm um objetivo comum, mas que podem não
+confiar totalmente uma nas outras. Ao confiar nas identidades dos
+participantes, uma blockchain permissionada pode usar protocolos de
+consenso mais tolerante a falhas (CFT) ou tolerante a falha
+bizantina (BFT), que não exigem mineração dispendiosa.</p>
+<p>Além disso, no contexto permissionado, o risco da introdução
 intencional de um código malicioso por um participante usando um
 contrato inteligente diminui. Primeiro, os participantes se conhecem e
-todas as ações, seja enviar transações de aplicativos, modificar a
-configuração da rede ou implantar um contrato inteligente, são
-registradas no blockchain, seguindo uma política de endosso que foi
-estabelecida para a rede e o tipo de transação. Por não ser
-completamente anônimo, a parte culpada pode ser facilmente identificada
-e o incidente tratado de acordo com os termos do modelo de governança.</p>
+todas suas ações, seja enviar transações, modificar a configuração da
+rede ou implantar um contrato inteligente, são registradas no
+blockchain, seguindo uma política de endosso que foi estabelecida para
+a rede e o tipo de transação. Por não ser completamente anônimo, a
+parte culpada pode ser facilmente identificada e o incidente tratado
+de acordo com as regras do modelo de governança.</p>
 </div>
-<div class="section" id="smart-contracts">
-<span id="smart-contracts"></span><h2>Smart Contracts<a class="headerlink" href="#smart-contracts" title="Permalink to this headline">¶</a></h2>
-<p>Um contrato inteligente, ou o que a Fabric chama de “chaincode”,
-funciona como um aplicativo distribuído confiável, que garante sua
-segurança/confiabilidade no blockchain e do consenso subjacente entre
-os pares. É a lógica de negócios de um aplicativo blockchain.</p>
+<div class="section" id="contratos-inteligentes">
+<span id="contratos-inteligentes"></span><h2>Contratos Inteligentes<a class="headerlink" href="#contratos-inteligentes" title="Permalink to this headline">¶</a></h2>
+<p>Um contrato inteligente (“smart contract”), o que a Fabric chama de
+“chaincode”, funciona como um aplicativo distribuído confiável, que
+garante sua segurança/confiabilidade no blockchain e do consenso
+subjacente entre os pares. É a lógica de negócios em um aplicativo
+blockchain.</p>
 <p>Existem três pontos principais que se aplicam a contratos inteligentes,
 especialmente quando aplicados a uma plataforma:</p>
 <ul class="simple">
@@ -380,9 +390,9 @@ pares,</li>
 <li>então cada par executa as transações sequencialmente.</li>
 </ul>
 <p>A arquitetura ordena-executa pode ser encontrada em praticamente todos
-os sistemas de blockchain existentes, desde plataformas públicas/sem
-permissão, como <a class="reference external" href="https://ethereum.org/">Ethereum</a> (com consenso baseado
-em PoW), como em plataformas com permissão, como
+os sistemas de blockchain existentes, desde plataformas públicas/não
+permissionada, como na <a class="reference external" href="https://ethereum.org/">Ethereum</a> (com consenso
+baseado em PoW), como em plataformas permissionadas como
 <a class="reference external" href="http://tendermint.com/">Tendermint</a>, <a class="reference external" href="http://chain.com/">Cadeia</a> e
 <a class="reference external" href="http://www.jpmorgan.com/global/Quorum">Quorum</a>.</p>
 <p>Os contratos inteligentes executados em uma blockchain que opera com
@@ -392,15 +402,15 @@ problema do não determinismo, muitas plataformas exigem que os contratos
 inteligentes sejam escritos em um idioma não padrão ou específico do
 domínio (como <a class="reference external" href="https://solidity.readthedocs.io/en/v0.4.23/">Solidity</a>)
 para que operações não determinísticas possam ser eliminadas. Isso
-dificulta uma ampla adoção, pois requer que os desenvolvedores
-aprendam uma nova linguagem para escrever os contratos inteligentes, o
-que pode levar a erros de programação.</p>
-<p>Além disso, como todas as transações são executadas seqüencialmente
+dificulta uma ampla adoção dessas plataformas, pois requer que os
+desenvolvedores aprendam uma nova linguagem para escrever os contratos
+inteligentes, o que pode levar a erros de programação.</p>
+<p>Além disso, como todas as transações são executadas sequencialmente
 por todos os nós, o desempenho e a escala são limitados. O fato de o
 código do contrato inteligente ser executado em todos os nós do sistema
 exige que medidas complexas sejam tomadas para proteger o sistema como
 um todo contra contratos potencialmente maliciosos, a fim de garantir
-a resiliência do sistema como um todo.</p>
+a resiliência do sistema.</p>
 </div>
 <div class="section" id="uma-nova-abordagem">
 <span id="uma-nova-abordagem"></span><h2>Uma Nova Abordagem<a class="headerlink" href="#uma-nova-abordagem" title="Permalink to this headline">¶</a></h2>
@@ -428,20 +438,21 @@ paralela, aumentando o desempenho geral e a escala do sistema. Essa
 primeira fase também <strong>elimina qualquer não-determinismo</strong>, pois os
 resultados inconsistentes podem ser filtrados antes do pedido.</p>
 <p>Como eliminamos o não determinismo, a Fabric é a primeira tecnologia
-blockchain que <strong>permite o uso de linguagens de programação padrão</strong>.</p>
+blockchain que <strong>permite o uso de linguagens de programação de
+mercado</strong>.</p>
 </div>
 <div class="section" id="privacidade-e-confidencialidade">
 <span id="privacidade-e-confidencialidade"></span><h2>Privacidade e Confidencialidade<a class="headerlink" href="#privacidade-e-confidencialidade" title="Permalink to this headline">¶</a></h2>
-<p>Como discutimos, em uma rede pública de blockchain sem permissão que
-aproveita o PoW para seu modelo de consenso, as transações são
+<p>Como discutimos, em uma rede pública de blockchain não permissionada
+que aproveita o PoW para seu modelo de consenso, as transações são
 executadas em todos os nós. Isso significa que pode não haver
 confidencialidade nos contratos, nem nos dados de transação que eles
 processam. Toda transação e o código que a implementa são visíveis para
 todos os nós da rede. Nesse caso, trocamos a confidencialidade do
-contrato e dos dados por consenso bizantino tolerante a falhas
+contrato e dos dados por consenso tolerante a falha bizantina
 fornecido pela prova de trabalho (PoW).</p>
 <p>Essa falta de confidencialidade pode ser problemática para muitos casos
-de uso de negócios/empresa. Por exemplo, em uma rede de parceiros da
+de uso de negócios/empresas. Por exemplo, em uma rede de parceiros da
 cadeia de suprimentos, alguns consumidores podem receber taxas
 preferenciais como meio de solidificar um relacionamento ou promover
 vendas adicionais. Se todo participante puder ver todos os contratos e
@@ -449,15 +460,15 @@ transações, torna-se impossível manter essas relações comerciais em
 uma rede completamente transparente — todo mundo vai querer as
 tarifas preferenciais!</p>
 <p>Como segundo exemplo, considere o setor de valores mobiliários, onde
-um trader que constrói uma posição (ou se desfaz de uma) não gostaria
+um trader que constrói uma posição (ou se desfaz de uma) e não gostaria
 que seus concorrentes soubessem disso, ou então eles tentariam entrar
 no jogo, enfraquecendo a aposta do trader.</p>
 <p>Para abordar a falta de privacidade e confidencialidade e com o
 objetivo de atender aos requisitos de casos de uso corporativos, as
 plataformas blockchain adotaram uma variedade de abordagens. E todas
 têm seus prós e contras.</p>
-<p>Criptografar dados é uma abordagem para fornecer confidencialidade; no
-entanto, em uma rede sem permissão que utiliza a prova de trabalho
+<p>Criptografar dados é uma abordagem para fornecer confidencialidade, no
+entanto, em uma rede não permissionada que utiliza a prova de trabalho
 (PoW) no seu consenso, os dados criptografados estão em todos os nós.
 Com tempo e recursos computacionais suficientes, a criptografia pode
 ser quebrada. Para muitos casos de uso corporativo, o risco de suas
@@ -467,10 +478,10 @@ sendo explorada para resolver esse problema, o trade-off aqui é que,
 atualmente, computar um ZKP requer tempo e recursos computacionais
 consideráveis. Portanto, o compromisso neste caso é o desempenho por
 confidencialidade.</p>
-<p>Em um contexto com permissão, pode se alavancar formas alternativas de
-consenso, pode-se explorar abordagens que restrinja a distribuição de
+<p>Em um contexto permissionado, pode se alavancar formas alternativas de
+consenso, pode-se explorar abordagens que restrinjam a distribuição de
 informações confidenciais exclusivamente a nós autorizados.</p>
-<p>A Hyperledger Fabric, por ser uma plataforma com permissão, permite a
+<p>A Hyperledger Fabric, por ser uma plataforma permissionada, permite a
 confidencialidade por meio de sua arquitetura de canal e o recurso de
 <a class="reference external" href="./private-data/private-data.html">dados privados</a>. Nos canais, os
 participantes de uma rede Fabric estabelecem uma sub-rede na qual cada
@@ -484,7 +495,7 @@ canais sem a sobrecarga operacional de criar e manter um canal separado.</p>
 <div class="section" id="consenso-conectavel">
 <span id="consenso-conectavel"></span><h2>Consenso Conectável<a class="headerlink" href="#consenso-conectavel" title="Permalink to this headline">¶</a></h2>
 <p>A ordem das transações é delegada a um componente modular de consenso
-que é logicamente desacoplado dos pares que executam transações e
+que é logicamente desacoplado dos pares que executam as transações e
 mantêm o livro-razão. Especificamente, o serviço de pedidos. Como o
 consenso é modular, sua implementação pode ser adaptada à necessidade
 de confiança de uma implantação ou solução específica. Essa arquitetura
@@ -505,7 +516,7 @@ de diferentes aplicativos.</p>
 <p>O desempenho de uma plataforma de blockchain pode ser afetado por
 inúmeras variáveis, como, tamanho da transação, tamanho do bloco,
 tamanho da rede, bem como limites do hardware, etc. O
-<a class="reference external" href="https://wiki.hyperledger.org/display/PSWG/Performance+and+Scale+Working+Group">grupo de trabalho de Performance e Escalabilidade</a>
+<a class="reference external" href="https://wiki.hyperledger.org/display/PSWG/Performance+and+Scale+Working+Group">Grupo de Trabalho de Performance e Escalabilidade</a>
 da Hyperledger Fabric atualmente trabalha em um modelo de performance
 chamado <a class="reference external" href="https://wiki.hyperledger.org/projects/caliper">Hyperledger Caliper</a>.</p>
 <p>Vários trabalhos de pesquisa foram publicados estudando e testando os
@@ -520,16 +531,21 @@ Hyperledger Fabric em sua lista final.</p>
 altamente escalável para blockchains com permissão, oferece suporte a
 assunções de confiança flexíveis que permitem à plataforma suportar
 uma ampla variedade de casos de uso da indústria, desde governo,
-finanças, logística da cadeia de suprimentos, saúde e assim por diante,
-e muito mais.</p>
-<p>A Hyperledger Fabric é o projeto mais da Hyperledger. A construção da
-comunidade em torno da plataforma está crescendo constantemente, e a
-inovação oferecida a cada lançamento ultrapassa em muito qualquer das
-outras plataformas corporativas de blockchain.</p>
+finanças, logística da cadeia de suprimentos, saúde e muito mais.</p>
+<p>A Hyperledger Fabric é um dos projetos mais ativos da Hyperledger.
+A construção da comunidade em torno da plataforma está crescendo
+constantemente, e a inovação oferecida a cada lançamento ultrapassa em
+muito qualquer das outras plataformas corporativas de blockchain.</p>
 </div>
 <div class="section" id="agradecimento">
 <span id="agradecimento"></span><h2>Agradecimento<a class="headerlink" href="#agradecimento" title="Permalink to this headline">¶</a></h2>
-<p>O precedente é derivado da revisão por pares <a class="reference external" href="https://dl.acm.org/doi/10.1145/3190508.3190538">“Hyperledger Fabric: um sistema operacional distribuído para blockchains permitidos”</a> - Elli Androulaki, Artem Barger, Vita Bortnikov, Christian Cachin, Konstantinos Christidis, Angelo De Caro, David Enyeart, Christopher Ferris, Gennady Laventman, Yacov Manevich, Srinivasan Muralidharan, Chet Murthy, Binh Nguyen, Manish Sethi, Gari Singh, Keith Smith, Alessandro Sorniotti, Chrysoula Stathakopoul, Mark Smith Jason Yellick Cocco</p>
+<p>Esse conteúdo é derivado da revisão por pares
+<a class="reference external" href="https://dl.acm.org/doi/10.1145/3190508.3190538">“Hyperledger Fabric: um sistema operacional distribuído para blockchains permitidos”</a> - Elli Androulaki, Artem Barger, Vita Bortnikov, Christian Cachin,
+Konstantinos Christidis, Angelo De Caro, David Enyeart, Christopher
+Ferris, Gennady Laventman, Yacov Manevich, Srinivasan Muralidharan,
+Chet Murthy, Binh Nguyen, Manish Sethi, Gari Singh, Keith Smith,
+Alessandro Sorniotti, Chrysoula Stathakopoul, Mark Smith Jason Yellick
+Cocco</p>
 </div>
 </div>
 
