@@ -160,9 +160,8 @@ ele é **privado** e **permissionado**. Em vez de um sistema aberto e
 não permissionado, que permite que identidades desconhecidas 
 participem da rede (exigindo protocolos como "prova de trabalho" para 
 validar transações e proteger a rede), os membros de uma rede
-Hyperledger Fabric se registram por meio de um provedor de serviços 
-**serviço Provedor de Associação Membership Membership (Membership 
-Service Provider - MSP)**.
+Hyperledger Fabric se registram por meio de um **Provedor de Serviço de 
+Associação** (Membership Service Provider - MSP).
 
 A Hyperledger Fabric também oferece várias opções conectáveis. Os 
 dados do livro-razão podem ser armazenados em vários formatos, os 

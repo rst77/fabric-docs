@@ -110,9 +110,10 @@ Chaincode
 See Smart-Contract_.
 
 .. _Channel:
+.. _Canal:
 
-Channel
--------
+Canal (Channel)
+---------------
 
 .. figure:: ./glossary/glossary.channel.png
    :scale: 30 %
@@ -402,8 +403,8 @@ See Organization_.
 
 .. _MSP:
 
-Membership Service Provider
----------------------------
+Provedor de Serviço de Associação
+---------------------------------
 
 .. figure:: ./glossary/glossary.msp.png
    :scale: 35 %

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hyperledger Fabric Model &mdash; hyperledger-fabricdocs master documentation</title>
+  <title>Modelo Hyperledger Fabric &mdash; hyperledger-fabricdocs master documentation</title>
   
 
   
@@ -38,9 +38,9 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
-        <link rel="up" title="Key Concepts" href="key_concepts.html"/>
+        <link rel="up" title="Principais Conceitos" href="key_concepts.html"/>
         <link rel="next" title="Blockchain network" href="network/network.html"/>
-        <link rel="prev" title="Introduction" href="blockchain.html"/> 
+        <link rel="prev" title="Introdução" href="blockchain.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -106,15 +106,15 @@
 <li class="toctree-l1"><a class="reference internal" href="whatis.html">Introdução</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html#release-notes">Release notes</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="key_concepts.html">Key Concepts</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="blockchain.html">Introduction</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Hyperledger Fabric Model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#assets">Assets</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="key_concepts.html">Principais Conceitos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="blockchain.html">Introdução</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Modelo Hyperledger Fabric</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ativos-assets">Ativos (Assets)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#chaincode">Chaincode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ledger-features">Ledger Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#privacy">Privacy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-membership-services">Security &amp; Membership Services</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#consensus">Consensus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#livro-razao-ledger">Livro-Razão (Ledger)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#privacidade">Privacidade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#servicos-de-seguranca-e-associacao">Serviços de Segurança e Associação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#consenso">Consenso</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="network/network.html">Blockchain network</a></li>
@@ -189,9 +189,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-          <li><a href="key_concepts.html">Key Concepts</a> &raquo;</li>
+          <li><a href="key_concepts.html">Principais Conceitos</a> &raquo;</li>
         
-      <li>Hyperledger Fabric Model</li>
+      <li>Modelo Hyperledger Fabric</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,148 +210,160 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="hyperledger-fabric-model">
-<h1>Hyperledger Fabric Model<a class="headerlink" href="#hyperledger-fabric-model" title="Permalink to this headline">¶</a></h1>
-<p>This section outlines the key design features woven into Hyperledger Fabric that
-fulfill its promise of a comprehensive, yet customizable, enterprise blockchain solution:</p>
+  <div class="section" id="modelo-hyperledger-fabric">
+<h1>Modelo Hyperledger Fabric<a class="headerlink" href="#modelo-hyperledger-fabric" title="Permalink to this headline">¶</a></h1>
+<p>Esta seção descreve os principais recursos de design incorporados a Hyperledger
+Fabric que cumprem sua promessa de uma solução blockchain corporativa abrangente,
+mas personalizável:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#assets"><span class="std std-ref">Assets</span></a> — Asset definitions enable the exchange of almost anything with
-monetary value over the network, from whole foods to antique cars to currency
-futures.</li>
-<li><a class="reference internal" href="glossary.html#chaincode"><span class="std std-ref">Chaincode</span></a> — Chaincode execution is partitioned from transaction ordering,
-limiting the required levels of trust and verification across node types, and
-optimizing network scalability and performance.</li>
-<li><a class="reference internal" href="#ledger-features"><span class="std std-ref">Ledger Features</span></a> — The immutable, shared ledger encodes the entire
-transaction history for each channel, and includes SQL-like query capability
-for efficient auditing and dispute resolution.</li>
-<li><a class="reference internal" href="#privacy"><span class="std std-ref">Privacy</span></a> — Channels and private data collections enable private and
-confidential multi-lateral transactions that are usually required by
-competing businesses and regulated industries that exchange assets on a common
-network.</li>
-<li><a class="reference internal" href="#security-membership-services"><span class="std std-ref">Security &amp; Membership Services</span></a> — Permissioned membership provides a
-trusted blockchain network, where participants know that all transactions can
-be detected and traced by authorized regulators and auditors.</li>
-<li><a class="reference internal" href="glossary.html#consensus"><span class="std std-ref">Consensus</span></a> — A unique approach to consensus enables the
-flexibility and scalability needed for the enterprise.</li>
+<li><a class="reference internal" href="#ativos"><span class="std std-ref">Ativos (Assets)</span></a> — Ativos permitem a troca de quase tudo com valor monetário na
+rede, de alimentos integrais, a carros antigos e futuros de moeda.</li>
+<li><a class="reference internal" href="#chaincode"><span class="std std-ref">Chaincode</span></a> — A execução do chaincode é particionado pela ordem das
+transações, limitando os níveis necessários de confiança e verificação nos
+nós e otimizando a escalabilidade e o desempenho da rede.</li>
+<li><a class="reference internal" href="#livro-razao"><span class="std std-ref">Livro-Razão (Ledger)</span></a> — O livro-razão imutável compartilhado codifica todo
+o histórico de transações de cada canal e inclui recursos de consulta
+semelhantes a SQL para auditoria eficiente e resolução de disputas.</li>
+<li><a class="reference internal" href="#privacidade"><span class="std std-ref">Privacidade</span></a> — Canais e dados privados permitem transações
+multilaterais privadas e confidenciais, geralmente exigidas por empresas
+concorrentes e indústrias reguladas que trocam ativos em uma rede comum.</li>
+<li><a class="reference internal" href="#servicos-seguranca-associacao"><span class="std std-ref">Serviços de Segurança e Associação</span></a> — A associação permissionada fornece
+uma rede blockchain confiável, na qual os participantes sabem que todas as
+transações podem ser detectadas e rastreadas por reguladores e auditores
+autorizados.</li>
+<li><a class="reference internal" href="#consenso"><span class="std std-ref">Consenso</span></a> — Uma abordagem única para o consenso permite a flexibilidade
+e a escalabilidade necessárias para a empresa.</li>
 </ul>
-<div class="section" id="assets">
-<span id="id1"></span><h2>Assets<a class="headerlink" href="#assets" title="Permalink to this headline">¶</a></h2>
-<p>Assets can range from the tangible (real estate and hardware) to the intangible
-(contracts and intellectual property).  Hyperledger Fabric provides the
-ability to modify assets using chaincode transactions.</p>
-<p>Assets are represented in Hyperledger Fabric as a collection of
-key-value pairs, with state changes recorded as transactions on a <a class="reference internal" href="glossary.html#channel"><span class="std std-ref">Channel</span></a>
-ledger.  Assets can be represented in binary and/or JSON form.</p>
+<div class="section" id="ativos-assets">
+<span id="ativos"></span><h2>Ativos (Assets)<a class="headerlink" href="#ativos-assets" title="Permalink to this headline">¶</a></h2>
+<p>Os ativos podem variar do tangível (imóveis e ferramentas) ao intangível
+(contratos e propriedade intelectual). A Hyperledger Fabric fornece a capacidade
+realizar operações nos ativos usando contratos inteligentes.</p>
+<p>Os ativos são representados na Hyperledger Fabric como uma coleção de pares de
+chave-valor, com as alterações de estado registradas como transações no
+livro-razão do <a class="reference internal" href="glossary.html#canal"><span class="std std-ref">Canal (Channel)</span></a>. Os ativos podem ser representados no formato
+binário e/ou JSON.</p>
 </div>
 <div class="section" id="chaincode">
-<span id="id2"></span><h2>Chaincode<a class="headerlink" href="#chaincode" title="Permalink to this headline">¶</a></h2>
-<p>Chaincode is software defining an asset or assets, and the transaction instructions for
-modifying the asset(s); in other words, it’s the business logic.  Chaincode enforces the rules for reading
-or altering key-value pairs or other state database information. Chaincode functions execute against
-the ledger’s current state database and are initiated through a transaction proposal. Chaincode execution
-results in a set of key-value writes (write set) that can be submitted to the network and applied to
-the ledger on all peers.</p>
+<span id="id1"></span><h2>Chaincode<a class="headerlink" href="#chaincode" title="Permalink to this headline">¶</a></h2>
+<p>Chaincode é um software que define um ativo ou ativos, e as instruções de
+transação para modificar o(s) ativo(s); em outras palavras, é a lógica de
+negócio. O Chaincode garante a aplicação das regras para ler ou alterar os pares
+de chave-valor ou outras informações do banco de dados de estado. As funções do
+Chaincode são executadas no banco de dados de estado atual do livro-razão e são
+iniciadas por meio de uma proposta de transação. O resultado da execução de um
+chaincode é um conjunto de atualizações de chave-valor que podem ser enviadas à
+rede e aplicadas ao livro-razão de todos os pares.</p>
 </div>
-<div class="section" id="ledger-features">
-<span id="id3"></span><h2>Ledger Features<a class="headerlink" href="#ledger-features" title="Permalink to this headline">¶</a></h2>
-<p>The ledger is the sequenced, tamper-resistant record of all state transitions in the fabric.  State
-transitions are a result of chaincode invocations (‘transactions’) submitted by participating
-parties.  Each transaction results in a set of asset key-value pairs that are committed to the
-ledger as creates, updates, or deletes.</p>
-<p>The ledger is comprised of a blockchain (‘chain’) to store the immutable, sequenced record in
-blocks, as well as a state database to maintain current fabric state.  There is one ledger per
-channel. Each peer maintains a copy of the ledger for each channel of which they are a member.</p>
-<p>Some features of a Fabric ledger:</p>
+<div class="section" id="livro-razao-ledger">
+<span id="livro-razao"></span><h2>Livro-Razão (Ledger)<a class="headerlink" href="#livro-razao-ledger" title="Permalink to this headline">¶</a></h2>
+<p>O livro-razão é o registro sequencial e resistente a violações de todas as
+transições de estado na Fabric. As transições de estado são resultado de
+invocações do chaincode (‘transações’) enviadas pelas partes participantes. Cada
+transação resulta em um conjunto de pares de chave-valor referente a um ativo
+que são confirmados no livro-razão quando criados, atualizados ou excluídos.</p>
+<p>O livro-razão é composto por uma cadeia de blocos (‘chain’) para armazenar o
+registro imutável e sequenciado em blocos (‘blockchain’), bem como um banco de
+dados de estado para manter o estado atual da Fabric. Há um livro-razão por
+canal. Cada par mantém uma cópia do livro-razão para cada canal do qual eles são
+membros.</p>
+<p>Alguns recursos do livro-razão da Fabric:</p>
 <ul class="simple">
-<li>Query and update ledger using key-based lookups, range queries, and composite key queries</li>
-<li>Read-only queries using a rich query language (if using CouchDB as state database)</li>
-<li>Read-only history queries — Query ledger history for a key, enabling data provenance scenarios</li>
-<li>Transactions consist of the versions of keys/values that were read in chaincode (read set) and keys/values that were written in chaincode (write set)</li>
-<li>Transactions contain signatures of every endorsing peer and are submitted to ordering service</li>
-<li>Transactions are ordered into blocks and are “delivered” from an ordering service to peers on a channel</li>
-<li>Peers validate transactions against endorsement policies and enforce the policies</li>
-<li>Prior to appending a block, a versioning check is performed to ensure that states for assets that were read have not changed since chaincode execution time</li>
-<li>There is immutability once a transaction is validated and committed</li>
-<li>A channel’s ledger contains a configuration block defining policies, access control lists, and other pertinent information</li>
-<li>Channels contain <a class="reference internal" href="glossary.html#msp"><span class="std std-ref">Membership Service Provider</span></a> instances allowing for crypto materials to be derived from different certificate authorities</li>
+<li>Consulta e atualização do livro-razão usando pesquisas baseadas em chave, consultas de intervalo e consultas com chave composta</li>
+<li>Consultas somente para leitura usando uma linguagem de consulta avançada (se estiver usando o CouchDB como banco de dados de estado)</li>
+<li>Consultas somente para leitura do histórico — Consulta do histórico do livro-razão usando por uma chave, permitindo inspecionar a proveniência de dados</li>
+<li>As transações consistem nas versões das chaves/valores que foram lidos no chaincode da chamada (conjunto de dados) e chaves/valores que foram gravados na chamada (conjunto da gravação)</li>
+<li>As transações contêm as assinaturas de todos os pares endossantes e são enviadas para o serviço de ordem</li>
+<li>As transações são ordenadas em blocos e são “entregues” por um serviço de pedidos aos pares em um canal</li>
+<li>Os pares validam transações nas políticas de endosso e fazem cumprir as políticas</li>
+<li>Antes de anexar um bloco, é realizada uma verificação da versão para garantir que os estados dos blocos ativos que foram lidos não tenham sido alterados desde o tempo de execução do chaincode</li>
+<li>Se torna imutável uma vez que uma transação é validada e confirmada</li>
+<li>O livro-razão de um canal contém um bloco de configuração que define suas políticas, listas de controle de acesso e outras informações pertinentes</li>
+<li>Os canais possuem instâncias do <a class="reference internal" href="glossary.html#msp"><span class="std std-ref">Provedor de Serviço de Associação</span></a> permitindo que a criptografia possa ser derivada de diferentes autoridades certificadoras</li>
 </ul>
-<p>See the <a class="reference internal" href="ledger.html"><span class="doc">Ledger</span></a> topic for a deeper dive on the databases, storage structure, and “query-ability.”</p>
+<p>Consulte o tópico <a class="reference internal" href="ledger.html"><span class="doc">Ledger</span></a> para obter informações mais detalhadas sobre
+bancos de dados, estrutura de armazenamento e “capacidade de consulta”.</p>
 </div>
-<div class="section" id="privacy">
-<span id="id4"></span><h2>Privacy<a class="headerlink" href="#privacy" title="Permalink to this headline">¶</a></h2>
-<p>Hyperledger Fabric employs an immutable ledger on a per-channel basis, as well as
-chaincode that can manipulate and modify the current state of assets (i.e. update
-key-value pairs).  A ledger exists in the scope of a channel — it can be shared
-across the entire network (assuming every participant is operating on one common
-channel) — or it can be privatized to include only a specific set of participants.</p>
-<p>In the latter scenario, these participants would create a separate channel and
-thereby isolate/segregate their transactions and ledger.  In order to solve
-scenarios that want to bridge the gap between total transparency and privacy,
-chaincode can be installed only on peers that need to access the asset states
-to perform reads and writes (in other words, if a chaincode is not installed on
-a peer, it will not be able to properly interface with the ledger).</p>
-<p>When a subset of organizations on that channel need to keep their transaction
-data confidential, a private data collection (collection) is used to segregate
-this data in a private database, logically separate from the channel ledger,
-accessible only to the authorized subset of organizations.</p>
-<p>Thus, channels keep transactions private from the broader network whereas
-collections keep data private between subsets of organizations on the channel.</p>
-<p>To further obfuscate the data, values within chaincode can be encrypted
-(in part or in total) using common cryptographic algorithms such as AES before
-sending transactions to the ordering service and appending blocks to the ledger.
-Once encrypted data has been written to the ledger, it can be decrypted only by
-a user in possession of the corresponding key that was used to generate the cipher
-text.</p>
-<p>See the <a class="reference internal" href="private-data-arch.html"><span class="doc">Private Data</span></a> topic for more details on how to achieve
-privacy on your blockchain network.</p>
+<div class="section" id="privacidade">
+<span id="id2"></span><h2>Privacidade<a class="headerlink" href="#privacidade" title="Permalink to this headline">¶</a></h2>
+<p>A Hyperledger Fabric emprega um livro-razão imutável por canal e também um
+código (‘chaincode’) que pode manipular e modificar o estado atual dos ativos
+(ou seja, atualizar pares de chave-valor). Um livro-razão existe no escopo de um
+canal - ele pode ser compartilhado em toda a rede (assumindo que todos os
+participantes operam em um canal comum) - ou pode ser segregado para incluir
+apenas um conjunto específico de participantes.</p>
+<p>No último cenário, o participantes criariam um canal separado e, assim,
+isolariam/segregariam suas transações e o livro-razão. Para resolver cenários
+que desejam preencher a lacuna entre total transparência e privacidade, o
+chaincode pode ser instalado apenas nos pares que precisam acessar os estados do
+ativo para executar leituras e gravações (em outras palavras, se um chaincode
+não estiver instalado em um par), ele não poderá interagir adequadamente com o
+livro-razão).</p>
+<p>Quando um subconjunto de organizações em um canal precisa manter seus dados de
+transação confidenciais, um conjunto privado de dados (coleção) é usado para
+segregar esses dados em um banco de dados privado, logicamente separando o
+livro-razão do canal, sendo acessível apenas pelo subconjunto autorizado de
+organizações.</p>
+<p>Assim, os canais mantêm as transações privadas da rede mais ampla, enquanto as
+coleções mantêm os dados privados entre subconjuntos de organizações no canal.</p>
+<p>Para ofuscar ainda mais os dados, os valores no chaincode podem ser criptografados
+(em parte ou no total) usando algoritmos criptográficos comuns, como o AES,
+antes de enviar as transações para o serviço de ordem e anexar os blocos ao
+livro-razão. Depois que os dados criptografados são gravados no razão, eles
+podem ser descriptografados apenas pelo usuário que possui a chave
+correspondente que foi usada para gerar o texto criptografado.</p>
+<p>Consulte o tópico <a class="reference internal" href="private-data-arch.html"><span class="doc">Private Data</span></a> para ter mais detalhes sobre como
+obter privacidade em sua rede blockchain.</p>
 </div>
-<div class="section" id="security-membership-services">
-<span id="id5"></span><h2>Security &amp; Membership Services<a class="headerlink" href="#security-membership-services" title="Permalink to this headline">¶</a></h2>
-<p>Hyperledger Fabric underpins a transactional network where all participants have
-known identities.  Public Key Infrastructure is used to generate cryptographic
-certificates which are tied to organizations, network components, and end users
-or client applications.  As a result, data access control can be manipulated and
-governed on the broader network and on channel levels.  This “permissioned” notion
-of Hyperledger Fabric, coupled with the existence and capabilities of channels,
-helps address scenarios where privacy and confidentiality are paramount concerns.</p>
-<p>See the <a class="reference internal" href="msp.html"><span class="doc">Membership Service Providers (MSP)</span></a> topic to better understand cryptographic
-implementations, and the sign, verify, authenticate approach used in
+<div class="section" id="servicos-de-seguranca-e-associacao">
+<span id="servicos-seguranca-associacao"></span><h2>Serviços de Segurança e Associação<a class="headerlink" href="#servicos-de-seguranca-e-associacao" title="Permalink to this headline">¶</a></h2>
+<p>A Hyperledger Fabric suporta uma rede transacional em que todos os participantes
+têm identidades conhecidas (‘permissionada’). A infraestrutura de chave pública
+é usada para gerar certificados criptográficos vinculados às organizações,
+componentes de rede e usuários finais ou aplicativos clientes. Como resultado, o
+controle de acesso a dados pode ser manipulado e controlado em uma rede ampla e
+nos níveis de canal. Essa noção “permissionada” da Hyperledger Fabric, juntamente
+com a existência e os recursos dos canais, ajuda a lidar com cenários em que a
+privacidade e a confidencialidade são preocupações fundamentais.</p>
+<p>Consulte o tópico <a class="reference internal" href="msp.html"><span class="doc">Membership Service Providers (MSP)</span></a> para entender melhor as implementações
+criptográficas e a abordagem de assinatura, verificação e autenticação usada na
 Hyperledger Fabric.</p>
 </div>
-<div class="section" id="consensus">
-<span id="id6"></span><h2>Consensus<a class="headerlink" href="#consensus" title="Permalink to this headline">¶</a></h2>
-<p>In distributed ledger technology, consensus has recently become synonymous with
-a specific algorithm, within a single function. However, consensus encompasses more
-than simply agreeing upon the order of transactions, and this differentiation is
-highlighted in Hyperledger Fabric through its fundamental role in the entire
-transaction flow, from proposal and endorsement, to ordering, validation and commitment.
-In a nutshell, consensus is defined as the full-circle verification of the correctness of
-a set of transactions comprising a block.</p>
-<p>Consensus is achieved ultimately when the order and results of a block’s
-transactions have met the explicit policy criteria checks. These checks and balances
-take place during the lifecycle of a transaction, and include the usage of
-endorsement policies to dictate which specific members must endorse a certain
-transaction class, as well as system chaincodes to ensure that these policies
-are enforced and upheld.  Prior to commitment, the peers will employ these
-system chaincodes to make sure that enough endorsements are present, and that
-they were derived from the appropriate entities.  Moreover, a versioning check
-will take place during which the current state of the ledger is agreed or
-consented upon, before any blocks containing transactions are appended to the ledger.
-This final check provides protection against double spend operations and other
-threats that might compromise data integrity, and allows for functions to be
-executed against non-static variables.</p>
-<p>In addition to the multitude of endorsement, validity and versioning checks that
-take place, there are also ongoing identity verifications happening in all
-directions of the transaction flow.  Access control lists are implemented on
-hierarchical layers of the network (ordering service down to channels), and
-payloads are repeatedly signed, verified and authenticated as a transaction proposal passes
-through the different architectural components.  To conclude, consensus is not
-merely limited to the agreed upon order of a batch of transactions; rather,
-it is an overarching characterization that is achieved as a byproduct of the ongoing
-verifications that take place during a transaction’s journey from proposal to
-commitment.</p>
-<p>Check out the <a class="reference internal" href="txflow.html"><span class="doc">Transaction Flow</span></a> diagram for a visual representation
-of consensus.</p>
+<div class="section" id="consenso">
+<span id="id3"></span><h2>Consenso<a class="headerlink" href="#consenso" title="Permalink to this headline">¶</a></h2>
+<p>Na tecnologia de livro-razão distribuído, o consenso tornou-se recentemente
+sinônimo de um algoritmo específico, dentro de uma única função. No entanto, o
+consenso abrange mais do que simplesmente concordar com a ordem das transações,
+e essa diferenciação é destacada na Hyperledger Fabric por seu papel fundamental
+em todo o fluxo da transação, desde a proposta e endosso, até a ordem, validação
+e registro. Em poucas palavras, o consenso é processo completo de verificar a
+validade e coerência de um conjunto de transações de um bloco.</p>
+<p>Finalmente, o consenso é alcançado quando a ordem e os resultados das transações
+de um bloco atendem às verificações explícitas dos critérios da política. Essas
+verificações e resultados ocorrem durante o ciclo de vida de uma transação e
+incluem o uso das políticas de endosso para determinar quais membros
+especificamente devem endossar uma determinada classe de transação, bem como
+os chaincodes que garantem que essas políticas sejam aplicadas e mantidas. Antes
+da gravação, os pares empregarão esses chaincodes para garantir há confirmações
+o suficiente dos demais pares e que elas foram derivadas das entidades
+apropriadas. Além disso, ocorrerá uma verificação da versão atual do
+livro-razão, da qual poderá ser vália ou não, antes que quaisquer blocos contendo
+transações sejam anexados ao livro-razão. Essa verificação final fornece
+proteção contra operações com registro duplicado e outras ameaças que possam
+comprometer a integridade dos dados e permite que funções sejam executadas
+em variáveis não estáticas.</p>
+<p>Além das inúmeras verificações de endosso, validade e versão que ocorrem, também
+existem verificações de identidade ativa em todas as direções do fluxo da
+transação. As listas de controle de acesso são implementadas nas camadas
+hierárquicas da rede (serviço de ordem até os canais) e os dados transferidos
+são repetidamente assinados, verificados e autenticados à medida que uma
+proposta de transação passa pelos diferentes componentes da arquitetura. Para
+concluir, o consenso não se limita apenas à ordem acordada de um lote de
+transações, pelo contrário, é uma caracterização abrangente que é obtida como um
+subproduto das verificações em andamento que ocorrem durante a jornada de uma
+transação, da proposta ao registro.</p>
+<p>Confira o diagrama <a class="reference internal" href="txflow.html"><span class="doc">Transaction Flow</span></a> para uma representação visual
+de consenso.</p>
 </div>
 </div>
 
@@ -368,7 +380,7 @@ of consensus.</p>
         <a href="network/network.html" class="btn btn-neutral float-right" title="Blockchain network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="blockchain.html" class="btn btn-neutral" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="blockchain.html" class="btn btn-neutral" title="Introdução" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -105,7 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="whatis.html">Introdução</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html#release-notes">Release notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Principais Conceitos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developapps/developing_applications.html">Developing Applications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
@@ -122,7 +122,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#block">Block</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#chain">Chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#chaincode">Chaincode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#channel">Channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#canal-channel">Canal (Channel)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#commit">Commit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#concurrency-control-version-check">Concurrency Control Version Check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-block">Configuration Block</a></li>
@@ -146,7 +146,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#ledger">Ledger</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#log-entry">Log entry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#member">Member</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#membership-service-provider">Membership Service Provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provedor-de-servico-de-associacao">Provedor de Serviço de Associação</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#membership-services">Membership Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ordering-service">Ordering Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#organization">Organization</a></li>
@@ -282,7 +282,7 @@ on a per profile basis in the “Profiles” section.</p>
 </div>
 <div class="section" id="block">
 <span id="id2"></span><h2>Block<a class="headerlink" href="#block" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id37" style="width: 40%">
+<div class="figure align-right" id="id36" style="width: 40%">
 <a class="reference internal image-reference" href="_images/glossary.block.png"><img alt="A Block" src="_images/glossary.block.png" style="width: 162.5px; height: 140.5px;" /></a>
 <p class="caption"><span class="caption-text">Block B1 is linked to block B0. Block B2 is linked to block B1.</span></p>
 </div>
@@ -294,7 +294,7 @@ are created by the ordering service, and then validated and committed by peers.<
 </div>
 <div class="section" id="chain">
 <span id="id3"></span><h2>Chain<a class="headerlink" href="#chain" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id38" style="width: 40%">
+<div class="figure align-right" id="id37" style="width: 40%">
 <a class="reference internal image-reference" href="_images/glossary.blockchain.png"><img alt="Blockchain" src="_images/glossary.blockchain.png" style="width: 160.5px; height: 138.0px;" /></a>
 <p class="caption"><span class="caption-text">Blockchain B contains blocks 0, 1, 2.</span></p>
 </div>
@@ -309,9 +309,9 @@ file system.</p>
 <span id="id4"></span><h2>Chaincode<a class="headerlink" href="#chaincode" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="#smart-contract">Smart-Contract</a>.</p>
 </div>
-<div class="section" id="channel">
-<span id="id5"></span><h2>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id39" style="width: 40%">
+<div class="section" id="canal-channel">
+<span id="canal"></span><span id="channel"></span><h2>Canal (Channel)<a class="headerlink" href="#canal-channel" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id38" style="width: 40%">
 <a class="reference internal image-reference" href="_images/glossary.channel.png"><img alt="A Channel" src="_images/glossary.channel.png" style="width: 97.5px; height: 84.89999999999999px;" /></a>
 <p class="caption"><span class="caption-text">Channel C connects application A1, peer P2 and ordering service O1.</span></p>
 </div>
@@ -323,14 +323,14 @@ a channel in order to interact with it.  Channels are defined by a
 <a class="reference internal" href="#configuration-block">Configuration-Block</a>.</p>
 </div>
 <div class="section" id="commit">
-<span id="id6"></span><h2>Commit<a class="headerlink" href="#commit" title="Permalink to this headline">¶</a></h2>
+<span id="id5"></span><h2>Commit<a class="headerlink" href="#commit" title="Permalink to this headline">¶</a></h2>
 <p>Each <a class="reference internal" href="#peer">Peer</a> on a channel validates ordered blocks of
 transactions and then commits (writes/appends) the blocks to its replica of the
 channel <a class="reference internal" href="#ledger">Ledger</a>. Peers also mark each transaction in each block
 as valid or invalid.</p>
 </div>
 <div class="section" id="concurrency-control-version-check">
-<span id="id7"></span><h2>Concurrency Control Version Check<a class="headerlink" href="#concurrency-control-version-check" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>Concurrency Control Version Check<a class="headerlink" href="#concurrency-control-version-check" title="Permalink to this headline">¶</a></h2>
 <p>Concurrency Control Version Check is a method of keeping ledger state in sync across
 peers on a channel. Peers execute transactions in parallel, and before committing
 to the ledger, peers check whether the state read at the time the transaction was executed
@@ -340,7 +340,7 @@ occurred, and the transaction is marked as invalid on the ledger and values
 are not updated in the state database.</p>
 </div>
 <div class="section" id="configuration-block">
-<span id="id8"></span><h2>Configuration Block<a class="headerlink" href="#configuration-block" title="Permalink to this headline">¶</a></h2>
+<span id="id7"></span><h2>Configuration Block<a class="headerlink" href="#configuration-block" title="Permalink to this headline">¶</a></h2>
 <p>Contains the configuration data defining members and policies for a system
 chain (ordering service) or channel. Any configuration modifications to a
 channel or overall network (e.g. a member leaving or joining) will result
@@ -348,20 +348,20 @@ in a new configuration block being appended to the appropriate chain. This
 block will contain the contents of the genesis block, plus the delta.</p>
 </div>
 <div class="section" id="consensus">
-<span id="id9"></span><h2>Consensus<a class="headerlink" href="#consensus" title="Permalink to this headline">¶</a></h2>
+<span id="id8"></span><h2>Consensus<a class="headerlink" href="#consensus" title="Permalink to this headline">¶</a></h2>
 <p>A broader term overarching the entire transactional flow, which serves to generate
 an agreement on the order and to confirm the correctness of the set of transactions
 constituting a block.</p>
 </div>
 <div class="section" id="consenter-set">
-<span id="id10"></span><h2>Consenter set<a class="headerlink" href="#consenter-set" title="Permalink to this headline">¶</a></h2>
+<span id="id9"></span><h2>Consenter set<a class="headerlink" href="#consenter-set" title="Permalink to this headline">¶</a></h2>
 <p>In a Raft ordering service, these are the ordering nodes actively participating
 in the consensus mechanism on a channel. If other ordering nodes exist on the
 system channel, but are not a part of a channel, they are not part of that
 channel’s consenter set.</p>
 </div>
 <div class="section" id="consortium">
-<span id="id11"></span><h2>Consortium<a class="headerlink" href="#consortium" title="Permalink to this headline">¶</a></h2>
+<span id="id10"></span><h2>Consortium<a class="headerlink" href="#consortium" title="Permalink to this headline">¶</a></h2>
 <p>A consortium is a collection of non-orderer organizations on the blockchain
 network. These are the organizations that form and join channels and that own
 peers. While a blockchain network can have multiple consortia, most blockchain
@@ -370,7 +370,7 @@ added to the channel must be part of a consortium. However, an organization
 that is not defined in a consortium may be added to an existing channel.</p>
 </div>
 <div class="section" id="chaincode-definition">
-<span id="id12"></span><h2>Chaincode definition<a class="headerlink" href="#chaincode-definition" title="Permalink to this headline">¶</a></h2>
+<span id="id11"></span><h2>Chaincode definition<a class="headerlink" href="#chaincode-definition" title="Permalink to this headline">¶</a></h2>
 <p>A chaincode definition is used by organizations to agree on the parameters of a
 chaincode before it can be used on a channel. Each channel member that wants to
 use the chaincode to endorse transactions or query the ledger needs to approve
@@ -382,14 +382,14 @@ the first invoke of the chaincode (or, if requested, the execution of the Init
 function) will start the chaincode on the channel.</p>
 </div>
 <div class="section" id="dynamic-membership">
-<span id="id13"></span><h2>Dynamic Membership<a class="headerlink" href="#dynamic-membership" title="Permalink to this headline">¶</a></h2>
+<span id="id12"></span><h2>Dynamic Membership<a class="headerlink" href="#dynamic-membership" title="Permalink to this headline">¶</a></h2>
 <p>Hyperledger Fabric supports the addition/removal of members, peers, and ordering service
 nodes, without compromising the operationality of the overall network. Dynamic
 membership is critical when business relationships adjust and entities need to
 be added/removed for various reasons.</p>
 </div>
 <div class="section" id="endorsement">
-<span id="id14"></span><h2>Endorsement<a class="headerlink" href="#endorsement" title="Permalink to this headline">¶</a></h2>
+<span id="id13"></span><h2>Endorsement<a class="headerlink" href="#endorsement" title="Permalink to this headline">¶</a></h2>
 <p>Refers to the process where specific peer nodes execute a chaincode transaction and return
 a proposal response to the client application. The proposal response includes the
 chaincode execution response message, results (read set and write set), and events,
@@ -398,7 +398,7 @@ Chaincode applications have corresponding endorsement policies, in which the end
 peers are specified.</p>
 </div>
 <div class="section" id="endorsement-policy">
-<span id="id15"></span><h2>Endorsement policy<a class="headerlink" href="#endorsement-policy" title="Permalink to this headline">¶</a></h2>
+<span id="id14"></span><h2>Endorsement policy<a class="headerlink" href="#endorsement-policy" title="Permalink to this headline">¶</a></h2>
 <p>Defines the peer nodes on a channel that must execute transactions attached to a
 specific chaincode application, and the required combination of responses (endorsements).
 A policy could require that a transaction be endorsed by a minimum number of
@@ -409,7 +409,7 @@ misbehavior (deliberate or not) by the endorsing peers. A transaction that is su
 must satisfy the endorsement policy before being marked as valid by committing peers.</p>
 </div>
 <div class="section" id="follower">
-<span id="id16"></span><h2>Follower<a class="headerlink" href="#follower" title="Permalink to this headline">¶</a></h2>
+<span id="id15"></span><h2>Follower<a class="headerlink" href="#follower" title="Permalink to this headline">¶</a></h2>
 <p>In a leader based consensus protocol, such as Raft, these are the nodes which
 replicate log entries produced by the leader. In Raft, the followers also receive
 “heartbeat” messages from the leader. In the event that the leader stops sending
@@ -417,12 +417,12 @@ those message for a configurable amount of time, the followers will initiate a
 leader election and one of them will be elected leader.</p>
 </div>
 <div class="section" id="genesis-block">
-<span id="id17"></span><h2>Genesis Block<a class="headerlink" href="#genesis-block" title="Permalink to this headline">¶</a></h2>
+<span id="id16"></span><h2>Genesis Block<a class="headerlink" href="#genesis-block" title="Permalink to this headline">¶</a></h2>
 <p>The configuration block that initializes the ordering service, or serves as the
 first block on a chain.</p>
 </div>
 <div class="section" id="gossip-protocol">
-<span id="id18"></span><h2>Gossip Protocol<a class="headerlink" href="#gossip-protocol" title="Permalink to this headline">¶</a></h2>
+<span id="id17"></span><h2>Gossip Protocol<a class="headerlink" href="#gossip-protocol" title="Permalink to this headline">¶</a></h2>
 <p>The gossip data dissemination protocol performs three functions:
 1) manages peer discovery and channel membership;
 2) disseminates ledger data across all peers on the channel;
@@ -437,7 +437,7 @@ The CA issues one root certificate (rootCert) to each member and one enrollment
 certificate (ECert) to each authorized user.</p>
 </div>
 <div class="section" id="init">
-<span id="id19"></span><h2>Init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h2>
+<span id="id18"></span><h2>Init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h2>
 <p>A method to initialize a chaincode application. All chaincodes need to have an
 an Init function. By default, this function is never executed. However you can
 use the chaincode definition to request the execution of the Init function in
@@ -458,7 +458,7 @@ the new Fabric chaincode lifecycle introduced as part of Fabric v2.0,
 see Chaincode-definition_.</em></p>
 </div>
 <div class="section" id="invoke">
-<span id="id20"></span><h2>Invoke<a class="headerlink" href="#invoke" title="Permalink to this headline">¶</a></h2>
+<span id="id19"></span><h2>Invoke<a class="headerlink" href="#invoke" title="Permalink to this headline">¶</a></h2>
 <p>Used to call chaincode functions. A client application invokes chaincode by
 sending a transaction proposal to a peer. The peer will execute the chaincode
 and return an endorsed proposal response to the client application. The client
@@ -479,7 +479,7 @@ of orderer. It is only a role that an orderer may have at certain times, and
 then not others, as circumstances determine.</p>
 </div>
 <div class="section" id="leading-peer">
-<span id="id21"></span><h2>Leading Peer<a class="headerlink" href="#leading-peer" title="Permalink to this headline">¶</a></h2>
+<span id="id20"></span><h2>Leading Peer<a class="headerlink" href="#leading-peer" title="Permalink to this headline">¶</a></h2>
 <p>Each <a class="reference internal" href="#organization">Organization</a> can own multiple peers on each channel that
 they subscribe to. One or more of these peers should serve as the leading peer
 for the channel, in order to communicate with the network ordering service on
@@ -488,8 +488,8 @@ leading peer(s) on a channel, who then distribute them to other peers within
 the same organization.</p>
 </div>
 <div class="section" id="ledger">
-<span id="id22"></span><h2>Ledger<a class="headerlink" href="#ledger" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id40" style="width: 20%">
+<span id="id21"></span><h2>Ledger<a class="headerlink" href="#ledger" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id39" style="width: 20%">
 <a class="reference internal image-reference" href="_images/glossary.ledger.png"><img alt="A Ledger" src="_images/glossary.ledger.png" style="width: 77.0px; height: 67.0px;" /></a>
 <p class="caption"><span class="caption-text">A Ledger, ‘L’</span></p>
 </div>
@@ -516,12 +516,12 @@ as the “log”. The log is considered to be consistent if all members agree on
 entries and their order.</p>
 </div>
 <div class="section" id="member">
-<span id="id23"></span><h2>Member<a class="headerlink" href="#member" title="Permalink to this headline">¶</a></h2>
+<span id="id22"></span><h2>Member<a class="headerlink" href="#member" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="#organization">Organization</a>.</p>
 </div>
-<div class="section" id="membership-service-provider">
-<span id="msp"></span><h2>Membership Service Provider<a class="headerlink" href="#membership-service-provider" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id41" style="width: 25%">
+<div class="section" id="provedor-de-servico-de-associacao">
+<span id="msp"></span><h2>Provedor de Serviço de Associação<a class="headerlink" href="#provedor-de-servico-de-associacao" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id40" style="width: 25%">
 <a class="reference internal image-reference" href="_images/glossary.msp.png"><img alt="An MSP" src="_images/glossary.msp.png" style="width: 107.1px; height: 92.75px;" /></a>
 <p class="caption"><span class="caption-text">An MSP, ‘ORG.MSP’</span></p>
 </div>
@@ -536,14 +536,14 @@ this can be smoothly plugged in without modifying the core of transaction
 processing components of the system.</p>
 </div>
 <div class="section" id="membership-services">
-<span id="id24"></span><h2>Membership Services<a class="headerlink" href="#membership-services" title="Permalink to this headline">¶</a></h2>
+<span id="id23"></span><h2>Membership Services<a class="headerlink" href="#membership-services" title="Permalink to this headline">¶</a></h2>
 <p>Membership Services authenticates, authorizes, and manages identities on a
 permissioned blockchain network. The membership services code that runs in peers
 and orderers both authenticates and authorizes blockchain operations.  It is a
 PKI-based implementation of the Membership Services Provider (MSP) abstraction.</p>
 </div>
 <div class="section" id="ordering-service">
-<span id="id25"></span><h2>Ordering Service<a class="headerlink" href="#ordering-service" title="Permalink to this headline">¶</a></h2>
+<span id="id24"></span><h2>Ordering Service<a class="headerlink" href="#ordering-service" title="Permalink to this headline">¶</a></h2>
 <p>Also known as <strong>orderer</strong>. A defined collective of nodes that orders transactions into a block
 and then distributes blocks to connected peers for validation and commit. The ordering service
 exists independent of the peer processes and orders transactions on a first-come-first-serve basis
@@ -552,9 +552,9 @@ out-of-the-box Kafka and Raft varieties. It is a common binding for the overall 
 contains the cryptographic identity material tied to each <a class="reference internal" href="#member">Member</a>.</p>
 </div>
 <div class="section" id="organization">
-<span id="id26"></span><h2>Organization<a class="headerlink" href="#organization" title="Permalink to this headline">¶</a></h2>
+<span id="id25"></span><h2>Organization<a class="headerlink" href="#organization" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<div class="figure align-right" id="id42" style="width: 20%">
+<div class="figure align-right" id="id41" style="width: 20%">
 <a class="reference internal image-reference" href="_images/glossary.organization.png"><img alt="An Organization" src="_images/glossary.organization.png" style="width: 76.75px; height: 67.25px;" /></a>
 <p class="caption"><span class="caption-text">An organization, ‘ORG’</span></p>
 </div>
@@ -570,8 +570,8 @@ form a <a class="reference internal" href="#consortium">Consortium</a>. While al
 will be part of a consortium.</p>
 </div>
 <div class="section" id="peer">
-<span id="id27"></span><h2>Peer<a class="headerlink" href="#peer" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id43" style="width: 20%">
+<span id="id26"></span><h2>Peer<a class="headerlink" href="#peer" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id42" style="width: 20%">
 <a class="reference internal image-reference" href="_images/glossary.peer.png"><img alt="A Peer" src="_images/glossary.peer.png" style="width: 77.0px; height: 67.25px;" /></a>
 <p class="caption"><span class="caption-text">A peer, ‘P’</span></p>
 </div>
@@ -579,7 +579,7 @@ will be part of a consortium.</p>
 read/write operations to the ledger.  Peers are owned and maintained by members.</p>
 </div>
 <div class="section" id="policy">
-<span id="id28"></span><h2>Policy<a class="headerlink" href="#policy" title="Permalink to this headline">¶</a></h2>
+<span id="id27"></span><h2>Policy<a class="headerlink" href="#policy" title="Permalink to this headline">¶</a></h2>
 <p>Policies are expressions composed of properties of digital identities, for
 example: <code class="docutils literal notranslate"><span class="pre">Org1.Peer</span> <span class="pre">OR</span> <span class="pre">Org2.Peer</span></code>. They are used to restrict access to
 resources on a blockchain network. For instance, they dictate who can read from
@@ -609,12 +609,12 @@ a set of private data, which by extension implies that only these organizations
 can transact with the private data.</p>
 </div>
 <div class="section" id="proposal">
-<span id="id29"></span><h2>Proposal<a class="headerlink" href="#proposal" title="Permalink to this headline">¶</a></h2>
+<span id="id28"></span><h2>Proposal<a class="headerlink" href="#proposal" title="Permalink to this headline">¶</a></h2>
 <p>A request for endorsement that is aimed at specific peers on a channel. Each
 proposal is either an Init or an Invoke (read/write) request.</p>
 </div>
 <div class="section" id="query">
-<span id="id30"></span><h2>Query<a class="headerlink" href="#query" title="Permalink to this headline">¶</a></h2>
+<span id="id29"></span><h2>Query<a class="headerlink" href="#query" title="Permalink to this headline">¶</a></h2>
 <p>A query is a chaincode invocation which reads the ledger current state but does
 not write to the ledger. The chaincode function may query certain keys on the ledger,
 or may query for a set of keys on the ledger. Since queries do not change ledger state,
@@ -625,7 +625,7 @@ client wants auditable proof on the ledger chain that it had knowledge of specif
 state at a certain point in time.</p>
 </div>
 <div class="section" id="quorum">
-<span id="id31"></span><h2>Quorum<a class="headerlink" href="#quorum" title="Permalink to this headline">¶</a></h2>
+<span id="id30"></span><h2>Quorum<a class="headerlink" href="#quorum" title="Permalink to this headline">¶</a></h2>
 <p>This describes the minimum number of members of the cluster that need to
 affirm a proposal so that transactions can be ordered. For every consenter set,
 this is a <strong>majority</strong> of nodes. In a cluster with five nodes, three must be
@@ -634,7 +634,7 @@ reason, the cluster becomes unavailable for both read and write operations and
 no new logs can be committed.</p>
 </div>
 <div class="section" id="raft">
-<span id="id32"></span><h2>Raft<a class="headerlink" href="#raft" title="Permalink to this headline">¶</a></h2>
+<span id="id31"></span><h2>Raft<a class="headerlink" href="#raft" title="Permalink to this headline">¶</a></h2>
 <p>New for v1.4.1, Raft is a crash fault tolerant (CFT) ordering service
 implementation based on the <a class="reference external" href="https://coreos.com/etcd/">etcd library</a>
 of the <cite>Raft protocol</cite> &lt;<a class="reference external" href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf</a>&gt;`_. Raft follows a
@@ -657,7 +657,7 @@ more – Python and Go – are not yet official but can still be downloaded
 and tested.</p>
 </div>
 <div class="section" id="smart-contract">
-<span id="id33"></span><h2>Smart Contract<a class="headerlink" href="#smart-contract" title="Permalink to this headline">¶</a></h2>
+<span id="id32"></span><h2>Smart Contract<a class="headerlink" href="#smart-contract" title="Permalink to this headline">¶</a></h2>
 <p>A smart contract is code – invoked by a client application external to the
 blockchain network – that manages access and modifications to a set of
 key-value pairs in the <a class="reference internal" href="#world-state"><span class="std std-ref">World State</span></a> via <a class="reference internal" href="#transaction"><span class="std std-ref">Transaction</span></a>. In Hyperledger Fabric,
@@ -670,7 +670,7 @@ and then defined and used on one or more channels.</p>
 from chaincode. Supported databases include levelDB and couchDB.</p>
 </div>
 <div class="section" id="system-chain">
-<span id="id34"></span><h2>System Chain<a class="headerlink" href="#system-chain" title="Permalink to this headline">¶</a></h2>
+<span id="id33"></span><h2>System Chain<a class="headerlink" href="#system-chain" title="Permalink to this headline">¶</a></h2>
 <p>Contains a configuration block defining the network at a system level. The
 system chain lives within the ordering service, and similar to a channel, has
 an initial configuration containing information such as: MSP information, policies,
@@ -683,8 +683,8 @@ consortium (represented through the system chain), and then proceed to create
 channels relative to their aligned and varying business agendas.</p>
 </div>
 <div class="section" id="transaction">
-<span id="id35"></span><h2>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id44" style="width: 20%">
+<span id="id34"></span><h2>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id43" style="width: 20%">
 <a class="reference internal image-reference" href="_images/glossary.transaction.png"><img alt="A Transaction" src="_images/glossary.transaction.png" style="width: 92.1px; height: 80.39999999999999px;" /></a>
 <p class="caption"><span class="caption-text">A transaction, ‘T’</span></p>
 </div>
@@ -697,8 +697,8 @@ in a block that is broadcast to the peers which validate and commit the transact
 and update world state.</p>
 </div>
 <div class="section" id="world-state">
-<span id="id36"></span><h2>World State<a class="headerlink" href="#world-state" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-right" id="id45" style="width: 25%">
+<span id="id35"></span><h2>World State<a class="headerlink" href="#world-state" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-right" id="id44" style="width: 25%">
 <a class="reference internal image-reference" href="_images/glossary.worldstate.png"><img alt="Current State" src="_images/glossary.worldstate.png" style="width: 122.80000000000001px; height: 107.2px;" /></a>
 <p class="caption"><span class="caption-text">The World State, ‘W’</span></p>
 </div>
