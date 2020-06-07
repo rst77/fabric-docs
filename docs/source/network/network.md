@@ -1,19 +1,20 @@
-# Blockchain network
+# Rede Blockchain
 
-This topic will describe, **at a conceptual level**, how Hyperledger Fabric
-allows organizations to collaborate in the formation of blockchain networks.  If
-you're an architect, administrator or developer, you can use this topic to get a
-solid understanding of the major structure and process components in a
-Hyperledger Fabric blockchain network. This topic will use a manageable worked
-example that introduces all of the major components in a blockchain network.
+Este tópico descreverá, **em nível conceitual**, como a Hyperledger Fabric 
+permite que as organizações colaborem na formação de redes blockchain. Se você é 
+um arquiteto, administrador ou desenvolvedor, pode usar este tópico para obter 
+um entendimento sólido dos principais componentes da estrutura e dos processos 
+em uma rede de blockchain Hyperledger Fabric. Este tópico usará uma atividade
+prática de exemplo, que apresenta todos os principais componentes em uma 
+rede blockchain.
 
-After reading this topic and understanding the concept of policies, you will
-have a solid understanding of the decisions that organizations need to make to
-establish the policies that control a deployed Hyperledger Fabric network.
-You'll also understand how organizations manage network evolution using
-declarative policies -- a key feature of Hyperledger Fabric. In a nutshell,
-you'll understand the major technical components of Hyperledger Fabric and the
-decisions organizations need to make about them.
+Depois de ler este tópico e entender o conceito de políticas, você terá um sólido 
+entendimento das decisões que as organizações precisam tomar para estabelecer as
+políticas que controlam uma rede implantada na Hyperledger Fabric. Você também 
+entenderá como as organizações gerenciam a evolução da rede usando políticas 
+declarativas -- um recurso importante da Hyperledger Fabric. Em poucas palavras,
+você entenderá os principais componentes técnicos do Hyperledger Fabric e as 
+decisões que as organizações precisam tomar sobre eles.
 
 ## What is a blockchain network?
 
