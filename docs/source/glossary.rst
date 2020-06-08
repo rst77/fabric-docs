@@ -39,25 +39,24 @@ availability and redundancy.
 ACL
 ---
 
-An ACL, or Access Control List, associates access to specific peer
-resources (such as system chaincode APIs or event services) to a Policy_
-(which specifies how many and what types of organizations or roles are
-required). The ACL is part of a channel's configuration. It is therefore
-persisted in the channel's configuration blocks, and can be updated using the
-standard configuration update mechanism.
+Uma ACL, ou Lista de Controle de Acesso, associa o acesso a recursos específicos 
+(como APIs de chaincode ou serviços de eventos) a uma Política_ (que especifica 
+quantos e quais tipos de organizações ou funções são necessários). A ACL faz 
+parte da configuração de um canal. Portanto, ele persiste nos blocos de 
+configuração do canal e pode ser atualizado usando o mecanismo de atualização de
+configuração padrão.
 
-An ACL is formatted as a list of key-value pairs, where the key identifies
-the resource whose access we wish to control, and the value identifies the
-channel policy (group) that is allowed to access it. For example
-``lscc/GetDeploymentSpec: /Channel/Application/Readers``
-defines that the access to the life cycle chaincode ``GetDeploymentSpec`` API
-(the resource) is accessible by identities which satisfy the
-``/Channel/Application/Readers`` policy.
+Uma ACL é formatada como uma lista de pares de chave-valor, onde a chave 
+identifica o recurso cujo acesso queremos controlar, e o valor identifica a 
+política de canal (grupo) que tem permissão para acessá-lo. Por exemplo, 
+``lscc/GetDeploymentSpec:/Channel/Application/Readers`` define que o acesso ao 
+ciclo de vida da API ``GetDeploymentSpec`` (o recurso) é acessível por 
+identidades que satisfazem a política ``/Channel/Application/Readers``.
 
-A set of default ACLs is provided in the ``configtx.yaml`` file which is
-used by configtxgen to build channel configurations. The defaults can be set
-in the top level "Application" section of ``configtx.yaml`` or overridden
-on a per profile basis in the "Profiles" section.
+Um conjunto de ACLs padrão é fornecido no arquivo ``configtx.yaml``, usado pelo 
+configtxgen para criar configurações de canal. Os padrões podem ser definidos na
+seção superior "Applications" do ``configtx.yaml`` ou sobrescritas pelo
+perfil na seção "Profiles".
 
 .. _Block:
 
@@ -167,13 +166,14 @@ in a new configuration block being appended to the appropriate chain. This
 block will contain the contents of the genesis block, plus the delta.
 
 .. _Consensus:
+.. _Consenso:
 
-Consensus
----------
+Consenso
+--------
 
-A broader term overarching the entire transactional flow, which serves to generate
-an agreement on the order and to confirm the correctness of the set of transactions
-constituting a block.
+Um termo mais amplo abrangendo todo o fluxo transacional, que serve para gerar 
+a concordância sobre o pedido e para confirmar a validade do conjunto de 
+transações que constituem um bloco.
 
 .. _Consenter-Set:
 
@@ -186,16 +186,18 @@ system channel, but are not a part of a channel, they are not part of that
 channel's consenter set.
 
 .. _Consortium:
+.. _Consorcio:
 
-Consortium
-----------
+Consórcio
+---------
 
-A consortium is a collection of non-orderer organizations on the blockchain
-network. These are the organizations that form and join channels and that own
-peers. While a blockchain network can have multiple consortia, most blockchain
-networks have a single consortium. At channel creation time, all organizations
-added to the channel must be part of a consortium. However, an organization
-that is not defined in a consortium may be added to an existing channel.
+Um consórcio, é uma coleção de organizações que não enviam ordens para rede 
+blockchain. Essas são as organizações que formam e fazem parte nos canais e que 
+possuem pares. Enquanto uma rede blockchain pode ter vários consórcios, a maioria
+das redes blockchain possui um único consórcio. No momento da criação do canal, 
+todas as organizações adicionadas ao canal devem fazer parte de um consórcio. No 
+entanto, uma organização que não está definida em um consórcio pode ser 
+adicionada a um canal existente.
 
 .. _Chaincode-definition:
 
@@ -223,16 +225,17 @@ membership is critical when business relationships adjust and entities need to
 be added/removed for various reasons.
 
 .. _Endorsement:
+.. _Endosso:
 
-Endorsement
------------
+Endosso
+-------
 
-Refers to the process where specific peer nodes execute a chaincode transaction and return
-a proposal response to the client application. The proposal response includes the
-chaincode execution response message, results (read set and write set), and events,
-as well as a signature to serve as proof of the peer's chaincode execution.
-Chaincode applications have corresponding endorsement policies, in which the endorsing
-peers are specified.
+Refere-se ao processo em que os nós de pares específicos executam uma transação 
+de um chaincode e retornam uma resposta para proposta ao aplicativo cliente. A 
+resposta da proposta inclui a mensagem de resposta da execução do chaincode, 
+resultados (conjunto de leituras e gravações) e eventos, além de uma assinatura 
+para servir como prova da execução do chaincode do nó. Os aplicativos Chaincode 
+possuem políticas de endosso, nas quais os pares endossantes são especificados.
 
 .. _Endorsement-policy:
 
@@ -247,6 +250,34 @@ peers that are assigned to a specific chaincode application. Policies can be
 curated based on the application and the desired level of resilience against
 misbehavior (deliberate or not) by the endorsing peers. A transaction that is submitted
 must satisfy the endorsement policy before being marked as valid by committing peers.
+
+.. _World-State:
+.. _Estado-Global:
+
+Estado Global
+-------------
+
+.. figure:: ./glossary/glossary.worldstate.png
+   :scale: 40 %
+   :align: right
+   :figwidth: 25 %
+   :alt: Estado Atual
+
+   Estado Global, 'W'
+
+Também conhecido como "estado atual", o estado global é um componente do 
+:ref:`livro-razão` da HyperLedger Fabric. O estado global representa os valores 
+mais recentes para todas as chaves incluídas no log de transações da cadeia. O 
+Chaincode executa propostas de transação com base nos dados do estado global 
+porque o estado global fornece acesso direto ao valor mais recente dessas chaves, 
+em vez de precisar calculá-las percorrendo todo o log de transações. O estado global
+muda sempre que o valor de uma chave é alterado (por exemplo, quando a 
+propriedade de um carro -- a "chave" -- ​​é transferida de um proprietário para 
+outro -- o "valor") ou quando uma nova chave é adicionada (um carro é criado). 
+Como resultado, o estado global é crítico para um fluxo de transações, pois o 
+estado atual de um par de chave-valor deve ser conhecido antes que possa ser 
+alterado. Os pares confirmam os valores mais recentes no estado global do 
+livro-razão para cada transação válida incluída em um bloco processado.
 
 .. _Follower:
 
@@ -426,9 +457,10 @@ this can be smoothly plugged in without modifying the core of transaction
 processing components of the system.
 
 .. _Membership-Services:
+.. _Servico-Associacao:
 
-Membership Services
--------------------
+Serviço de Associação
+---------------------
 
 Membership Services authenticates, authorizes, and manages identities on a
 permissioned blockchain network. The membership services code that runs in peers
@@ -448,9 +480,10 @@ out-of-the-box Kafka and Raft varieties. It is a common binding for the overall 
 contains the cryptographic identity material tied to each Member_.
 
 .. _Organization:
+.. _Organizacao:
 
-Organization
-------------
+Organização
+-----------
 
 =====
 
@@ -492,18 +525,19 @@ A network entity that maintains a ledger and runs chaincode containers in order 
 read/write operations to the ledger.  Peers are owned and maintained by members.
 
 .. _Policy:
+.. _Politica:
 
-Policy
-------
+Política
+--------
 
-Policies are expressions composed of properties of digital identities, for
-example: ``Org1.Peer OR Org2.Peer``. They are used to restrict access to
-resources on a blockchain network. For instance, they dictate who can read from
-or write to a channel, or who can use a specific chaincode API via an ACL_.
-Policies may be defined in ``configtx.yaml`` prior to bootstrapping an ordering
-service or creating a channel, or they can be specified when instantiating
-chaincode on a channel. A default set of policies ship in the sample
-``configtx.yaml`` which will be appropriate for most networks.
+Políticas são expressões compostas de propriedades das identidades digitais, por 
+exemplo: ``Org1.Peer OR Org2.Peer``. Elas são usadas para restringir o acesso 
+aos recursos em uma rede blockchain. Por exemplo, elas determinam quem pode ler 
+ou gravar em um canal ou quem pode usar uma API específica do chaincode por meio 
+de uma ACL_. As políticas podem ser definidas em ``configtx.yaml`` antes de 
+inicializar um serviço de ordens ou criar um canal, ou podem ser especificadas 
+ao instanciar o chaincode em um canal. Um conjunto padrão de políticas é enviado 
+no exemplo ``configtx.yaml``, que será apropriado para a maioria das redes.
 
 .. _glossary-Private-Data:
 
@@ -531,13 +565,13 @@ a set of private data, which by extension implies that only these organizations
 can transact with the private data.
 
 .. _Proposal:
+.. _Proposta:
 
 Proposal
 --------
 
-A request for endorsement that is aimed at specific peers on a channel. Each
-proposal is either an Init or an Invoke (read/write) request.
-
+Uma solicitação de endosso destinada aos pares específicos em um canal. Cada 
+proposta é uma solicitação Init ou Invoke (leitura/gravação).
 
 .. _Query:
 
@@ -572,7 +606,7 @@ Raft
 
 New for v1.4.1, Raft is a crash fault tolerant (CFT) ordering service
 implementation based on the `etcd library <https://coreos.com/etcd/>`_
-of the `Raft protocol` <https://raft.github.io/raft.pdf>`_. Raft follows a
+of the `Raft protocol <https://raft.github.io/raft.pdf>`_. Raft follows a
 "leader and follower" model, where a leader node is elected (per channel) and
 its decisions are replicated by the followers. Raft ordering services should
 be easier to set up and manage than Kafka-based ordering services, and their
@@ -632,51 +666,27 @@ consortium (represented through the system chain), and then proceed to create
 channels relative to their aligned and varying business agendas.
 
 .. _Transaction:
+.. _Transacao:
 
-Transaction
------------
+Transação
+---------
 
 .. figure:: ./glossary/glossary.transaction.png
    :scale: 30 %
    :align: right
    :figwidth: 20 %
-   :alt: A Transaction
+   :alt: Uma Transação
 
-   A transaction, 'T'
+   Uma Transação, 'T'
 
-Transactions are created when a chaincode is invoked from a client application
-to read or write data from the ledger. Fabric application clients submit transaction proposals to
-endorsing peers for execution and endorsement, gather the signed (endorsed) responses from those
-endorsing peers, and then package the results and endorsements into a transaction that is
-submitted to the ordering service. The ordering service orders and places transactions
-in a block that is broadcast to the peers which validate and commit the transactions to the ledger
-and update world state.
-
-.. _World-State:
-
-World State
------------
-
-.. figure:: ./glossary/glossary.worldstate.png
-   :scale: 40 %
-   :align: right
-   :figwidth: 25 %
-   :alt: Current State
-
-   The World State, 'W'
-
-Also known as the “current state”, the world state is a component of the
-HyperLedger Fabric :ref:`Ledger`. The world state represents the latest values
-for all keys included in the chain transaction log. Chaincode executes
-transaction proposals against world state data because the world state provides
-direct access to the latest value of these keys rather than having to calculate
-them by traversing the entire transaction log. The world state will change
-every time the value of a key changes (for example, when the ownership of a
-car -- the "key" -- is transferred from one owner to another -- the
-"value") or when a new key is added (a car is created). As a result, the world
-state is critical to a transaction flow, since the current state of a key-value
-pair must be known before it can be changed. Peers commit the latest values to
-the ledger world state for each valid transaction included in a processed block.
+As transações são criadas quando um chaincode é chamado a partir de um aplicativo
+cliente para ler ou gravar dados do livro-razão. Os aplicativos clientes da 
+Fabric submetem propostas de transação para nós endossantes para execução e 
+endosso, reúnem as respostas assinadas (endossadas) desses pares endossantes e 
+empacotam os resultados e endossos em uma transação que é submetida ao serviço 
+de ordens. O serviço de ordens ordena uma solicitação e coloca transações em um 
+bloco que é transmitido aos pares que validam e confirmam as transações para o
+livro-razão e atualizam o estado global.
 
 
 .. Licensed under Creative Commons Attribution 4.0 International License
