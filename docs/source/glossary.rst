@@ -1,38 +1,11 @@
-Glossary
-===========================
+Glossário
+=========
 
-Terminology is verry important, so that all Hyperledger Fabric users and developers
-agree on what we mean by each specific term. What is a smart contract for
-example. The documentation will reference the glossary as needed, but feel free
-to read the entire thing in one sitting if you like; it's pretty enlightening!
-
-.. _Anchor-Peer:
-
-Anchor Peer
------------
-
-Used by gossip to make sure peers in different organizations know about each other.
-
-When a configuration block that contains an update to the anchor peers is committed,
-peers reach out to the anchor peers and learn from them about all of the peers known
-to the anchor peer(s). Once at least one peer from each organization has contacted an
-anchor peer, the anchor peer learns about every peer in the channel. Since gossip
-communication is constant, and because peers always ask to be told about the existence
-of any peer they don't know about, a common view of membership can be established for
-a channel.
-
-For example, let's assume we have three organizations --- ``A``, ``B``, ``C`` --- in the channel
-and a single anchor peer --- ``peer0.orgC`` --- defined for organization ``C``.
-When ``peer1.orgA`` (from organization ``A``) contacts ``peer0.orgC``, it will
-tell ``peer0.orgC`` about ``peer0.orgA``. And when at a later time ``peer1.orgB``
-contacts ``peer0.orgC``, the latter would tell the former about ``peer0.orgB``.
-From that point forward, organizations ``A`` and ``B`` would start exchanging
-membership information directly without any assistance from ``peer0.orgC``.
-
-As communication across organizations depends on gossip in order to work, there must
-be at least one anchor peer defined in the channel configuration. It is strongly
-recommended that every organization provides its own set of anchor peers for high
-availability and redundancy.
+A terminologia é muito importante, para que todos os usuários e desenvolvedores 
+da Hyperledger Fabric concordem com o que queremos dizer com cada termo específico. 
+O que é um contrato inteligente, por exemplo. A documentação fará referência ao 
+glossário conforme necessário, mas fique à vontade para ler a coisa toda de uma 
+só vez, se quiser; é bem esclarecedor! 
 
 .. _glossary_ACL:
 
@@ -59,28 +32,28 @@ seção superior "Applications" do ``configtx.yaml`` ou sobrescritas pelo
 perfil na seção "Profiles".
 
 .. _Block:
+.. _Bloco:
 
-Block
+Bloco
 -----
 
 .. figure:: ./glossary/glossary.block.png
    :scale: 50 %
    :align: right
    :figwidth: 40 %
-   :alt: A Block
+   :alt: Um Bloco
 
-   Block B1 is linked to block B0. Block B2 is linked to block B1.
+   O bloco B1 está ligado ao bloco B0. O bloco B2 está ligado ao bloco B1.
 
 =======
 
-A block contains an ordered set of transactions. It is cryptographically linked
-to the preceding block, and in turn it is linked to be subsequent blocks. The
-first block in such a chain of blocks is called the **genesis block**. Blocks
-are created by the ordering service, and then validated and committed by peers.
+Um bloco contém um conjunto ordenado de transações. Ele é criptograficamente 
+vinculado ao bloco anterior e, por sua vez, é vinculado aos blocos subsequentes. 
+O primeiro bloco dessa cadeia de blocos é chamado de **bloco de gênese**. Os 
+blocos são criados pelo serviço de ordens, validados e confirmados pelos pares.
 
 
 .. _Chain:
-
 
 Chain
 -----
@@ -91,22 +64,22 @@ Chain
    :figwidth: 40 %
    :alt: Blockchain
 
-   Blockchain B contains blocks 0, 1, 2.
+   Blockchain B contêm os blocos 0, 1, 2.
 
 =======
 
-The ledger's chain is a transaction log structured as hash-linked blocks of
-transactions. Peers receive blocks of transactions from the ordering service, mark
-the block's transactions as valid or invalid based on endorsement policies and
-concurrency violations, and append the block to the hash chain on the peer's
-file system.
+A cadeia do livro-razão é um log de transações estruturado como blocos de 
+transações vinculados a um hash. Os pares recebem blocos de transações do serviço
+de ordens, marcam as transações do bloco como válidas ou inválidas com base em 
+políticas de endosso e violações de concorrência, e anexam o bloco à cadeia de
+hash no sistema de arquivos do nó.
 
 .. _chaincode:
 
 Chaincode
 ---------
 
-See Smart-Contract_.
+Veja Smart-Contract_.
 
 .. _Channel:
 .. _Canal:
@@ -128,18 +101,17 @@ A channel is a private blockchain overlay which allows for data
 isolation and confidentiality. A channel-specific ledger is shared across the
 peers in the channel, and transacting parties must be authenticated to
 a channel in order to interact with it.  Channels are defined by a
-Configuration-Block_.
-
+[Configuration Block](#configuration-block).
 
 .. _Commit:
+.. _Confirmar:
 
-Commit
-------
+Confirmar
+---------
 
-Each Peer_ on a channel validates ordered blocks of
-transactions and then commits (writes/appends) the blocks to its replica of the
-channel Ledger_. Peers also mark each transaction in each block
-as valid or invalid.
+Cada par_ em um canal valida os blocos ordenados das transações e, em seguida, 
+confirma (grava/acrescenta) os blocos à sua réplica do Livro-Razao_ do canal. Os 
+pares também marcam cada transação em cada bloco como válida ou inválida.
 
 .. _Concurrency-Control-Version-Check:
 
@@ -238,18 +210,20 @@ para servir como prova da execução do chaincode do nó. Os aplicativos Chainco
 possuem políticas de endosso, nas quais os pares endossantes são especificados.
 
 .. _Endorsement-policy:
+.. _Politica-de-endosso:
 
-Endorsement policy
-------------------
+Política de endosso
+-------------------
 
-Defines the peer nodes on a channel that must execute transactions attached to a
-specific chaincode application, and the required combination of responses (endorsements).
-A policy could require that a transaction be endorsed by a minimum number of
-endorsing peers, a minimum percentage of endorsing peers, or by all endorsing
-peers that are assigned to a specific chaincode application. Policies can be
-curated based on the application and the desired level of resilience against
-misbehavior (deliberate or not) by the endorsing peers. A transaction that is submitted
-must satisfy the endorsement policy before being marked as valid by committing peers.
+Define os nós pares em um canal que devem executar as transações associadas a um
+aplicativo chaincode específico e a combinação necessária de respostas 
+(recomendações). Uma política pode exigir que uma transação seja endossada por um
+número mínimo de pares, endossado por uma porcentagem mínima de pares ou
+endossados por todos os pares atribuídos a um aplicativo chaincode específico. 
+As políticas podem ser selecionadas com base na aplicação e no nível desejado de 
+resiliência contra mau comportamento (deliberado ou não) dos pares endossantes. 
+Uma transação enviada deve satisfazer a política de endosso antes de ser marcada 
+como válida por meio da confirmação de pares.
 
 .. _World-State:
 .. _Estado-Global:
@@ -298,17 +272,6 @@ Genesis Block
 The configuration block that initializes the ordering service, or serves as the
 first block on a chain.
 
-.. _Gossip-Protocol:
-
-Gossip Protocol
----------------
-
-The gossip data dissemination protocol performs three functions:
-1) manages peer discovery and channel membership;
-2) disseminates ledger data across all peers on the channel;
-3) syncs ledger state across all peers on the channel.
-Refer to the :doc:`Gossip <gossip>` topic for more details.
-
 .. _Fabric-ca:
 
 Hyperledger Fabric CA
@@ -329,10 +292,12 @@ an Init function. By default, this function is never executed. However you can
 use the chaincode definition to request the execution of the Init function in
 order to initialize the chaincode.
 
-Install
--------
+.. _Install:
 
-The process of placing a chaincode on a peer's file system.
+Instalação
+----------
+
+O processo de colocar um código chaincode no sistema de arquivos do nó.
 
 Instantiate
 -----------
@@ -347,20 +312,22 @@ the new Fabric chaincode lifecycle introduced as part of Fabric v2.0,
 see Chaincode-definition_.*
 
 .. _Invoke:
+.. _Invocacao:
 
-Invoke
-------
+Invocação
+---------
 
-Used to call chaincode functions. A client application invokes chaincode by
-sending a transaction proposal to a peer. The peer will execute the chaincode
-and return an endorsed proposal response to the client application. The client
-application will gather enough proposal responses to satisfy an endorsement policy,
-and will then submit the transaction results for ordering, validation, and commit.
-The client application may choose not to submit the transaction results. For example
-if the invoke only queried the ledger, the client application typically would not
-submit the read-only transaction, unless there is desire to log the read on the ledger
-for audit purpose. The invoke includes a channel identifier, the chaincode function to
-invoke, and an array of arguments.
+Usado para chamar funções de um chaincode. Um aplicativo cliente chama o chaincode
+enviando uma proposta de transação para um nó par. O par executará o código de 
+chaincode e retornará uma da proposta de resposta endossada ao aplicativo cliente. 
+O aplicativo cliente reunirá as respostas das propostas o suficientes para satisfazer 
+uma política de endosso e em seguida, enviará os resultados da transação para 
+ordenação, validação e confirmação. O aplicativo cliente pode optar por não enviar
+os resultados da transação. Por exemplo, se a chamada apenas consultasse o 
+livro-razão, o aplicativo cliente normalmente não enviaria a transação de leitura
+apenas, a menos que haja desejo de registrar a leitura no razão para fins de 
+auditoria. A chamada inclui, um identificador do canal, a função do chaincode a 
+ser chamada e uma matriz de argumentos.
 
 .. _Leader
 
@@ -373,47 +340,35 @@ managing when an entry is considered committed. This is not a special **type**
 of orderer. It is only a role that an orderer may have at certain times, and
 then not others, as circumstances determine.
 
-.. _Leading-Peer:
-
-Leading Peer
-------------
-
-Each Organization_ can own multiple peers on each channel that
-they subscribe to. One or more of these peers should serve as the leading peer
-for the channel, in order to communicate with the network ordering service on
-behalf of the organization. The ordering service delivers blocks to the
-leading peer(s) on a channel, who then distribute them to other peers within
-the same organization.
-
 .. _Ledger:
+.. _Livro-Razao:
 
-Ledger
-------
+Livro-Razão
+-----------
 
 .. figure:: ./glossary/glossary.ledger.png
    :scale: 25 %
    :align: right
    :figwidth: 20 %
-   :alt: A Ledger
+   :alt: Um Livro-Razão
 
-   A Ledger, 'L'
+   Um Livro-Razão, 'L'
 
+Um livro-razão consiste em duas partes distintas, embora relacionadas -- uma 
+"blockchain" e o "banco de dados de estados", também conhecido como "estado 
+global". Diferente de outros livros, as cadeias de blocos são **imutáveis**, ou 
+seja, depois que um bloco é adicionado à cadeia, ele não pode ser alterado. Por 
+outro lado, o "estado global" é um banco de dados que contém o valor atual do 
+conjunto de pares de chave-valor que foram adicionados, modificados ou excluídos 
+pelo conjunto de transações validadas e confirmadas na blockchain.
 
-A ledger consists of two distinct, though related, parts -- a "blockchain" and
-the "state database", also known as "world state". Unlike other ledgers,
-blockchains are **immutable** -- that is, once a block has been added to the
-chain, it cannot be changed. In contrast, the "world state" is a database
-containing the current value of the set of key-value pairs that have been added,
-modified or deleted by the set of validated and committed transactions in the
-blockchain.
-
-It's helpful to think of there being one **logical** ledger for each channel in
-the network. In reality, each peer in a channel maintains its own copy of the
-ledger -- which is kept consistent with every other peer's copy through a
-process called **consensus**. The term **Distributed Ledger Technology**
-(**DLT**) is often associated with this kind of ledger -- one that is logically
-singular, but has many identical copies distributed across a set of network
-nodes (peers and the ordering service).
+É útil pensar em um registro livro-razão **lógico** para cada canal da rede. Na 
+realidade, cada par em um canal mantém sua própria cópia do livro-razão -- que é 
+mantida consistente com a cópia de qualquer outro par através de um processo 
+chamado **consenso**. O termo **Tecnologia de Livro-Razão Distribuído** (**DLT**) 
+é frequentemente associado a esse tipo de livro-razão -- um que é logicamente 
+singular, mas tem muitas cópias idênticas distribuídas em um conjunto de nós da 
+rede (os pares e o serviço de ordens).
 
 .. _Log-entry
 
@@ -426,58 +381,65 @@ as the "log". The log is considered to be consistent if all members agree on the
 entries and their order.
 
 .. _Member:
+.. _Membro:
 
-Member
+Membro
 ------
 
-See Organization_.
-
-.. _MSP:
-
-Provedor de Serviço de Associação
----------------------------------
-
-.. figure:: ./glossary/glossary.msp.png
-   :scale: 35 %
-   :align: right
-   :figwidth: 25 %
-   :alt: An MSP
-
-   An MSP, 'ORG.MSP'
-
-
-The Membership Service Provider (MSP) refers to an abstract component of the
-system that provides credentials to clients, and peers for them to participate
-in a Hyperledger Fabric network. Clients use these credentials to authenticate
-their transactions, and peers use these credentials to authenticate transaction
-processing results (endorsements). While strongly connected to the transaction
-processing components of the systems, this interface aims to have membership
-services components defined, in such a way that alternate implementations of
-this can be smoothly plugged in without modifying the core of transaction
-processing components of the system.
-
-.. _Membership-Services:
-.. _Servico-Associacao:
-
-Serviço de Associação
----------------------
-
-Membership Services authenticates, authorizes, and manages identities on a
-permissioned blockchain network. The membership services code that runs in peers
-and orderers both authenticates and authorizes blockchain operations.  It is a
-PKI-based implementation of the Membership Services Provider (MSP) abstraction.
+Veja Organização_.
 
 .. _Ordering-Service:
+.. _Servico-Ordem:
 
 Ordering Service
 ----------------
 
-Also known as **orderer**. A defined collective of nodes that orders transactions into a block
-and then distributes blocks to connected peers for validation and commit. The ordering service
-exists independent of the peer processes and orders transactions on a first-come-first-serve basis
-for all channels on the network.  It is designed to support pluggable implementations beyond the
-out-of-the-box Kafka and Raft varieties. It is a common binding for the overall network; it
-contains the cryptographic identity material tied to each Member_.
+Também conhecido como **ordenador**. Um conjunto definido de nós que ordena as 
+transações em um bloco e depois distribui os blocos aos pares conectados para 
+validação e confirmação. O serviço de ordens existe independentemente dos 
+processos dos nós e das transações de ordenadas no estilo primeiro-a-chegar-primeiro-a-ser-atendido,
+para todos os canais da rede. Ele foi projetado para suportar implementações 
+conectáveis além do Kafka e do Raft. É uma ligação comum para toda a rede, 
+contém o material de identidade criptográfica vinculado a cada Membro_.
+
+.. _No:
+
+Nó
+--
+
+Veja Par_.
+
+
+.. _Anchor-Peer:
+.. _No-Ancora:
+
+Nó Âncora
+---------
+
+Usado pelo :ref:`protocolo-gossip` para garantir que os pares de diferentes 
+organizações se conheçam.
+
+Quando um bloco de configuração que contém alguma atualização sobre os pares âncoras 
+é confirmado na rede, os demais nós se conectam ao nós âncoras para obter com 
+eles todas as informações dos demais nós pares. Depois que pelo menos um nó 
+de cada organização entra em contato com um nó âncora, o nó âncora aprendem sobre 
+todos os demais nós do canal. Como a comunicação do protocolo Gossip é constante,
+e como os nós sempre pedem que sejam informados sobre a existência de alguém que 
+eles desconhecem, uma visão única da associação pode ser estabelecida para um canal.
+
+Por exemplo, vamos supor que temos três organizações --- ``A``, ``B``, ``C`` 
+--- no canal e um único ponto de ancoragem --- ``peer0.orgC`` --- definido para 
+a organização ``C``. Quando ``peer1.orgA`` (da organização ``A``) entrar em 
+contato com ``peer0.orgC``, ele informará ao ``peer0.orgC`` sobre ``peer0.orgA``. 
+E quando mais tarde ``peer1.orgB`` entrar em contato com ``peer0.orgC``, o 
+último dirá ao primeiro sobre ``peer0.orgB``. Desse ponto em diante, as 
+organizações ``A`` e ``B`` começariam a trocar informações de membros 
+diretamente sem a ajuda de ``peer0.orgC``.
+
+Como a comunicação entre as organizações depende do protocolo Gossip para 
+funcionar, deve haver pelo menos um nó de ancoragem definido na configuração 
+do canal. É altamente recomendável que toda organização forneça seu próprio 
+conjunto de nós âncora para alta disponibilidade e redundância.
 
 .. _Organization:
 .. _Organizacao:
@@ -487,31 +449,32 @@ Organização
 
 =====
 
-
 .. figure:: ./glossary/glossary.organization.png
    :scale: 25 %
    :align: right
    :figwidth: 20 %
-   :alt: An Organization
+   :alt: Uma Organização
 
-   An organization, 'ORG'
+   Uma Organização, 'ORG'
 
-
-Also known as "members", organizations are invited to join the blockchain network
-by a blockchain network provider. An organization is joined to a network by adding its
-Membership Service Provider (MSP_) to the network. The MSP defines how other members of the
-network may verify that signatures (such as those over transactions) were generated by a valid
-identity, issued by that organization. The particular access rights of identities within an MSP
-are governed by policies which are also agreed upon when the organization is joined to the
-network. An organization can be as large as a multi-national corporation or as small as an
-individual. The transaction endpoint of an organization is a Peer_. A collection of organizations
-form a Consortium_. While all of the organizations on a network are members, not every organization
-will be part of a consortium.
+Também conhecidas como "membros", as organizações são convidadas a ingressar na 
+rede blockchain por um provedor de rede blockchain. Uma organização ingressa em 
+uma rede adicionando seu provedor de serviços de associação (MSP_) à rede. O MSP 
+define como outros membros da rede podem verificar se as assinaturas (como aquelas
+sobre transações) foram geradas por uma identidade válida, emitida por essa 
+organização. Os direitos de acesso específicos das identidades em um MSP são 
+regidos por políticas que também são acordadas quando a organização ingressa na 
+rede. Uma organização pode ser tão grande quanto uma corporação multinacional ou 
+tão pequena quanto um indivíduo. O ponto final da transação de uma organização é 
+um Par_. Uma coleção de organizações forma um consórcio. Embora todas as 
+organizações em uma rede sejam membros, nem todas as organizações farão parte de 
+um consórcio.
 
 .. _Peer:
+.. _Par:
 
-Peer
-----
+Par
+---
 
 .. figure:: ./glossary/glossary.peer.png
    :scale: 25 %
@@ -519,10 +482,23 @@ Peer
    :figwidth: 20 %
    :alt: A Peer
 
-   A peer, 'P'
+   Um Par, 'P'
 
-A network entity that maintains a ledger and runs chaincode containers in order to perform
-read/write operations to the ledger.  Peers are owned and maintained by members.
+Uma entidade de rede que mantém um livro-razão e executa operações em contêineres 
+de chaincode de leitura/gravação no livro-razão. Os pares pertencem e são mantidos 
+pelos membros.
+
+.. _Leading-Peer:
+.. _Par-Lider:
+
+Par Líder
+---------
+
+Cada organização_ pode possuir vários pares em cada canal em que se inscreve. Um
+ou mais desses pares devem servir como o líder do canal, para se comunicar com o
+serviço de ordens da rede em nome da organização. O serviço de ordens entrega 
+blocos para os pares líderes em um canal, que os distribuem para outros pares na
+mesma organização.
 
 .. _Policy:
 .. _Politica:
@@ -550,7 +526,7 @@ restricted to one or more organizations on a channel via a private data
 collection definition. Unauthorized organizations will have a hash of the
 private data on the channel ledger as evidence of the transaction data. Also,
 for further privacy, hashes of the private data go through the
-Ordering-Service_, not the private data itself, so this keeps private data
+:ref:`servico`, not the private data itself, so this keeps private data
 confidential from Orderer.
 
 .. _glossary-Private-Data-Collection:
@@ -567,11 +543,48 @@ can transact with the private data.
 .. _Proposal:
 .. _Proposta:
 
-Proposal
+Proposta
 --------
 
 Uma solicitação de endosso destinada aos pares específicos em um canal. Cada 
 proposta é uma solicitação Init ou Invoke (leitura/gravação).
+
+.. _Gossip-Protocol:
+.. _Protocolo-Gossip:
+
+Protocolo Gossip
+----------------
+
+O protocolo Gossip de disseminação de dados executa três funções:
+
+1) gerencia a descoberta de pares e associação ao canal;
+2) divulga dados do livro-razão entre todos os pares no canal;
+3) sincroniza o estado do livro-razão entre todos os pares no canal.
+
+Consulte o tópico :doc:`Gossip <gossip>` para obter mais detalhes.
+
+.. _MSP:
+
+Provedor de Serviço de Associação (MSP)
+---------------------------------------
+
+.. figure:: ./glossary/glossary.msp.png
+   :scale: 35 %
+   :align: right
+   :figwidth: 25 %
+   :alt: Um MSP
+
+   Um MSP, 'ORG.MSP'
+
+O Provedor de Serviço de Associação (MSP) refere-se a um componente abstrato do 
+sistema que fornece credenciais aos clientes e aos nós para eles participarem de 
+uma rede Hyperledger Fabric. Os clientes usam essas credenciais para autenticar 
+suas transações e os pares usam essas credenciais para autenticar os resultados 
+do processamento de transações (endossos). Embora fortemente conectada aos 
+componentes de processamento de transações dos sistemas, essa interface visa 
+definir componentes de serviços de associação, de forma que implementações 
+alternativas possam ser conectadas sem problemas, sem modificar o núcleo dos 
+componentes de processamento de transações do sistema.
 
 .. _Query:
 
@@ -628,6 +641,18 @@ processing, membership services, node traversal and event handling.
 Currently, the two officially supported SDKs are for Node.js and Java, while two
 more -- Python and Go -- are not yet official but can still be downloaded
 and tested.
+
+
+.. _Membership-Services:
+.. _Servico-Associacao:
+
+Serviço de Associação
+---------------------
+
+Membership Services authenticates, authorizes, and manages identities on a
+permissioned blockchain network. The membership services code that runs in peers
+and orderers both authenticates and authorizes blockchain operations.  It is a
+PKI-based implementation of the Membership Services Provider (MSP) abstraction.
 
 .. _Smart-Contract:
 

@@ -26,7 +26,7 @@ maneira imutável em sua cópia do livro-razão. Os usuários dos aplicativos po
 ser usuários finais ou administradores da rede blockchain.
 
 Na maioria dos casos, várias [organizações](../glossary.html#organizacao) se 
-reúnem como um [consórcio](../glossary.html#Consorcio) para formar a rede e 
+reúnem como um [consórcio](../glossary.html#consorcio) para formar a rede e 
 determinar suas permissões por meio de um conjunto de [políticas](../glossary.html#politica) 
 que são acordadas pelo consórcio quando a rede é configurada. Além disso, as 
 políticas de rede podem mudar com o tempo, dependendo do acordo das organizações 
@@ -45,7 +45,7 @@ políticas acordadas pelas organizações que formam a rede -- por exemplo, quem
 pode adicionar novas organizações. Você descobrirá como os aplicativos consomem 
 os serviços de livro-razão e contrato inteligente fornecidos pela rede blockchain.
 
-![network.structure](./network.diagram.1.png)
+![network.structure](./network.diagram.1.png) 
 
 *Quatro organizações, R1, R2, R3 e R4, decidiram em conjunto formalizar um 
 contrato onde irão configurar e explorar uma rede Hyperledger Fabric. O R4 foi 
@@ -111,7 +111,7 @@ Fabric fornece uma integrada (chamada *Fabric-CA*) para ajudá-lo a avançar,
 embora, na prática, as organizações escolham usar sua própria CA.
 
 O mapeamento de certificados para organizações membros é realizado por meio de 
-uma estrutura chamada [Serviço Provedor de Associação (MSP)](../glossary.html#Servico-Associacao). 
+uma estrutura chamada [Serviço Provedor de Associação (MSP)](../glossary.html#servico-associacao). 
 A configuração da rede NC4 usa um MSP nomeado para identificar as propriedades 
 dos certificados dispensados pelo CA4 que associam os titulares de certificado à 
 organização R4. O NC4 pode usar esse MSP nas suas políticas para conceder aos 
@@ -124,8 +124,8 @@ Em segundo lugar, veremos mais adiante como os certificados emitidos pelas CAs
 estão no centro do processo de geração e validação da [transação](../glossary.html#transacao). 
 Especificamente, os certificados X.509 são usados no aplicativo cliente 
 [solicitador da transação](../glossary.html#proposta) e no contrato inteligente 
-da [resposta de transação](../glossary.html#Endorsement) para assinar digitalmente 
-[transações](../glossary.html#transaction). Posteriormente, os nós da rede que 
+da [resposta de transação](../glossary.html#endosso) para assinar digitalmente 
+[transações](../glossary.html#transacao). Posteriormente, os nós da rede que 
 hospedam cópias do livro-razão verificam se as assinaturas da transação são 
 válidas antes de aceitar as transações no livro-razão.
 
@@ -169,7 +169,7 @@ Por exemplo, podemos executar o O4 no R4 e conectá-lo ao O2, um nó de ordem
 separado na organização R1. Dessa forma, teríamos uma estrutura de administração 
 de vários sites e várias organizações.
 
-Discutiremos o serviço de ordens um pouco [mais adiante neste tópico](#the-ordering-service), 
+Discutiremos o serviço de ordens um pouco [mais adiante neste tópico](#o-servico-de-ordem), 
 mas, por enquanto, apenas pense no serviço de ordens como um ponto de 
 administração que fornece acesso controlado à rede a diferentes organizações.
 
@@ -225,7 +225,7 @@ configuração de rede. CC1 é gerenciado por R1 e R2 que têm direitos iguais s
 C1. R4 não tem nenhum direito no CC1.*
 
 O canal C1 fornece um mecanismo de comunicação privado para o consórcio X1. 
-Podemos ver que o canal C1 foi conectado ao serviço de pedidos O4, mas que nada 
+Podemos ver que o canal C1 foi conectado ao serviço de ordens O4, mas que nada 
 mais está anexado a ele. No próximo estágio do desenvolvimento da rede, 
 conectaremos componentes como aplicativos clientes e nós de mesmo nível. Mas, 
 neste ponto, um canal representa o **potencial** para conectividade futura.
@@ -272,647 +272,649 @@ Além disso, há também um **canal de sistema** especial definido para uso pelo
 serviço de ordens. Ele se comporta exatamente da mesma maneira que um canal 
 comum, às vezes chamado de **canais de aplicativos** por esse motivo. Normalmente, 
 não precisamos nos preocupar com esse canal, mas discutiremos um pouco mais sobre 
-isso [mais adiante neste tópico](#the-ordering-service).
+isso [mais adiante neste tópico](#o-servico-de-ordem).
 
-## Peers and Ledgers
+## Pares e Livros-Razão
 
-Let's now start to use the channel to connect the blockchain network and the
-organizational components together. In the next stage of network development, we
-can see that our network N has just acquired two new components, namely a peer
-node P1 and a ledger instance, L1.
+Agora vamos começar a usar o canal para conectar a rede blockchain e os 
+componentes organizacionais. No próximo estágio do desenvolvimento da rede, 
+podemos ver que nossa rede N acaba de adquirir dois novos componentes, a saber, 
+um nó do ponto P1 e uma instância de livro-razão, L1.
 
 ![network.peersledger](./network.diagram.5.png)
 
-*A peer node P1 has joined the channel C1. P1 physically hosts a copy of the
-ledger L1. P1 and O4 can communicate with each other using channel C1.*
+*Um nó P1 se juntou ao canal C1. P1 hospeda fisicamente uma cópia do livro-razão 
+L1. P1 e O4 podem se comunicar usando o canal C1.*
 
-Peer nodes are the network components where copies of the blockchain ledger are
-hosted!  At last, we're starting to see some recognizable blockchain components!
-P1's purpose in the network is purely to host a copy of the ledger L1 for others
-to access. We can think of L1 as being **physically hosted** on P1, but
-**logically hosted** on the channel C1. We'll see this idea more clearly when we
-add more peers to the channel.
+Nós pares são os componentes de rede onde as cópias do livro-razão da blockchain 
+estão hospedadas! Por fim, estamos começando a ver alguns componentes reconhecíveis
+da blockchain! O objetivo de P1 na rede é puramente hospedar uma cópia do 
+livro-razão L1 para que outros acessem. Podemos pensar em L1 como sendo 
+**fisicamente hospedado** em P1, mas **logicamente hospedado** no canal C1. 
+Veremos essa ideia mais claramente quando se adiciona mais pares ao canal.
 
-A key part of a P1's configuration is an X.509 identity issued by CA1 which
-associates P1 with organization R1. Once P1 is started, it can **join** channel
-C1 using the orderer O4. When O4 receives this join request, it uses the channel
-configuration CC1 to determine P1's permissions on this channel. For example,
-CC1 determines whether P1 can read and/or write information to the ledger L1.
+Uma parte essencial da configuração do P1 é uma identidade X.509 emitida por CA1 
+que associa P1 à organização R1. Uma vez iniciado o P1, ele pode **ingressar** 
+no canal C1 usando o ordenador O4. Quando o O4 recebe essa solicitação de 
+associação, ele usa a configuração de canal CC1 para determinar as permissões de
+P1 nesse canal. Por exemplo, CC1 determina se P1 pode ler e/ou gravar informações
+no livro-razão L1.
 
-Notice how peers are joined to channels by the organizations that own them, and
-though we've only added one peer, we'll see how  there can be multiple peer
-nodes on multiple channels within the network. We'll see the different roles
-that peers can take on a little later.
+Observe como os pares são unidos aos canais pelas organizações que os possuem e,
+embora tenhamos adicionado apenas um par, veremos como pode haver vários nós pares 
+em vários canais da rede. Veremos os diferentes papéis que os eles podem assumir 
+um pouco mais adiante.
 
-## Applications and Smart Contract chaincode
+## Aplicativos Clientes e código de Contrato Inteligente
 
-Now that the channel C1 has a ledger on it, we can start connecting client
-applications to consume some of the services provided by workhorse of the
-ledger, the peer!
+Agora que o canal C1 possui um livro-razão, podemos começar a conectar aplicativos 
+clientes para consumir alguns dos serviços fornecidos pelo cavalo de força do
+livro-razão, o nó par!
 
-Notice how the network has grown:
+Observe como a rede cresceu:
 
 ![network.appsmartcontract](./network.diagram.6.png)
 
-*A smart contract S5 has been installed onto P1.  Client application A1 in
-organization R1 can use S5 to access the ledger via peer node P1. A1, P1 and
-O4 are all joined to channel C1, i.e. they can all make use of the
-communication facilities provided by that channel.*
+*Um contrato inteligente S5 foi instalado no P1. O aplicativo cliente A1 na 
+organização R1 pode usar S5 para acessar o razão via nó P1 do mesmo nível. A1,
+P1 e O4 estão todos unidos ao canal C1, ou seja, todos podem fazer uso dos 
+recursos de comunicação fornecidos por esse canal.*
 
-In the next stage of network development, we can see that client application A1
-can use channel C1 to connect to specific network resources -- in this case A1
-can connect to both peer node P1 and orderer node O4. Again, see how channels
-are central to the communication between network and organization components.
-Just like peers and orderers, a client application will have an identity that
-associates it with an organization.  In our example, client application A1 is
-associated with organization R1; and although it is outside the Fabric
-blockchain network, it is connected to it via the channel C1.
+No próximo estágio de desenvolvimento da rede, podemos ver que o aplicativo 
+cliente A1 pode usar o canal C1 para conectar-se a recursos de rede específicos 
+-- nesse caso, A1 pode conectar-se ao nó de ponto P1 e ao nó de ordem O4. 
+Novamente, veja como os canais são centrais para a comunicação entre os componentes
+de rede e organização. Assim como pares e ordens, um aplicativo cliente terá uma 
+identidade que o associa a uma organização. No nosso exemplo, o aplicativo cliente 
+A1 está associado à organização R1, e, embora esteja fora da rede blockchain 
+Fabric, está conectado a ela através do canal C1.
 
-It might now appear that A1 can access the ledger L1 directly via P1, but in
-fact, all access is managed via a special program called a smart contract
-chaincode, S5. Think of S5 as defining all the common access patterns to the
-ledger; S5 provides a well-defined set of ways by which the ledger L1 can
-be queried or updated. In short, client application A1 has to go through smart
-contract S5 to get to ledger L1!
+Agora pode parecer que A1 pode acessar o livro-razão L1 diretamente via P1, mas 
+na verdade, todo o acesso é gerenciado através de um programa especial chamado 
+contrato inteligente (chainconde), S5. Pense no S5 como definidor de todos os 
+padrões de acesso comuns ao livro-razão; S5 fornece um conjunto bem definido de
+maneiras pelas quais o livro-razão L1 pode ser consultado ou atualizado. Em suma, 
+o aplicativo cliente A1 precisa passar pelo contrato inteligente S5 para acessar 
+o livro-razão L1!
 
-Smart contracts can be created by application developers in each organization to
-implement a business process shared by the consortium members. Smart contracts
-are used to help generate transactions which can be subsequently distributed to
-every node in the network. We'll discuss this idea a little later; it'll be
-easier to understand when the network is bigger. For now, the important thing to
-understand is that to get to this point two operations must have been performed
-on the smart contract; it must have been **installed** on peers, and then
-**defined** on a channel.
+Contratos inteligentes podem ser criados por desenvolvedores de aplicativos de 
+cada organização para implementar um processo de negócios compartilhado pelos
+membros do consórcio. Contratos inteligentes são usados para ajudar a gerar 
+transações que podem ser posteriormente distribuídas para todos os nós da rede. 
+Discutiremos essa idéia um pouco mais tarde, será mais fácil entender quando a 
+rede for maior. Por enquanto, o importante é entender que, para chegar a esse 
+ponto, duas operações devem ter sido executadas no contrato inteligente; ele deve 
+ter sido **instalado** nos nós pares e **definido** em um canal.
 
-Hyperledger Fabric users often use the terms **smart contract** and
-**chaincode** interchangeably. In general, a smart contract defines the
-**transaction logic** that controls the lifecycle of a business object contained
-in the world state. It is then packaged into a chaincode which is then deployed
-to a blockchain network. Think of smart contracts as governing transactions,
-whereas chaincode governs how smart contracts are packaged for deployment.
+Os usuários da Hyperledger Fabric geralmente usam os termos **contrato inteligente** 
+e **código de chamada** de forma intercambiável. Em geral, um contrato inteligente
+define a **lógica da transação** que controla o ciclo de vida de um objeto de 
+negócios contido no estado global. Em seguida, é empacotado em um chaincode que 
+é implantado em uma rede blockchain. Pense nos contratos inteligentes como 
+transações de controle, enquanto o chaincode governa como os contratos 
+inteligentes são compactados para implantação.
 
-### Installing a chaincode package
+### Instalando um Pacote Chaincode
 
-After a smart contract S5 has been developed, an administrator in organization
-R1 must create a chaincode package and [install](../glossary.html#install) it
-onto peer node P1. This is a straightforward operation; once completed, P1 has
-full knowledge of S5. Specifically, P1 can see the **implementation** logic of
-S5 -- the program code that it uses to access the ledger L1. We contrast this to
-the S5 **interface** which merely describes the inputs and outputs of S5,
-without regard to its implementation.
+Após o desenvolvimento de um contrato inteligente S5, um administrador da 
+organização R1 deve criar um pacote de código de código e [instalar](../ glossary.html#install)
+no nó par P1. Esta é uma operação direta. Uma vez concluído, P1 tem pleno 
+conhecimento de S5. Especificamente, P1 pode ver a lógica de **implementação** de
+S5 -- o código do programa que ele usa para acessar o razão L1. Comparamos isso 
+com a **interface** de S5, que apenas descreve as entradas e saídas do S5, sem 
+levar em consideração sua implementação.
 
-When an organization has multiple peers in a channel, it can choose the peers
-upon which it installs smart contracts; it does not need to install a smart
-contract on every peer.
+Quando uma organização possui vários pares em um canal, pode escolher os pares nos
+quais instala os contratos inteligentes, ele não precisa instalar um contrato 
+inteligente em todos os pares.
 
-### Defining a chaincode
+### Definindo um chaincode
 
-Although a chaincode is installed on the peers of individual organizations, it
-is governed and operated in the scope of a channel. Each organization needs to
-approve a **chaincode definition**, a set of parameters that establish how a
-chaincode will be used on a channel. An organization must approve a chaincode
-definition in order to use the installed smart contract to query the ledger
-and endorse transactions. In our example, which only has a single peer node P1,
-an administrator in organization R1 must approve a chaincode definition for S5.
+Embora um chaincode seja instalado nos nós pares de uma organização individual, 
+ele é governado e operado no escopo do canal. Cada organização precisa aprovar as 
+**definições do chaincode**, um conjunto de parâmetros que estabelecem como um o
+código do chaincode será usado em um canal. A organização deve aprovar uma 
+definição de chaincode para usar o contrato inteligente instalado para consultar
+o livro-razão e endossar as transações. Em nosso exemplo, que possui apenas um 
+único nó P1, um administrador da organização R1 deve aprovar uma definição de 
+código de código para S5.
 
-A sufficient number of organizations need to approve a chaincode definition (A
-majority, by default) before the chaincode definition can be committed to the
-channel and used to interact with the channel ledger. Because the channel only
-has one member, the administrator of R1 can commit the chaincode definition of
-S5 to the channel C1. Once the definition has been committed, S5 can now be
-[invoked](../glossary.html#invoke) by client application A1!
+Um número suficiente de organizações precisa aprovar uma definição de chaincode 
+(maioria, por padrão) antes que a definição do chaincode possa ser confirmada no
+canal e usada para interagir com o livro-razão do canal. Como o canal possui 
+apenas um membro, o administrador do R1 pode confirmar a definição do código do 
+chaincode S5 no canal C1. Depois que a definição foi confirmada, o S5 agora pode 
+ser [invocado](../glossary.html#invoke) pelo aplicativo cliente A1!
 
-Note that although every component on the channel can now access S5, they are
-not able to see its program logic.  This remains private to those nodes who have
-installed it; in our example that means P1. Conceptually this means that it's
-the smart contract **interface** that is defined and committed to a channel, in
-contrast to the smart contract **implementation** that is installed. To reinforce
-this idea; installing a smart contract shows how we think of it being
-**physically hosted** on a peer, whereas a smart contract that has been defined
-on a channel shows how we consider it **logically hosted** by the channel.
+Observe que, embora todos os componentes no canal agora possam acessar o S5, eles
+não podem ver a lógica do programa. Isso permanece privado para os nós que
+o instalaram, no nosso exemplo, isso significa P1. Conceitualmente, isso 
+significa que é a **interface** do contrato inteligente que é definido e aceito
+em um canal, em contraste com a **implementação** do contrato inteligente 
+instalado. Para reforçar essa ideia, a instalação de um contrato inteligente 
+mostra como pensamos que ele é **fisicamente hospedado** em um nó, enquanto um
+contrato inteligente que foi definido em um canal mostra como o consideramos 
+**logicamente hospedado** no canal.
 
-### Endorsement policy
+### Política de endosso
 
-The most important piece of information supplied within the chaincode definition
-is the [endorsement policy](../glossary.html#endorsement-policy). It describes
-which organizations must approve transactions before they will be accepted by other
-organizations onto their copy of the ledger. In our sample network, transactions
-can only be accepted onto ledger L1 if R1 or R2 endorse them.
+A informação mais importante fornecida na definição do chaincode é a 
+[política de endosso](../glossary.html#politica-de-endosso). Ele descreve quais 
+organizações devem aprovar transações antes de serem aceitas por outras 
+organizações na sua cópia do livro-razão. Em nossa rede de amostra, as transações 
+só podem ser aceitas no razão L1 se R1 ou R2 as endossarem.
 
-Committing the chaincode definition to the channel places the endorsement policy
-on the channel ledger; it enables it to be accessed by any member of the channel.
-You can read more about endorsement policies in the [transaction flow topic](../txflow.html).
+O registro da definição do chaincode no canal, coloca a política de endosso no 
+livro-razão do canal, permitindo que seja acessado por qualquer membro do canal. 
+Você pode ler mais sobre políticas de endosso no [tópico do fluxo de transações](../txflow.html).
 
-### Invoking a smart contract
+### Invocando um Contrato Inteligente
 
-Once a smart contract has been installed on a peer node and defined on a
-channel it can be [invoked](../glossary.html#invoke) by a client application.
-Client applications do this by sending transaction proposals to peers owned by
-the organizations specified by the smart contract endorsement policy. The
-transaction proposal serves as input to the smart contract, which uses it to
-generate an endorsed transaction response, which is returned by the peer node to
-the client application.
+Depois que um contrato inteligente é instalado em um nó par e definido em um 
+canal, ele pode ser [invocado](../glossary.html#Invocacao) por um aplicativo 
+cliente. Os aplicativos clientes fazem isso enviando propostas de transação aos
+nós das organizações especificadas na política de aprovação de contrato 
+inteligente. A proposta de transação serve como entrada para o contrato 
+inteligente, que a utiliza para gerar uma resposta de transação endossada, que é 
+retornada pelo nó para o aplicativo cliente.
 
-It's these transactions responses that are packaged together with the
-transaction proposal to form a fully endorsed transaction, which can be
-distributed to the entire network.  We'll look at this in more detail later  For
-now, it's enough to understand how applications invoke smart contracts to
-generate endorsed transactions.
+São essas respostas de transações que são empacotadas junto com a proposta de 
+transação para formar uma transação totalmente endossada, que pode ser distribuída 
+para toda a rede. Veremos isso com mais detalhes posteriormente. Por enquanto, 
+basta entender como os aplicativos invocam contratos inteligentes para gerar 
+transações endossadas.
 
-By this stage in network development we can see that organization R1 is fully
-participating in the network. Its applications -- starting with A1 -- can access
-the ledger L1 via smart contract S5, to generate transactions that will be
-endorsed by R1, and therefore accepted onto the ledger because they conform to
-the endorsement policy.
+Nesta fase do desenvolvimento da rede, podemos ver que a organização R1 está 
+participando na rede por completo. Suas aplicações -- começando com A1 -- podem 
+acessar o razão L1 por meio do contrato inteligente S5, para gerar transações que
+serão endossadas por R1 e, portanto, aceitas no razão porque estão em conformidade
+com a política de endosso.
 
-## Network completed
+## Rede concluída
 
-Recall that our objective was to create a channel for consortium X1 --
-organizations R1 and R2. This next phase of network development sees
-organization R2 add its infrastructure to the network.
+Lembre-se de que nosso objetivo era criar um canal para o consórcio X1 
+-- organizações R1 e R2. Nesta próxima fase do desenvolvimento da rede, a 
+organização R2 adiciona sua infraestrutura à rede.
 
-Let's see how the network has evolved:
+Vamos ver como a rede evoluiu:
 
 ![network.grow](./network.diagram.7.png)
 
-*The network has grown through the addition of infrastructure from
-organization R2. Specifically, R2 has added peer node P2, which hosts a copy of
-ledger L1, and chaincode S5. R2 approves the same chaincode definition as R1.
-P2 has also joined channel C1, as has application A2. A2 and P2 are identified
-using certificates from CA2. All of this means that both applications A1 and A2
-can invoke S5 on C1 either using peer node P1 or P2.*
+*A rede cresceu através da adição de infraestrutura da organização R2. 
+Especificamente, o R2 adicionou o nó par P2, que hospeda uma cópia do livro-razão L1 
+e o chaincode S5. R2 aprova a mesma definição do chaincode que R1. P2 também se 
+juntou ao canal C1, assim como o aplicativo A2. A2 e P2 são identificados usando 
+certificados de CA2. Tudo isso significa que os aplicativos A1 e A2 podem chamar 
+S5 em C1 usando o nó par P1 ou P2.*
 
-We can see that organization R2 has added a peer node, P2, on channel C1. P2
-also hosts a copy of the ledger L1 and smart contract S5. We can see that R2 has
-also added client application A2 which can connect to the network via channel
-C1. To achieve this, an administrator in organization R2 has created peer node
-P2 and joined it to channel C1, in the same way as an administrator in R1. The
-administrator also has to approve the same chaincode definition as R1.
+Podemos ver que a organização R2 adicionou um nó par P2, no canal C1. P2 também 
+hospeda uma cópia do livro-razão L1 e do contrato inteligente S5. Podemos ver que
+o R2 também adicionou o aplicativo cliente A2, que pode se conectar à rede via o
+canal C1. Para conseguir isso, um administrador na organização R2 criou o nó par
+P2 e o associou ao canal C1, da mesma maneira que o administrador em R1. O 
+administrador também precisa aprovar a mesma definição do chaincode que R1.
 
-We have created our first operational network! At this stage in network
-development, we have a channel in which organizations R1 and R2 can fully
-transact with each other. Specifically, this means that applications A1 and A2
-can generate transactions using smart contract S5 and ledger L1 on channel C1.
+Criamos nossa primeira rede operacional! Nesta fase do desenvolvimento da rede, 
+temos um canal no qual as organizações R1 e R2 podem realizar transações completas
+entre si. Especificamente, isso significa que os aplicativos A1 e A2 podem gerar
+transações usando o contrato inteligente S5 e o livro-razão L1 no canal C1.
 
-### Generating and accepting transactions
+### Gerando e aceitando Transações
 
-In contrast to peer nodes, which always host a copy of the ledger, we see that
-there are two different kinds of peer nodes; those which host smart contracts
-and those which do not. In our network, every peer hosts a copy of the smart
-contract, but in larger networks, there will be many more peer nodes that do not
-host a copy of the smart contract. A peer can only *run* a smart contract if it
-is installed on it, but it can *know* about the interface of a smart contract by
-being connected to a channel.
+Ao contrário dos nós pares, que sempre hospedam uma cópia do livro-razão, vemos 
+que existem dois tipos diferentes de nós pares, aqueles que hospedam os contratos
+inteligentes e aqueles que não. Em nossa rede, todos os pares hospedam uma cópia 
+do contrato inteligente, mas em redes maiores, haverá muito mais nós que não 
+hospedam uma cópia do contrato inteligente. Um par só pode **executar** um
+contrato inteligente se estiver instalado nele, mas pode **saber** sobre a 
+interface de um contrato inteligente ao estar conectado a um canal.
 
-You should not think of peer nodes which do not have smart contracts installed
-as being somehow inferior. It's more the case that peer nodes with smart
-contracts have a special power -- to help **generate** transactions. Note that
-all peer nodes can **validate** and subsequently **accept** or **reject**
-transactions onto their copy of the ledger L1. However, only peer nodes with a
-smart contract installed can take part in the process of transaction
-**endorsement** which is central to the generation of valid transactions.
+Você não deve pensar em nós pares que não possuem contratos inteligentes instalados 
+como sendo de alguma forma inferiores. É mais o caso dos nós pares com contratos 
+inteligentes terem um poder especial -- para ajudar a **gerar** transações. 
+Observe que todos os nós pares podem **validar** e subsequentemente **aceitar** 
+ou **rejeitar** transações em sua cópia do livro-razão L1. No entanto, apenas nós 
+pares com um contrato inteligente instalado podem participar do processo de 
+**aprovação** da transação, que é central para a geração de transações válidas.
 
-We don't need to worry about the exact details of how transactions are
-generated, distributed and accepted in this topic -- it is sufficient to
-understand that we have a blockchain network where organizations R1 and R2 can
-share information and processes as ledger-captured transactions.  We'll learn a
-lot more about transactions, ledgers, smart contracts in other topics.
+Não precisamos nos preocupar com os detalhes exatos de como as transações são 
+geradas, distribuídas e aceitas neste tópico -- é o suficiente entender que temos
+uma rede blockchain em que as organizações R1 e R2 podem compartilhar informações
+e processos como transações de captura-de-livro-razão. Aprenderemos muito mais 
+sobre transações, livros-razão, contratos inteligentes em outros tópicos.
 
-### Types of peers
+### Tipos de pares
 
-In Hyperledger Fabric, while all peers are the same, they can assume multiple
-roles depending on how the network is configured.  We now have enough
-understanding of a typical network topology to describe these roles.
+No Hyperledger Fabric, como todos os pares são iguais, eles podem assumir várias 
+funções, dependendo de como a rede está configurada. Agora temos entendimento 
+suficiente de uma topologia de rede típica para descrever essas funções.
 
-  * [*Committing peer*](../glossary.html#commitment). Every peer node in a
-    channel is a committing peer. It receives blocks of generated transactions,
-    which are subsequently validated before they are committed to the peer
-    node's copy of the ledger as an append operation.
+  * [*Pares de Confirmação*](../glossary.html#confirmar). Todo nó par em um canal 
+    é um ponto de confirmação. Ele recebe blocos de transações geradas, que são 
+    posteriormente validadas antes de serem confirmadas na cópia local do 
+    livro-razão como uma operação de adição.
 
-  * [*Endorsing peer*](../glossary.html#endorsement). Every peer with a smart
-    contract *can* be an endorsing peer if it has a smart contract installed.
-    However, to actually *be* an endorsing peer, the smart contract on the peer
-    must be used by a client application to generate a digitally signed
-    transaction response. The term *endorsing peer* is an explicit reference to
-    this fact.
+  * [*Pares de Endosso*](../glossary.html#endosso). Todo nó com um contrato 
+    inteligente **pode** ser um nó endossante se tiver um contrato inteligente 
+    instalado. No entanto, para realmente **ser** um par endossante, o contrato 
+    inteligente no par deve ser usado por um aplicativo cliente para gerar uma 
+    resposta de transação assinada digitalmente. O termo **endossando pares** é 
+    uma referência explícita a esse fato.
 
-    An endorsement policy for a smart contract identifies the
-    organizations whose peer should digitally sign a generated transaction
-    before it can be accepted onto a committing peer's copy of the ledger.
+    Uma política de endosso para um contrato inteligente identifica as organizações 
+    cujo parceiro deve assinar digitalmente uma transação gerada antes que ela 
+    possa ser aceita confirmação na cópia do livro-razão de um parceiro.
 
-These are the two major types of peer; there are two other roles a peer can
-adopt:
+Esses são os dois principais tipos de pares, existem outras duas funções que um 
+nó pode adotar:
 
-  * [*Leader peer*](../glossary.html#leading-peer). When an organization has
-    multiple peers in a channel, a leader peer is a node which takes
-    responsibility for distributing transactions from the orderer to the other
-    committing peers in the organization.  A peer can choose to participate in
-    static or dynamic leadership selection.
+  * [*Par Líder*](../glossary.html#par-lider). Quando uma organização possui 
+    vários pares em um canal, é um nó líder que assume a responsabilidade de 
+    distribuir transações do ordenador para os outros pares confirmadores da 
+    organização. Um nó pode optar por participar da liderança de forma estática 
+    ou dinâmica.
 
-    It is helpful, therefore to think of two sets of peers from leadership
-    perspective -- those that have static leader selection, and those with
-    dynamic leader selection. For the static set, zero or more peers can be
-    configured as leaders. For the dynamic set, one peer will be elected leader
-    by the set. Moreover, in the dynamic set, if a leader peer fails, then the
-    remaining peers will re-elect a leader.
+    Portanto, é útil pensar em dois conjuntos de pares da perspectiva da liderança 
+    -- aqueles que têm seleção estática de líderes e aqueles com seleção dinâmica 
+    de líderes. Para o conjunto estático, zero ou mais pares podem ser configurados
+    como líderes. Para o conjunto dinâmico, um par será eleito líder pelo conjunto.
+    Além disso, no conjunto dinâmico, se um colega líder falhar, os colegas 
+    restantes reelegerão um líder.
 
-    It means that an organization's peers can have one or more leaders connected
-    to the ordering service. This can help to improve resilience and scalability
-    in large networks which process high volumes of transactions.
+    Isso significa que os pares de uma organização podem ter um ou mais líderes 
+    conectados ao serviço de ordens. Isso pode ajudar a melhorar a resiliência e 
+    a escalabilidade em grandes redes que processam grandes volumes de transações.
 
-  * [*Anchor peer*](../glossary.html#anchor-peer). If a peer needs to
-    communicate with a peer in another organization, then it can use one of the
-    **anchor peers** defined in the channel configuration for that organization.
-    An organization can have zero or more anchor peers defined for it, and an
-    anchor peer can help with many different cross-organization communication
-    scenarios.
+  * [*Nó Âncora*](../glossary.html#no-ancora). Se um ponto precisar se comunicar 
+    com um ponto em outra organização, ele poderá usar um dos **nós âncora** 
+    definidos na configuração do canal para essa organização. Uma organização 
+    pode ter zero ou mais pares âncoras definidos para ela e um par âncora pode 
+    ajudar com muitos cenários diferentes de comunicação entre organizações. 
 
-Note that a peer can be a committing peer, endorsing peer, leader peer and
-anchor peer all at the same time! Only the anchor peer is optional -- for all
-practical purposes there will always be a leader peer and at least one
-endorsing peer and at least one committing peer.
+Observe que um par pode ser um par de confirmação, par de endosso, um par líder 
+e um par âncora ao mesmo tempo! Somente o ponto de ancoragem é opcional -- para 
+todos os fins práticos, sempre haverá um líder e pelo menos um endossante e pelo 
+menos um confirmador.
 
-### Adding organizations and peers to the channel
+### Adicionando organizações e pares ao canal
 
-When R2 joins the channel, the organization must install smart contract S5
-onto its peer node, P2. That's obvious -- if applications A1 or A2 wish to use
-S5 on peer node P2 to generate transactions, it must first be present;
-installation is the mechanism by which this happens. At this point, peer node P2
-has a physical copy of the smart contract and the ledger; like P1, it can both
-generate and accept transactions onto its copy of ledger L1.
+Quando R2 ingressa no canal, a organização deve instalar o contrato inteligente 
+S5 em seu nó par, P2. Isso é óbvio -- se os aplicativos A1 ou A2 desejam usar 
+S5 no nó par P2 para gerar transações, ele deve estar presente primeiro. 
+Instalação é o mecanismo pelo qual isso acontece. Nesse ponto, o nó P2 possui 
+uma cópia física do contrato inteligente e do livro-razão, como P1 e ele pode 
+gerar e aceitar transações em sua cópia do livro-razão L1.
 
-R2 must approve the same chaincode definition as was approved by R1 in order to
-use smart contract S5. Because the chaincode definition has already been
-committed to the channel by organization R1, R2 can use the chaincode as soon as
-the organization approves the chaincode definition and installs the chaincode
-package. The commit transaction only needs to happen once. A new organization
-can use the chaincode as soon as they approve the chaincode parameters agreed to
-by other members of the channel. Because the approval of a chaincode definition
-occurs at the organization level, R2 can approve the chaincode definition once
-and join multiple peers to the channel with the chaincode package installed.
-However, if R2 wanted to change the chaincode definition, both R1 and R2 would
-need to approve a new definition for their organization, and then one of the
-organizations would need to commit the definition to the channel.
+O R2 deve aprovar a mesma definição de chaincode aprovada pelo R1 para usar o 
+contrato inteligente S5. Como a definição de chaincode já foi confirmada no 
+canal pela organização R1, o R2 pode usá-lo assim que a organização aprovar a 
+definição do chaincode e instalar o pacote. A transação de confirmação precisa 
+acontecer apenas uma vez. Uma nova organização pode usar o chaincode assim que 
+aprovar os parâmetros do código acordado por outros membros do canal. Como a 
+aprovação de um chaincode ocorre no nível da organização, o R2 pode aprovar a 
+definição de código de código uma vez e unir vários pares ao canal com o 
+chaincode instalado. No entanto, se o R2 quisesse alterar a definição do código, 
+R1 e R2 precisariam aprovar uma nova definição para sua organização e, em 
+seguida, uma das organizações precisaria confirmar a definição no canal.
 
-In our network, we can see that channel C1 connects two client applications, two
-peer nodes and an ordering service.  Since there is only one channel, there is
-only one **logical** ledger with which these components interact. Peer nodes P1
-and P2 have identical copies of ledger L1. Copies of smart contract S5 will
-usually be identically implemented using the same programming language, but
-if not, they must be semantically equivalent.
+Em nossa rede, podemos ver que o canal C1 conecta dois aplicativos clientes, 
+dois nós pares e um serviço de ordens. Como existe apenas um canal, existe 
+apenas um registro **lógico** com o qual esses componentes interagem. Os nós 
+pares P1 e P2 têm cópias idênticas do livro-razão L1. As cópias do contrato 
+inteligente S5 geralmente serão implementadas de forma idêntica usando a mesma 
+linguagem de programação, caso não sejam, devem ser semanticamente equivalentes.
 
-We can see that the careful addition of peers to the network can help support
-increased throughput, stability, and resilience. For example, more peers in a
-network will allow more applications to connect to it; and multiple peers in an
-organization will provide extra resilience in the case of planned or unplanned
-outages.
+Podemos ver que a adição cuidadosa de pares à rede pode ajudar a aumentar o 
+rendimento, a estabilidade e a resiliência. Por exemplo, mais pares em uma rede 
+permitirão que mais aplicativos se conectem a ela, e vários pares em uma 
+organização fornecerão resiliência extra no caso de interrupções planejadas ou 
+não planejadas.
 
-It all means that it is possible to configure sophisticated topologies which
-support a variety of operational goals -- there is no theoretical limit to how
-big a network can get. Moreover, the technical mechanism by which peers within
-an individual organization efficiently discover and communicate with each other --
-the [gossip protocol](../gossip.html#gossip-protocol) -- will accommodate a
-large number of peer nodes in support of such topologies.
+Tudo isso significa que é possível configurar topologias sofisticadas que 
+suportam uma variedade de objetivos operacionais -- não há limite teórico para 
+o tamanho da rede. Além disso, o mecanismo técnico pelo qual os pares das  
+organizações se descobrem e se comunicam com eficiência -- o 
+[protocolo gossip](../gossip.html#gossip-protocol) -- acomodará um grande 
+número de nós pares nessa topologias.
 
-The careful use of network and channel policies allow even large networks to be
-well-governed.  Organizations are free to add peer nodes to the network so long
-as they conform to the policies agreed by the network. Network and channel
-policies create the balance between autonomy and control which characterizes a
-de-centralized network.
+O uso cuidadoso das políticas de rede e canal permite que até redes grandes 
+sejam bem governadas. As organizações são livres para adicionar nós pares à rede,
+desde que estejam em conformidade com as políticas acordadas pela rede. As 
+políticas de rede e canal criam o equilíbrio entre autonomia e controle, que 
+caracteriza uma rede descentralizada.
 
-## Simplifying the visual vocabulary
+## Simplificando o vocabulário visual
 
-We’re now going to simplify the visual vocabulary used to represent our sample
-blockchain network. As the size of the network grows, the lines initially used
-to help us understand channels will become cumbersome. Imagine how complicated
-our diagram would be if we added another peer or client application, or another
-channel?
+Agora, vamos simplificar o vocabulário visual usado para representar nossa rede
+blockchain de exemplo. À medida que o tamanho da rede aumenta, as linhas
+inicialmente usadas para nos ajudar a entender os canais se tornarão complicadas.
+Imagine o quão complicado seria o nosso diagrama se adicionássemos ao par outro 
+aplicativo, ou cliente, ou outro canal?
 
-That's what we're going to do in a minute, so before we do, let's simplify the
-visual vocabulary. Here's a simplified representation of the network we've
-developed so far:
+É isso que vamos fazer em um minuto. Antes de fazer, vamos simplificar o 
+vocabulário visual. Aqui está uma representação simplificada da rede que 
+desenvolvemos até agora:
 
 ![network.vocabulary](./network.diagram.8.png)
 
-*The diagram shows the facts relating to channel C1 in the network N as follows:
-Client applications A1 and A2 can use channel C1 for communication with peers
-P1 and P2, and orderer O4. Peer nodes P1 and P2 can use the communication
-services of channel C1. Ordering service O4 can make use of the communication
-services of channel C1. Channel configuration CC1 applies to channel C1.*
+*O diagrama mostra os fatos relacionados ao canal C1 na rede N da seguinte 
+maneira: Os aplicativos clientes A1 e A2 podem usar o canal C1 para comunicação
+com os pares P1 e P2 e o ordem O4. Os nós de pares P1 e P2 podem usar os 
+serviços de comunicação do canal C1. O serviço de ordens O4 pode fazer uso dos 
+serviços de comunicação do canal C1. A configuração do canal CC1 se aplica ao 
+canal C1.*
 
-Note that the network diagram has been simplified by replacing channel lines
-with connection points, shown as blue circles which include the channel number.
-No information has been lost. This representation is more scalable because it
-eliminates crossing lines. This allows us to more clearly represent larger
-networks. We've achieved this simplification by focusing on the connection
-points between components and a channel, rather than the channel itself.
+Observe que o diagrama da rede foi simplificado substituindo as linhas de canal
+por pontos de conexão, mostrados como círculos azuis que incluem o número do 
+canal. Nenhuma informação foi perdida. Essa representação é mais escalável porque
+elimina linhas de cruzamento. Isso nos permite representar mais claramente redes
+maiores. Conseguimos essa simplificação focando nos pontos de conexão entre 
+componentes e um canal, e não no próprio canal.
 
-## Adding another consortium definition
+## Adicionando outra definição de consórcio
 
-In this next phase of network development, we introduce organization R3.  We're
-going to give organizations R2 and R3 a separate application channel which
-allows them to transact with each other.  This application channel will be
-completely separate to that previously defined, so that R2 and R3 transactions
-can be kept private to them.
+Nesta próxima fase do desenvolvimento da rede, apresentamos a organização R3. 
+Vamos dar às organizações R2 e R3 um canal de aplicativo separado, que permite 
+que elas realizem transações entre si. Esse canal de aplicativo será 
+completamente separado do definido anteriormente, para que as transações R2 e R3 
+possam ser mantidas privadas entre eles.
 
-Let's return to the network level and define a new consortium, X2, for R2 and
-R3:
+Vamos voltar ao nível da rede e definir um novo consórcio, X2, para R2 e R3:
 
 ![network.consortium2](./network.diagram.9.png)
 
-*A network administrator from organization R1 or R4 has added a new consortium
-definition, X2, which includes organizations R2 and R3. This will be used to
-define a new channel for X2.*
+*Um administrador de rede da organização R1 ou R4 adicionou uma nova definição 
+de consórcio, X2, que inclui as organizações R2 e R3. Isso será usado para 
+definir um novo canal para o X2.*
 
-Notice that the network now has two consortia defined: X1 for organizations R1
-and R2 and X2 for organizations R2 and R3. Consortium X2 has been introduced in
-order to be able to create a new channel for R2 and R3.
+Observe que a rede agora tem dois consórcios definidos: X1 para organizações R1 
+e R2 e X2 para organizações R2 e R3. O Consortium X2 foi introduzido para poder 
+criar um novo canal para R2 e R3.
 
-A new channel can only be created by those organizations specifically identified
-in the network configuration policy, NC4, as having the appropriate rights to do
-so, i.e. R1 or R4. This is an example of a policy which separates organizations
-that can manage resources at the network level versus those who can manage
-resources at the channel level. Seeing these policies at work helps us
-understand why Hyperledger Fabric has a sophisticated **tiered** policy
-structure.
+Um novo canal só pode ser criado pelas organizações especificamente identificadas 
+na política de configuração de rede, NC4, como possuindo os direitos apropriados 
+para fazê-lo, ou seja, R1 ou R4. Este é um exemplo de política que separa as 
+organizações que podem gerenciar recursos no nível da rede e aquelas que podem 
+gerenciar recursos no nível do canal. Ver essas políticas em ação nos ajuda a 
+entender por que a Hyperledger Fabric possui uma sofisticada estrutura em 
+camadas de políticas.
 
-In practice, consortium definition X2 has been added to the network
-configuration NC4. We discuss the exact mechanics of this operation elsewhere in
-the documentation.
+Na prática, a definição de consórcio X2 foi adicionada à configuração de rede 
+NC4. Discutimos a mecânica exata dessa operação em outras partes da documentação.
 
-## Adding a new channel
+## Adicionando um novo canal
 
-Let's now use this new consortium definition, X2, to create a new channel, C2.
-To help reinforce your understanding of the simpler channel notation, we've used
-both visual styles -- channel C1 is represented with blue circular end points,
-whereas channel C2 is represented with red connecting lines:
+Agora vamos usar essa nova definição de consórcio, X2, para criar um novo canal, 
+C2. Para ajudar a reforçar sua compreensão da notação de canal mais simples, 
+usamos os dois estilos visuais -- o canal C1 é representado com pontos finais 
+circulares azuis, enquanto o canal C2 é representado com linhas de conexão vermelhas:
 
 ![network.channel2](./network.diagram.10.png)
 
-*A new channel C2 has been created for R2 and R3 using consortium definition X2.
-The channel has a channel configuration CC2, completely separate to the network
-configuration NC4, and the channel configuration CC1. Channel C2 is managed by
-R2 and R3 who have equal rights over C2 as defined by a policy in CC2. R1 and
-R4 have no rights defined in CC2 whatsoever.*
+*Um novo canal C2 foi criado para R2 e R3 usando a definição de consórcio X2. O
+canal possui uma configuração de canal CC2, completamente separada da 
+configuração de rede NC4 e a configuração de canal CC1. O canal C2 é gerenciado 
+por R2 e R3 que têm direitos iguais sobre C2, conforme definido por uma política 
+no CC2. R1 e R4 não têm direitos definidos no CC2.*
 
-The channel C2 provides a private communications mechanism for the consortium
-X2. Again, notice how organizations united in a consortium are what form
-channels. The channel configuration CC2 now contains the policies that govern
-channel resources, assigning management rights to organizations R2 and R3 over
-channel C2. It is managed exclusively by R2 and R3; R1 and R4 have no power in
-channel C2. For example, channel configuration CC2 can subsequently be updated
-to add organizations to support network growth, but this can only be done by R2
-or R3.
+O canal C2 fornece um mecanismo de comunicação privado para o consórcio X2. Mais 
+uma vez, observe como as organizações unidas em um consórcio são as que formam 
+os canais. A configuração do canal CC2 agora contém as políticas que governam os
+recursos do canal, atribuindo direitos de gerenciamento às organizações R2 e R3 
+pelo canal C2. É gerenciado exclusivamente por R2 e R3, R1 e R4 não têm poder no 
+canal C2. Por exemplo, a configuração do canal CC2 pode ser atualizada 
+posteriormente para adicionar organizações para apoiar o crescimento da rede,
+mas isso só pode ser feito pelo R2 ou pelo R3.
 
-Note how the channel configurations CC1 and CC2 remain completely separate from
-each other, and completely separate from the network configuration, NC4. Again
-we're seeing the de-centralized nature of a Hyperledger Fabric network; once
-channel C2 has been created, it is managed by organizations R2 and R3
-independently to other network elements. Channel policies always remain separate
-from each other and can only be changed by the organizations authorized to do so
-in the channel.
+Observe como as configurações de canal CC1 e CC2 permanecem completamente 
+separadas uma da outra e completamente separadas da configuração de rede, NC4. 
+Mais uma vez, estamos vendo a natureza descentralizada de uma rede Hyperledger 
+Fabric, depois que o canal C2 é criado, ele é gerenciado pelas organizações R2 e 
+R3 independentemente de outros elementos da rede. As políticas de canal sempre 
+permanecem separadas umas das outras e só podem ser alteradas pelas organizações 
+autorizadas a fazê-lo no canal.
 
-As the network and channels evolve, so will the network and channel
-configurations. There is a process by which this is accomplished in a controlled
-manner -- involving configuration transactions which capture the change to these
-configurations. Every configuration change results in a new configuration block
-transaction being generated, and [later in this topic](#the-ordering-serivce),
-we'll see how these blocks are validated and accepted to create updated network
-and channel configurations respectively.
+À medida que a rede e os canais evoluem, o mesmo ocorre com as configurações de 
+rede e canal. Há um processo pelo qual isso é realizado de maneira controlada -- 
+envolvendo transações de configuração que capturam a alteração nessas 
+configurações. Toda mudança de configuração resulta em uma nova transação no 
+bloco de configuração sendo gerada, e [logo mais nesse tópico](#o-servico-de-ordem) 
+veremos como esses blocos são validados e aceitos para criar configurações
+atualizadas de rede e canal, respectivamente.
 
-### Network and channel configurations
+### Configurações de rede e canal
 
-Throughout our sample network, we see the importance of network and channel
-configurations. These configurations are important because they encapsulate the
-**policies** agreed by the network members, which provide a shared reference for
-controlling access to network resources. Network and channel configurations also
-contain **facts** about the network and channel composition, such as the name of
-consortia and its organizations.
+Em toda a nossa rede de exemplo, vemos a importância das configurações de rede e
+canal. Essas configurações são importantes porque encapsulam as **políticas** 
+acordadas pelos membros da rede, que fornecem uma referência compartilhada para 
+controlar o acesso aos recursos da rede. As configurações de rede e canal também 
+contêm **fatos** sobre a composição da rede e do canal, como o nome dos consórcios 
+e suas organizações.
 
-For example, when the network is first formed using the ordering service node
-O4, its behaviour is governed by the network configuration NC4. The initial
-configuration of NC4 only contains policies that permit organization R4 to
-manage network resources. NC4 is subsequently updated to also allow R1 to manage
-network resources. Once this change is made, any administrator from organization
-R1 or R4 that connects to O4 will have network management rights because that is
-what the policy in the network configuration NC4 permits. Internally, each node
-in the ordering service records each channel in the network configuration, so
-that there is a record of each channel created, at the network level.
+Por exemplo, quando a rede é formada pela primeira vez usando o nó de serviço de
+ordem O4, seu comportamento é governado pela configuração de rede NC4. A 
+configuração inicial do NC4 contém apenas políticas que permitem à organização 
+R4 gerenciar recursos de rede. O NC4 é atualizado posteriormente para permitir 
+também que o R1 gerencie os recursos da rede. Depois que essa alteração é feita, 
+qualquer administrador da organização R1 ou R4 que se conecta ao O4 terá direitos
+de gerenciamento de rede, pois é isso que a política na configuração de rede NC4
+permite. Internamente, cada nó no serviço de ordens registra cada canal na 
+configuração de rede, para que haja um registro de cada canal criado, no nível 
+da rede.
 
-It means that although ordering service node O4 is the actor that created
-consortia X1 and X2 and channels C1 and C2, the **intelligence** of the network
-is contained in the network configuration NC4 that O4 is obeying.  As long as O4
-behaves as a good actor, and correctly implements the policies defined in NC4
-whenever it is dealing with network resources, our network will behave as all
-organizations have agreed. In many ways NC4 can be considered more important
-than O4 because, ultimately, it controls network access.
+Isso significa que, embora o pedido do nó de ordem O4 seja o ator que criou os 
+consórcios X1 e X2 e os canais C1 e C2, a **inteligência** da rede está contida 
+na configuração de rede NC4 que O4 está obedecendo. Desde que o O4 se comporte 
+como um bom ator e implemente corretamente as políticas definidas no NC4 sempre 
+que estiver lidando com recursos de rede, nossa rede se comportará como todas as
+organizações concordaram. De muitas maneiras, o NC4 pode ser considerado mais 
+importante que o O4 porque, em última análise, controla o acesso à rede.
 
-The same principles apply for channel configurations with respect to peers. In
-our network, P1 and P2 are likewise good actors. When peer nodes P1 and P2 are
-interacting with client applications A1 or A2 they are each using the policies
-defined within channel configuration CC1 to control access to the channel C1
-resources.
+Os mesmos princípios se aplicam às configurações de canal em relação aos pares.
+Em nossa rede, P1 e P2 são igualmente bons atores. Quando os nós de pares P1 e 
+P2 estão interagindo com os aplicativos clientes A1 ou A2, cada um deles usa as 
+políticas definidas na configuração de canal CC1 para controlar o acesso aos 
+recursos do canal C1.
 
-For example, if A1 wants to access the smart contract chaincode S5 on peer nodes
-P1 or P2, each peer node uses its copy of CC1 to determine the operations that
-A1 can perform. For example, A1 may be permitted to read or write data from the
-ledger L1 according to policies defined in CC1. We'll see later the same pattern
-for actors in channel and its channel configuration CC2.  Again, we can see that
-while the peers and applications are critical actors in the network, their
-behaviour in a channel is dictated more by the channel configuration policy than
-any other factor.
+Por exemplo, se A1 quiser acessar o chaincode do contrato inteligente S5 nos nós 
+pares P1 ou P2, cada nó usará sua cópia do CC1 para determinar as operações que 
+A1 pode executar. Por exemplo, A1 pode ter permissão para ler ou gravar dados do
+livro-razão L1 de acordo com as políticas definidas em CC1. Veremos mais adiante 
+o mesmo padrão para os atores no canal e sua configuração de canal CC2. Novamente, 
+podemos ver que, embora os pares e aplicativos sejam atores críticos na rede, 
+seu comportamento em um canal é ditado mais pela política de configuração do 
+canal do que por qualquer outro fator.
 
-Finally, it is helpful to understand how network and channel configurations are
-physically realized. We can see that network and channel configurations are
-logically singular -- there is one for the network, and one for each channel.
-This is important; every component that accesses the network or the channel must
-have a shared understanding of the permissions granted to different
-organizations.
+Por fim, é útil entender como as configurações de rede e canal são fisicamente 
+realizadas. Podemos ver que as configurações de rede e canal são logicamente 
+singulares -- há uma para a rede e uma para cada canal. Isso é importante, todo 
+componente que acessa a rede ou o canal deve ter um entendimento compartilhado 
+das permissões concedidas as diferentes organizações.
 
-Even though there is logically a single configuration, it is actually replicated
-and kept consistent by every node that forms the network or channel. For
-example, in our network peer nodes P1 and P2 both have a copy of channel
-configuration CC1, and by the time the network is fully complete, peer nodes P2
-and P3 will both have a copy of channel configuration CC2. Similarly ordering
-service node O4 has a copy of the network configuration, but in a [multi-node
-configuration](#the-ordering-service), every ordering service node will have its
-own copy of the network configuration.
+Embora exista logicamente uma única configuração, ela é replicada e mantida 
+consistente por todos os nós que formam a rede ou canal. Por exemplo, em nossa 
+rede os nós pares P1 e P2 têm uma cópia da configuração do canal CC1 e, quando a
+rede estiver totalmente concluída, os nós pares P2 e P3 terão uma cópia da 
+configuração do canal CC2. Da mesma forma, o nó de serviço de ordem O4 possui 
+uma cópia da configuração de rede, mas em uma [configuração de vários nós](#o-servico-de-ordem), 
+cada nó de serviço de ordem terá sua própria cópia da configuração de rede.
 
-Both network and channel configurations are kept consistent using the same
-blockchain technology that is used for user transactions -- but for
-**configuration** transactions. To change a network or channel configuration, an
-administrator must submit a configuration transaction to change the network or
-channel configuration. It must be signed by the organizations identified in the
-appropriate policy as being responsible for configuration change. This policy is
-called the **mod_policy** and we'll [discuss it later](#changing-policy).
+As configurações de rede e canal são mantidas consistentes usando a mesma 
+tecnologia blockchain usada para transações do usuário -- mas para transações de 
+**configuração**. Para alterar uma configuração de rede ou canal, um administrador 
+deve enviar uma transação de configuração para alterar a configuração de rede ou 
+canal. Ele deve ser assinado pelas organizações identificadas na política 
+apropriada como responsáveis ​​pela alteração da configuração. Essa política é 
+chamada de **mod_policy** e [discutiremos mais tarde](#mudanca-de-politica).
 
-Indeed, the ordering service nodes operate a mini-blockchain, connected via the
-**system channel** we mentioned earlier. Using the system channel ordering
-service nodes distribute network configuration transactions. These transactions
-are used to co-operatively maintain a consistent copy of the network
-configuration at each ordering service node. In a similar way, peer nodes in an
-**application channel** can distribute channel configuration transactions.
-Likewise, these transactions are used to maintain a consistent copy of the
-channel configuration at each peer node.
+De fato, os nós do serviço de ordens operam um mini-blockchain, conectado via 
+**canal do sistema** que mencionamos anteriormente. Usando o canal do sistema, 
+os nós do serviço de ordens distribuem as transações de configuração de rede. 
+Essas transações são usadas para manter cooperativamente uma cópia consistente 
+da configuração de rede em cada nó do serviço de ordens. De maneira semelhante, 
+os nós pares nível em um **canal de aplicativo** podem distribuir transações de 
+configuração de canal. Da mesma forma, essas transações são usadas para manter 
+uma cópia consistente da configuração do canal em cada nó do mesmo nível.
 
-This balance between objects that are logically singular, by being physically
-distributed is a common pattern in Hyperledger Fabric. Objects like network
-configurations, that are logically single, turn out to be physically replicated
-among a set of ordering services nodes for example. We also see it with channel
-configurations, ledgers, and to some extent smart contracts which are installed
-in multiple places but whose interfaces exist logically at the channel level.
-It's a pattern you see repeated time and again in Hyperledger Fabric, and
-enables Hyperledger Fabric to be both de-centralized and yet manageable at the
-same time.
+Esse equilíbrio entre objetos logicamente singulares, por serem fisicamente 
+distribuídos, é um padrão comum no Hyperledger Fabric. Objetos como configurações
+de rede, logicamente únicos, acabam sendo replicados fisicamente entre um 
+conjunto de nós de serviços de ordens, por exemplo. Também o vemos com 
+configurações de canais, livros-razão e, até certo ponto, contratos inteligentes
+que são instalados em vários locais, mas cujas interfaces existem logicamente no 
+nível do canal. É um padrão que você vê repetidas vezes no Hyperledger Fabric e
+permite que o Hyperledger Fabric seja descentralizado e, ao mesmo tempo, 
+gerenciável.
 
-## Adding another peer
+## Adicionando outro nó par
 
-Now that organization R3 is able to fully participate in channel C2, let's add
-its infrastructure components to the channel.  Rather than do this one component
-at a time, we're going to add a peer, its local copy of a ledger, a smart
-contract and a client application all at once!
+Agora que a organização R3 pode participar totalmente do canal C2, vamos 
+adicionar seus componentes de infraestrutura ao canal. Ao invés de fazer isso um
+componente por vez, adicionaremos um nó par, sua cópia local de um livro-razão, 
+um contrato inteligente e um aplicativo cliente de uma só vez!
 
-Let's see the network with organization R3's components added:
+Vamos ver a rede com os componentes da organização R3 adicionados:
 
 ![network.peer2](./network.diagram.11.png)
 
-*The diagram shows the facts relating to channels C1 and C2 in the network N as
-follows: Client applications A1 and A2 can use channel C1 for communication
-with peers P1 and P2, and ordering service O4; client applications A3 can use
-channel C2 for communication with peer P3 and ordering service O4. Ordering
-service O4 can make use of the communication services of channels C1 and C2.
-Channel configuration CC1 applies to channel C1, CC2 applies to channel C2.*
+*O diagrama mostra os fatos relacionados aos canais C1 e C2 na rede N da seguinte
+maneira: Os aplicativos clientes A1 e A2 podem usar o canal C1 para comunicação 
+com os pares P1 e P2 e solicitar o serviço O4; os aplicativos clientes A3 podem 
+usar o canal C2 para comunicação com o ponto P3 e o serviço de ordens O4. O 
+serviço de ordens O4 pode fazer uso dos serviços de comunicação dos canais C1 e 
+C2. A configuração do canal CC1 se aplica ao canal C1, CC2 se aplica ao canal C2.*
 
-First of all, notice that because peer node P3 is connected to channel C2, it
-has a **different** ledger -- L2 -- to those peer nodes using channel C1.  The
-ledger L2 is effectively scoped to channel C2. The ledger L1 is completely
-separate; it is scoped to channel C1.  This makes sense -- the purpose of the
-channel C2 is to provide private communications between the members of the
-consortium X2, and the ledger L2 is the private store for their transactions.
+Antes de tudo, observe que, como o nó P3 está conectado ao canal C2, ele possui 
+um livro-razão **diferente** -- L2 -- para os nós pares usando o canal C1. O razão 
+L2 é efetivamente definido no canal C2. O livro-razão L1 é completamente separado,
+está no escopo do canal C1. Isso faz sentido -- o objetivo do canal C2 é fornecer 
+comunicações privadas entre os membros do consórcio X2, e o livro-razão L2 é o 
+armazenamento privado para suas transações.
 
-In a similar way, the smart contract S6, installed on peer node P3, and defined
-on channel C2, is used to provide controlled access to ledger L2. Application A3
-can now use channel C2 to invoke the services provided by smart contract S6 to
-generate transactions that can be accepted onto every copy of the ledger L2 in
-the network.
+De maneira semelhante, o contrato inteligente S6, instalado no nó par P3 e
+definido no canal C2, é usado para fornecer acesso controlado ao livro-razão L2. 
+O aplicativo A3 agora pode usar o canal C2 para chamar os serviços fornecidos 
+pelo contrato inteligente S6 para gerar transações que podem ser aceitas em 
+todas as cópias do livro-razão L2 na rede.
 
-At this point in time, we have a single network that has two completely separate
-channels defined within it.  These channels provide independently managed
-facilities for organizations to transact with each other. Again, this is
-de-centralization at work; we have a balance between control and autonomy. This
-is achieved through policies which are applied to channels which are controlled
-by, and affect, different organizations.
+Neste momento, temos uma única rede que possui dois canais completamente separados 
+definidos dentro dela. Esses canais fornecem recursos gerenciados de forma 
+independente para as organizações negociarem entre si. Novamente, isso é 
+descentralização no trabalho, nós temos um equilíbrio entre controle e autonomia. 
+Isso é alcançado por meio de políticas aplicadas a canais controlados e afetando 
+diferentes organizações.
 
-## Joining a peer to multiple channels
+## Juntando um par a vários canais
 
-In this final stage of network development, let's return our focus to
-organization R2. We can exploit the fact that R2 is a member of both consortia
-X1 and X2 by joining it to multiple channels:
+Nesta fase final do desenvolvimento da rede, vamos voltar nosso foco para a 
+organização R2. Podemos explorar o fato de o R2 ser um membro dos consórcios X1
+e X2 juntando-o a vários canais:
 
 ![network.multichannel](./network.diagram.12.png)
 
-*The diagram shows the facts relating to channels C1 and C2 in the network N as
-follows: Client applications A1 can use channel C1 for communication with peers
-P1 and P2, and ordering service O4; client application A2 can use channel C1
-for communication with peers P1 and P2 and channel C2 for communication with
-peers P2 and P3 and ordering service O4; client application A3 can use channel
-C2 for communication with peer P3 and P2 and ordering service O4. Ordering service O4
-can make use of the communication services of channels C1 and C2. Channel
-configuration CC1 applies to channel C1, CC2 applies to channel C2.*
+*O diagrama mostra os fatos relacionados aos canais C1 e C2 na rede N da seguinte 
+maneira: Os aplicativos clientes A1 podem usar o canal C1 para comunicação com os
+pares P1 e P2 e solicitar o serviço O4; o aplicativo cliente A2 pode usar o canal
+C1 para comunicação com os pares P1 e P2 e o canal C2 para comunicação com os 
+pares P2 e P3 e solicitar o serviço O4; o aplicativo cliente A3 pode usar o canal
+C2 para comunicação com os pares P3 e P2 e solicitar o serviço O4. O serviço de 
+ordens O4 pode fazer uso dos serviços de comunicação dos canais C1 e C2. A 
+configuração do canal CC1 se aplica ao canal C1, CC2 se aplica ao canal C2.*
 
-We can see that R2 is a special organization in the network, because it is the
-only organization that is a member of two application channels!  It is able to
-transact with organization R1 on channel C1, while at the same time it can also
-transact with organization R3 on a different channel, C2.
+Podemos ver que o R2 é uma organização especial na rede, porque é a única 
+organização que é membro de dois canais de aplicativos! É capaz de negociar com 
+a organização R1 no canal C1, enquanto, ao mesmo tempo, também pode negociar com 
+a organização R3 em um canal diferente, C2.
 
-Notice how peer node P2 has smart contract S5 installed for channel C1 and smart
-contract S6 installed for channel C2. Peer node P2 is a full member of both
-channels at the same time via different smart contracts for different ledgers.
+Observe como o nó P2 possui o contrato inteligente S5 instalado para o canal C1 
+e o contrato inteligente S6 instalado para o canal C2. O nó P2 é um membro de 
+ambos os canais ao mesmo tempo, por meio de contratos inteligentes diferentes 
+para diferentes livros-razão.
 
-This is a very powerful concept -- channels provide both a mechanism for the
-separation of organizations, and a mechanism for collaboration between
-organizations. All the while, this infrastructure is provided by, and shared
-between, a set of independent organizations.
+Este é um conceito muito poderoso -- os canais fornecem um mecanismo para a 
+separação de organizações e um mecanismo para colaboração entre organizações. 
+Enquanto isso, essa infraestrutura é fornecida e compartilhada entre um conjunto 
+de organizações independentes.
 
-It is also important to note that peer node P2's behaviour is controlled very
-differently depending upon the channel in which it is transacting. Specifically,
-the policies contained in channel configuration CC1 dictate the operations
-available to P2 when it is transacting in channel C1, whereas it is the policies
-in channel configuration CC2 that control P2's behaviour in channel C2.
+Também é importante observar que o comportamento do nó P2 é controlado de maneira
+muito diferente, dependendo do canal no qual ele está transacionando. 
+Especificamente, as políticas contidas na configuração de canal CC1 ditam as 
+operações disponíveis para P2 quando transacionando no canal C1, enquanto 
+as políticas na configuração de canal CC2 controlam o comportamento de P2 no 
+canal C2.
 
-Again, this is desirable -- R2 and R1 agreed the rules for channel C1, whereas
-R2 and R3 agreed the rules for channel C2. These rules were captured in the
-respective channel policies -- they can and must be used by every
-component in a channel to enforce correct behaviour, as agreed.
+Novamente, isso é desejável -- R2 e R1 concordaram com as regras do canal C1, 
+enquanto R2 e R3 concordaram com as regras do canal C2. Essas regras foram 
+capturadas nas respectivas políticas de canal -- elas podem e devem ser usadas
+por todos os componentes de um canal para impor o comportamento correto, 
+conforme acordado.
 
-Similarly, we can see that client application A2 is now able to transact on
-channels C1 and C2.  And likewise, it too will be governed by the policies in
-the appropriate channel configurations.  As an aside, note that client
-application A2 and peer node P2 are using a mixed visual vocabulary -- both
-lines and connections. You can see that they are equivalent; they are visual
-synonyms.
+Da mesma forma, podemos ver que o aplicativo cliente A2 agora pode fazer 
+transações nos canais C1 e C2. Da mesma forma, ele também será regido pelas 
+políticas nas configurações de canal apropriadas. Como um aparte, observe que o 
+aplicativo cliente A2 e o nó P2 estão usando um vocabulário visual misto -- 
+linhas e conexões. Você pode ver que eles são equivalentes, eles são sinônimos visuais.
 
-### The ordering service
+### O serviço de ordem
 
-The observant reader may notice that the ordering service node appears to be a
-centralized component; it was used to create the network initially, and connects
-to every channel in the network.  Even though we added R1 and R4 to the network
-configuration policy NC4 which controls the orderer, the node was running on
-R4's infrastructure. In a world of de-centralization, this looks wrong!
+O leitor atento pode perceber que o nó do serviço de ordens parece ser um 
+componente centralizado, foi usado para criar a rede inicialmente e se conecta a 
+todos os canais da rede. Embora tenhamos adicionado R1 e R4 à política de 
+configuração de rede NC4 que controla o ordenador, o nó estava sendo executado 
+na infraestrutura do R4. Em um mundo de descentralização, isso parece errado!
 
-Don't worry! Our example network showed the simplest ordering service
-configuration to help you understand the idea of a network administration point.
-In fact, the ordering service can itself too be completely de-centralized!  We
-mentioned earlier that an ordering service could be comprised of many individual
-nodes owned by different organizations, so let's see how that would be done in
-our sample network.
+Não se preocupe! Nosso exemplo de rede mostrou a configuração mais simples do 
+serviço de ordens para ajudá-lo a entender a ideia de um ponto de administração
+de rede. De fato, o serviço de ordens também pode ser completamente descentralizado! 
+Mencionamos anteriormente que um serviço de ordens pode ser composto por muitos 
+nós pertencentes a diferentes organizações, então vamos ver como isso seria feito 
+em nossa rede de exemplo.
 
-Let's have a look at a more realistic ordering service node configuration:
+Vamos dar uma olhada em uma configuração de nós de serviços de ordens mais realista:
 
 ![network.finalnetwork2](./network.diagram.15.png)
 
-*A multi-organization ordering service.  The ordering service comprises ordering
-service nodes O1 and O4. O1 is provided by organization R1 and node O4 is
-provided by organization R4. The network configuration NC4 defines network
-resource permissions for actors from both organizations R1 and R4.*
+*Um serviço de ordem de múltiplas organizações. O serviço de ordens compreende 
+os nós de serviço O1 e O4. O1 é fornecido pela organização R1 e o nó O4 é 
+fornecido pela organização R4. A configuração de rede NC4 define permissões de 
+recursos de rede para os atores de ambas as organizações R1 e R4.*
 
-We can see that this ordering service completely de-centralized -- it runs in
-organization R1 and it runs in organization R4. The network configuration
-policy, NC4, permits R1 and R4 equal rights over network resources.  Client
-applications and peer nodes from organizations R1 and R4 can manage network
-resources by connecting to either node O1 or node O4, because both nodes behave
-the same way, as defined by the policies in network configuration NC4. In
-practice, actors from a particular organization *tend* to use infrastructure
-provided by their home organization, but that's certainly not always the case.
+Podemos ver que esse serviço de ordens é totalmente descentralizado -- é executado 
+na organização R1 e na organização R4. A política de configuração de rede, NC4, 
+permite direitos iguais R1 e R4 sobre os recursos da rede. Aplicativos cliente e 
+nós de mesmo nível das organizações R1 e R4 podem gerenciar recursos de rede 
+conectando-se ao nó O1 ou O4, porque ambos os nós se comportam da mesma maneira, 
+conforme definido pelas políticas na configuração de rede C4. Na prática, os 
+atores de uma organização específica **tendem** a usar a infraestrutura fornecida 
+por sua organização de origem, mas esse nem sempre é o caso.
 
-### De-centralized transaction distribution
+### Distribuição de transação descentralizada
 
-As well as being the management point for the network, the ordering service also
-provides another key facility -- it is the distribution point for transactions.
-The ordering service is the component which gathers endorsed transactions
-from applications and orders them into transaction blocks, which are
-subsequently distributed to every peer node in the channel. At each of these
-committing peers, transactions are recorded, whether valid or invalid, and their
-local copy of the ledger updated appropriately.
+Além de ser o ponto de gerenciamento da rede, o serviço de ordens também oferece
+outro recurso importante -- é o ponto de distribuição das transações. O serviço 
+de ordens é o componente que reúne transações endossadas de aplicativos e as 
+ordena em blocos de transações, que são subsequentemente distribuídos para todos
+os nós do canal. Em cada um desses nós confirmados, as transações são registradas, 
+válidas ou inválidas, e sua cópia local do livro-razão é atualizada adequadamente.
 
-Notice how the ordering service node O4 performs a very different role for the
-channel C1 than it does for the network N. When acting at the channel level,
-O4's role is to gather transactions and distribute blocks inside channel C1. It
-does this according to the policies defined in channel configuration CC1. In
-contrast, when acting at the network level, O4's role is to provide a management
-point for network resources according to the policies defined in network
-configuration NC4. Notice again how these roles are defined by different
-policies within the channel and network configurations respectively. This should
-reinforce to you the importance of declarative policy based configuration in
-Hyperledger Fabric. Policies both define, and are used to control, the agreed
-behaviours by each and every member of a consortium.
+Observe como o nó de serviço de ordens O4 desempenha uma função muito diferente 
+para o canal C1 do que para a rede N. Ao atuar no nível do canal, a função de O4 
+é coletar transações e distribuir blocos dentro do canal C1. Isso é feito de 
+acordo com as políticas definidas na configuração de canal CC1. Por outro lado, 
+ao atuar no nível da rede, a função da O4 é fornecer um ponto de gerenciamento 
+para os recursos da rede, de acordo com as políticas definidas na configuração de
+rede NC4. Observe novamente como essas funções são definidas por políticas 
+diferentes nas configurações de canal e rede, respectivamente. Isso deve reforçar
+a importância da configuração de política declarativa da Hyperledger Fabric. As 
+políticas definem e são usadas para controlar os comportamentos acordados por 
+cada membro de um consórcio.
 
-We can see that the ordering service, like the other components in Hyperledger
-Fabric, is a fully de-centralized component. Whether acting as a network
-management point, or as a distributor of blocks in a channel, its nodes can be
-distributed as required throughout the multiple organizations in a network.
+Podemos ver que o serviço de ordens, como os outros componentes da Hyperledger 
+Fabric, é um componente totalmente descentralizado. Seja atuando como um ponto 
+de gerenciamento de rede ou como um distribuidor de blocos em um canal, seus nós 
+podem ser distribuídos conforme necessário pelas várias organizações em uma rede.
 
-### Changing policy
+### Mudança de política
 
 Throughout our exploration of the sample network, we've seen the importance of
 the policies to control the behaviour of the actors in the system. We've only
