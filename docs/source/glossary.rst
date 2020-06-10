@@ -8,6 +8,7 @@ glossário conforme necessário, mas fique à vontade para ler a coisa toda de u
 só vez, se quiser; é bem esclarecedor! 
 
 .. _glossary_ACL:
+.. _ACL:
 
 ACL
 ---
@@ -31,6 +32,27 @@ configtxgen para criar configurações de canal. Os padrões podem ser definidos
 seção superior "Applications" do ``configtx.yaml`` ou sobrescritas pelo
 perfil na seção "Profiles".
 
+.. _Dynamic-Membership:
+.. _Associacao-Dinamica:
+
+Associação Dinâmica
+-------------------
+
+A Hyperledger Fabric suporta a adição/remoção de membros, pares e nós de serviço 
+de ordens, sem comprometer a operacionalidade da rede geral. A associação 
+dinâmica é crítica quando os relacionamentos comerciais se ajustam e as entidades 
+precisam ser adicionadas/removidas por vários motivos.
+
+.. _State-DB:
+.. _Banco-de-Dados-de-Estado:
+
+Banco de Dados de Estado
+------------------------
+
+Os dados do estado global são armazenados em um banco de dados de estado para 
+leituras e consultas eficientes do chaincode. Os bancos de dados suportados 
+incluem levelDB e couchDB.
+
 .. _Block:
 .. _Bloco:
 
@@ -52,11 +74,23 @@ vinculado ao bloco anterior e, por sua vez, é vinculado aos blocos subsequentes
 O primeiro bloco dessa cadeia de blocos é chamado de **bloco de gênese**. Os 
 blocos são criados pelo serviço de ordens, validados e confirmados pelos pares.
 
+.. _Configuration-Block:
+.. _Bloco-de-Configuracao:
+
+Bloco de Configuração
+---------------------
+
+Contém os dados de configuração que definem membros e políticas para uma cadeia 
+do sistema (serviço de ordens) ou canal. Quaisquer modificações na configuração 
+de um canal ou rede em geral (por exemplo, um membro saindo ou ingressando) 
+resultarão em um novo bloco de configuração sendo anexado à cadeia apropriada. 
+Este bloco conterá o conteúdo do bloco de gênese, além do delta.
 
 .. _Chain:
+.. _Cadeia:
 
-Chain
------
+Cadeia (Chain)
+--------------
 
 .. figure:: ./glossary/glossary.blockchain.png
    :scale: 75 %
@@ -74,12 +108,31 @@ de ordens, marcam as transações do bloco como válidas ou inválidas com base 
 políticas de endosso e violações de concorrência, e anexam o bloco à cadeia de
 hash no sistema de arquivos do nó.
 
+
+.. _System-Chain:
+.. _Cadeia-do-Sistema:
+
+Cadeia do Sistema
+-----------------
+
+Contém um bloco de configuração que define a rede no nível do sistema. A cadeia 
+do sistema reside no serviço de ordens e, semelhante a um canal, possui uma 
+configuração inicial que contém informações como: políticas e detalhes de 
+configuração do :ref:`MSP`. Qualquer alteração na rede geral (por exemplo, uma 
+nova associação organizacional ou um novo nó de ordem sendo adicionado) resultará
+na adição de um novo bloco de configuração à cadeia do sistema.
+
+A cadeia do sistema pode ser considerada a ligação comum a um canal ou grupo de 
+canais. Por exemplo, uma coleção de instituições financeiras pode formar um 
+consórcio (representado através da cadeia do sistema) e, em seguida, continuar a
+criar canais relativos às suas agendas comerciais e variáveis.
+
 .. _chaincode:
 
 Chaincode
 ---------
 
-Veja Smart-Contract_.
+Veja :ref:`smart-contract`.
 
 .. _Channel:
 .. _Canal:
@@ -91,51 +144,50 @@ Canal (Channel)
    :scale: 30 %
    :align: right
    :figwidth: 40 %
-   :alt: A Channel
+   :alt: Um Canal
 
-   Channel C connects application A1, peer P2 and ordering service O1.
+   Canal C conecta a aplicação A1, nó P2 e o serviço de ordem O1.
 
 =======
 
-A channel is a private blockchain overlay which allows for data
-isolation and confidentiality. A channel-specific ledger is shared across the
-peers in the channel, and transacting parties must be authenticated to
-a channel in order to interact with it.  Channels are defined by a
-[Configuration Block](#configuration-block).
+Um canal é uma sobreposição de blockchain privada que permite isolamento e 
+confidencialidade dos dados. Um livro-razão específico do canal é compartilhado 
+entre os pares no canal, e as partes envolvidas na transação devem ser 
+autenticadas em um canal para interagir com ele. Os canais são definidos por um 
+:ref:`bloco-de-configuracao`.
+
+.. _glossary-Private-Data-Collection:
+.. _Colecao-de-Dados-Privados:
+
+Coleção de Dados Privados (Collection)
+--------------------------------------
+
+Usado para gerenciar dados confidenciais que duas ou mais organizações em um 
+canal desejam manter privadas de outras organizações nesse canal. A definição de
+coleção descreve um subconjunto de organizações em um canal autorizado a armazenar
+um conjunto de dados particulares, o que, por extensão, implica que apenas essas
+organizações podem fazer transações com os dados privados.
 
 .. _Commit:
 .. _Confirmar:
 
-Confirmar
----------
+Confirmar (Commit)
+------------------
 
 Cada par_ em um canal valida os blocos ordenados das transações e, em seguida, 
 confirma (grava/acrescenta) os blocos à sua réplica do Livro-Razao_ do canal. Os 
 pares também marcam cada transação em cada bloco como válida ou inválida.
 
-.. _Concurrency-Control-Version-Check:
+.. _Consenter-Set:
+.. _Conjunto-de-Consentidores:
 
-Concurrency Control Version Check
----------------------------------
+Conjunto de Consentidores
+-------------------------
 
-Concurrency Control Version Check is a method of keeping ledger state in sync across
-peers on a channel. Peers execute transactions in parallel, and before committing
-to the ledger, peers check whether the state read at the time the transaction was executed
-has been modified. If the data read for the transaction has changed between execution time and
-commit time, then a Concurrency Control Version Check violation has
-occurred, and the transaction is marked as invalid on the ledger and values
-are not updated in the state database.
-
-.. _Configuration-Block:
-
-Configuration Block
--------------------
-
-Contains the configuration data defining members and policies for a system
-chain (ordering service) or channel. Any configuration modifications to a
-channel or overall network (e.g. a member leaving or joining) will result
-in a new configuration block being appended to the appropriate chain. This
-block will contain the contents of the genesis block, plus the delta.
+Em um serviço de ordens :ref:`raft`, esses são os nós de ordens que participam 
+ativamente do mecanismo de consenso em um canal. Se outros nós de ordens 
+existirem no canal do sistema, mas não fizerem parte de um canal, eles não farão
+parte do conjunto consenter desse canal.
 
 .. _Consensus:
 .. _Consenso:
@@ -147,15 +199,21 @@ Um termo mais amplo abrangendo todo o fluxo transacional, que serve para gerar
 a concordância sobre o pedido e para confirmar a validade do conjunto de 
 transações que constituem um bloco.
 
-.. _Consenter-Set:
+.. _Query:
+.. _Consulta:
 
-Consenter set
--------------
+Consulta
+--------
 
-In a Raft ordering service, these are the ordering nodes actively participating
-in the consensus mechanism on a channel. If other ordering nodes exist on the
-system channel, but are not a part of a channel, they are not part of that
-channel's consenter set.
+Uma consulta é uma chamada de chaincode que lê o estado atual do livro-razão, 
+mas não grava no livro-razão. A função chaincode pode consultar determinadas 
+chaves no livro-razão ou pode consultar um conjunto de chaves. Como as consultas 
+não alteram o estado do livro-razão, o aplicativo cliente normalmente não envia 
+essas transações de somente leitura para o ordenação, validação e confirmação.
+Embora não seja típico, o aplicativo cliente pode optar por enviar a transação 
+de leitura para ordenação, validação e confirmação, por exemplo, se o cliente 
+deseja uma prova auditável na cadeia do livro-razão que tenha conhecimento do 
+estado específico do livro-razão em um determinado momento .
 
 .. _Consortium:
 .. _Consorcio:
@@ -171,30 +229,49 @@ todas as organizações adicionadas ao canal devem fazer parte de um consórcio.
 entanto, uma organização que não está definida em um consórcio pode ser 
 adicionada a um canal existente.
 
-.. _Chaincode-definition:
+.. _Smart-Contract:
+.. _Contrato-Inteligente:
 
-Chaincode definition
+Contrato Inteligente
 --------------------
 
-A chaincode definition is used by organizations to agree on the parameters of a
-chaincode before it can be used on a channel. Each channel member that wants to
-use the chaincode to endorse transactions or query the ledger needs to approve
-a chaincode definition for their organization. Once enough channel members have
-approved a chaincode definition to meet the Lifecycle Endorsement policy (which
-is set to a majority of organizations in the channel by default), the chaincode
-definition can be committed to the channel. After the definition is committed,
-the first invoke of the chaincode (or, if requested, the execution of the Init
-function) will start the chaincode on the channel.
+Um contrato inteligente é um código -- invocado por um aplicativo cliente externo
+à rede blockchain -- que gerencia o acesso e as modificações em um conjunto de 
+pares de chave-valor no :ref:`Estado-Global` via :ref:`Transacao` na Hyperledger 
+Fabric, os contratos inteligentes são empacotados como um chaincode. O Chaincode 
+é instalado nos pares e, em seguida, definido e usado em um ou mais canais.
 
-.. _Dynamic-Membership:
+.. _glossary-Private-Data:
+.. _dados-privados:
 
-Dynamic Membership
-------------------
+Dados Privados
+--------------
 
-Hyperledger Fabric supports the addition/removal of members, peers, and ordering service
-nodes, without compromising the operationality of the overall network. Dynamic
-membership is critical when business relationships adjust and entities need to
-be added/removed for various reasons.
+Os dados confidenciais armazenados em um banco de dados privado em cada nó 
+autorizado, separam-se logicamente dos dados do livro-razão do canal. O acesso a
+esses dados é restrito a uma ou mais organizações em um canal por meio de uma 
+definição de coleta de dados privada. Organizações não autorizadas terão um hash
+dos dados privados no razão do canal como evidência dos dados da transação. Além 
+disso, para maior privacidade, os hashes dos dados privados passam pelo 
+:ref:`servico-de-ordem` e não os dados privados em si, portanto, isso mantém 
+os dados privados confidenciais para o ordenador.
+
+.. _Chaincode-definition:
+.. _Definicao-de-Chaincode:
+
+Definição de Chaincode
+----------------------
+
+Uma definição de chaincode é usada pelas organizações para concordar com os 
+parâmetros de um chaincode antes de poder ser usada em um canal. Cada membro do 
+canal que deseja usar o chaincode para endossar transações ou consultar o razão 
+precisa aprovar uma definição de chaincode para sua organização. Depois que os
+membros do canal aprovarem uma definição de chaincode o  suficiente para atender 
+à política de  Ciclo de Vida de Endosso (que é definida por padrão pela a maioria 
+das organizações no canal por padrão), a definição de chaincode pode ser 
+confirmada no canal. Após a definição ser confirmada, a primeira invocação do 
+chaincode (ou, se invocado, a execução da função Init) iniciará o código de no 
+canal.
 
 .. _Endorsement:
 .. _Endosso:
@@ -209,21 +286,16 @@ resultados (conjunto de leituras e gravações) e eventos, além de uma assinatu
 para servir como prova da execução do chaincode do nó. Os aplicativos Chaincode 
 possuem políticas de endosso, nas quais os pares endossantes são especificados.
 
-.. _Endorsement-policy:
-.. _Politica-de-endosso:
+.. _Log-entry:
+.. _Entrada-de-Log:
 
-Política de endosso
--------------------
+Entrada de log
+--------------
 
-Define os nós pares em um canal que devem executar as transações associadas a um
-aplicativo chaincode específico e a combinação necessária de respostas 
-(recomendações). Uma política pode exigir que uma transação seja endossada por um
-número mínimo de pares, endossado por uma porcentagem mínima de pares ou
-endossados por todos os pares atribuídos a um aplicativo chaincode específico. 
-As políticas podem ser selecionadas com base na aplicação e no nível desejado de 
-resiliência contra mau comportamento (deliberado ou não) dos pares endossantes. 
-Uma transação enviada deve satisfazer a política de endosso antes de ser marcada 
-como válida por meio da confirmação de pares.
+A principal unidade de trabalho em um serviço de ordens :ref:`raft`, as entradas
+de log são distribuídas dos ordenadores líderes para os seguidores. A sequência 
+completa dessas entradas é conhecida como "log". O log é considerado consistente 
+se todos os membros concordarem com as entradas e sua ordem.
 
 .. _World-State:
 .. _Estado-Global:
@@ -253,44 +325,34 @@ estado atual de um par de chave-valor deve ser conhecido antes que possa ser
 alterado. Os pares confirmam os valores mais recentes no estado global do 
 livro-razão para cada transação válida incluída em um bloco processado.
 
-.. _Follower:
-
-Follower
---------
-
-In a leader based consensus protocol, such as Raft, these are the nodes which
-replicate log entries produced by the leader. In Raft, the followers also receive
-"heartbeat" messages from the leader. In the event that the leader stops sending
-those message for a configurable amount of time, the followers will initiate a
-leader election and one of them will be elected leader.
-
 .. _Genesis-Block:
+.. _Bloco-Genesis:
 
-Genesis Block
+Globo Gênesis
 -------------
 
-The configuration block that initializes the ordering service, or serves as the
-first block on a chain.
+O bloco de configuração que inicializa o serviço de ordens ou serve como o 
+primeiro bloco em uma cadeia.
 
 .. _Fabric-ca:
 
 Hyperledger Fabric CA
 ---------------------
 
-Hyperledger Fabric CA is the default Certificate Authority component, which
-issues PKI-based certificates to network member organizations and their users.
-The CA issues one root certificate (rootCert) to each member and one enrollment
-certificate (ECert) to each authorized user.
+A CA do Hyperledger Fabric é o componente padrão de Autoridade de Certificação, 
+que emite certificados baseados em PKI para organizações membros da rede e seus 
+usuários. A CA emite um certificado raiz (rootCert) para cada membro e um 
+certificado de inscrição (ECert) para cada usuário autorizado.
 
 .. _Init:
 
 Init
 ----
 
-A method to initialize a chaincode application. All chaincodes need to have an
-an Init function. By default, this function is never executed. However you can
-use the chaincode definition to request the execution of the Init function in
-order to initialize the chaincode.
+Um método para inicialização de um aplicativo chaincode. Todos os chaincodes 
+precisam ter uma função Init. Por padrão, essa função nunca é executada. No 
+entanto, você pode usar a definição do chaincode para solicitar a execução da 
+função Init para inicializar o código chaincode.
 
 .. _Install:
 
@@ -299,17 +361,17 @@ Instalação
 
 O processo de colocar um código chaincode no sistema de arquivos do nó.
 
-Instantiate
------------
+Instanciar
+----------
 
-The process of starting and initializing a chaincode application on a specific
-channel. After instantiation, peers that have the chaincode installed can accept
-chaincode invocations.
+O processo de iniciar e inicializar um aplicativo chaincode em um canal 
+específico. Após a instanciação, os pares que possuem o chaincode instalado 
+podem aceitar invocações do chaincode.
 
-**NOTE**: *This method i.e. Instantiate was used in the 1.4.x and older versions of the chaincode
-lifecycle. For the current procedure used to start a chaincode on a channel with
-the new Fabric chaincode lifecycle introduced as part of Fabric v2.0,
-see Chaincode-definition_.*
+**NOTA**: *Este método, ou seja, o Instantiate, foi usado no ciclo de vida do 
+chaincode até as versões 1.4.x. Para ver o procedimento usado para 
+iniciar um chaincode em um canal da Fabric introduzido como parte da Fabric v2.0, 
+consulte* :ref:`definicao-de-chaincode`. 
 
 .. _Invoke:
 .. _Invocacao:
@@ -329,16 +391,17 @@ apenas, a menos que haja desejo de registrar a leitura no razão para fins de
 auditoria. A chamada inclui, um identificador do canal, a função do chaincode a 
 ser chamada e uma matriz de argumentos.
 
-.. _Leader
+.. _Leader:
+.. _Lider:
 
-Leader
+Líder
 ------
 
-In a leader based consensus protocol, like Raft, the leader is responsible for
-ingesting new log entries, replicating them to follower ordering nodes, and
-managing when an entry is considered committed. This is not a special **type**
-of orderer. It is only a role that an orderer may have at certain times, and
-then not others, as circumstances determine.
+Em um protocolo de consenso baseado em líder, como o :ref:`raft`, o líder é 
+responsável por ingerir novas entradas de log, replicá-las para nós de ordens 
+seguidores e gerenciar quando uma entrada é considerada confirmada. Este não é 
+um **tipo** especial de ordem. É apenas uma função que um solicitante pode ter 
+em determinados momentos, e não em outros, conforme as circunstâncias determinam.
 
 .. _Ledger:
 .. _Livro-Razao:
@@ -370,16 +433,6 @@ chamado **consenso**. O termo **Tecnologia de Livro-Razão Distribuído** (**DLT
 singular, mas tem muitas cópias idênticas distribuídas em um conjunto de nós da 
 rede (os pares e o serviço de ordens).
 
-.. _Log-entry
-
-Log entry
----------
-
-The primary unit of work in a Raft ordering service, log entries are distributed
-from the leader orderer to the followers. The full sequence of such entries known
-as the "log". The log is considered to be consistent if all members agree on the
-entries and their order.
-
 .. _Member:
 .. _Membro:
 
@@ -388,10 +441,26 @@ Membro
 
 Veja Organização_.
 
-.. _Ordering-Service:
-.. _Servico-Ordem:
+.. _Endorsement-policy:
+.. _Politica-de-endosso:
 
-Ordering Service
+Política de endosso
+-------------------
+
+Define os nós pares em um canal que devem executar as transações associadas a um
+aplicativo chaincode específico e a combinação necessária de respostas 
+(recomendações). Uma política pode exigir que uma transação seja endossada por um
+número mínimo de pares, endossado por uma porcentagem mínima de pares ou
+endossados por todos os pares atribuídos a um aplicativo chaincode específico. 
+As políticas podem ser selecionadas com base na aplicação e no nível desejado de 
+resiliência contra mau comportamento (deliberado ou não) dos pares endossantes. 
+Uma transação enviada deve satisfazer a política de endosso antes de ser marcada 
+como válida por meio da confirmação de pares.
+
+.. _Ordering-Service:
+.. _Servico-de-Ordem:
+
+Serviço de Ordem
 ----------------
 
 Também conhecido como **ordenador**. Um conjunto definido de nós que ordena as 
@@ -515,31 +584,6 @@ inicializar um serviço de ordens ou criar um canal, ou podem ser especificadas
 ao instanciar o chaincode em um canal. Um conjunto padrão de políticas é enviado 
 no exemplo ``configtx.yaml``, que será apropriado para a maioria das redes.
 
-.. _glossary-Private-Data:
-
-Private Data
-------------
-
-Confidential data that is stored in a private database on each authorized peer,
-logically separate from the channel ledger data. Access to this data is
-restricted to one or more organizations on a channel via a private data
-collection definition. Unauthorized organizations will have a hash of the
-private data on the channel ledger as evidence of the transaction data. Also,
-for further privacy, hashes of the private data go through the
-:ref:`servico`, not the private data itself, so this keeps private data
-confidential from Orderer.
-
-.. _glossary-Private-Data-Collection:
-
-Private Data Collection (Collection)
-------------------------------------
-
-Used to manage confidential data that two or more organizations on a channel
-want to keep private from other organizations on that channel. The collection
-definition describes a subset of organizations on a channel entitled to store
-a set of private data, which by extension implies that only these organizations
-can transact with the private data.
-
 .. _Proposal:
 .. _Proposta:
 
@@ -586,109 +630,71 @@ definir componentes de serviços de associação, de forma que implementações
 alternativas possam ser conectadas sem problemas, sem modificar o núcleo dos 
 componentes de processamento de transações do sistema.
 
-.. _Query:
-
-Query
------
-
-A query is a chaincode invocation which reads the ledger current state but does
-not write to the ledger. The chaincode function may query certain keys on the ledger,
-or may query for a set of keys on the ledger. Since queries do not change ledger state,
-the client application will typically not submit these read-only transactions for ordering,
-validation, and commit. Although not typical, the client application can choose to
-submit the read-only transaction for ordering, validation, and commit, for example if the
-client wants auditable proof on the ledger chain that it had knowledge of specific ledger
-state at a certain point in time.
-
 .. _Quorum:
 
 Quorum
 ------
 
-This describes the minimum number of members of the cluster that need to
-affirm a proposal so that transactions can be ordered. For every consenter set,
-this is a **majority** of nodes. In a cluster with five nodes, three must be
-available for there to be a quorum. If a quorum of nodes is unavailable for any
-reason, the cluster becomes unavailable for both read and write operations and
-no new logs can be committed.
+Isso descreve o número mínimo de membros do cluster que precisam afirmar uma 
+proposta para que as transações possam ser solicitadas. Para cada conjunto de 
+validadores há uma **maioria** de nós. Em um cluster com cinco nós, três 
+devem estar disponíveis para que exista um quorum. Se o quorum de nós estiver 
+indisponível por qualquer motivo, o cluster ficará indisponível para operações 
+de leitura e gravação e nenhum novo registro poderá ser confirmado.
 
 .. _Raft:
 
 Raft
 ----
 
-New for v1.4.1, Raft is a crash fault tolerant (CFT) ordering service
-implementation based on the `etcd library <https://coreos.com/etcd/>`_
-of the `Raft protocol <https://raft.github.io/raft.pdf>`_. Raft follows a
-"leader and follower" model, where a leader node is elected (per channel) and
-its decisions are replicated by the followers. Raft ordering services should
-be easier to set up and manage than Kafka-based ordering services, and their
-design allows organizations to contribute nodes to a distributed ordering
-service.
+Novidade na v1.4.1, o Raft é uma implementação de serviço de ordens tolerante a 
+falhas (CFT) com base na `biblioteca etcd <https://coreos.com/etcd/>`_ do 
+`protocolo Raft <https: // raft. github.io/raft.pdf>`_. O Raft segue um modelo 
+de "líder e seguidor", em que um nó líder é eleito (por canal) e suas decisões
+são replicadas pelos seguidores. Os serviços de ordens Raft devem ser mais 
+fáceis de configurar e gerenciar do que os serviços de ordens baseados em Kafka, 
+e seu design permite que as organizações contribuam com nós para um serviço de 
+ordens distribuído.
+
+.. _Follower:
+.. _Seguidor:
+
+Seguidor
+--------
+
+Em um protocolo de consenso baseado em líder, como o :ref:`raft`, esses são os 
+nós que replicam as entradas de log produzidas pelo líder. No Raft, os seguidores 
+também recebem mensagens de "batimento cardíaco" (heartbeat) do líder. Caso o 
+líder pare de enviar essas mensagens por um período configurável, os seguidores 
+iniciarão uma eleição e um deles será eleito o novo líder.
+
+.. _Membership-Services:
+.. _Servico-de-Associacao:
+
+Serviço de Associação
+---------------------
+
+O Serviço de Associação autentica, autoriza e gerencia identidades em uma rede 
+blockchain permissionada. O código dos serviços de associação que são executados
+nos nós pares e nos nós de ordens autentica e autoriza operações da blockchain. 
+É uma abstração do :ref:`MSP`.
 
 .. _SDK:
 
 Software Development Kit (SDK)
 ------------------------------
 
-The Hyperledger Fabric client SDK provides a structured environment of libraries
-for developers to write and test chaincode applications. The SDK is fully
-configurable and extensible through a standard interface. Components, including
-cryptographic algorithms for signatures, logging frameworks and state stores,
-are easily swapped in and out of the SDK. The SDK provides APIs for transaction
-processing, membership services, node traversal and event handling.
+A Hyperledger Fabric fornece um SDK para desenvolvimento estruturado em 
+bibliotecas para que os desenvolvedores criem e testem aplicativos de chaincode. 
+O SDK é totalmente configurável e extensível através de uma interface padrão. 
+Componentes, incluindo algoritmos criptográficos para assinaturas, estruturas de 
+log e armazenamentos de estado, são facilmente trocados dentro e fora do SDK. O 
+SDK fornece APIs para processamento de transações, serviços de associação, 
+cruzamento de nós e manipulação de eventos.
 
-Currently, the two officially supported SDKs are for Node.js and Java, while two
-more -- Python and Go -- are not yet official but can still be downloaded
-and tested.
-
-
-.. _Membership-Services:
-.. _Servico-Associacao:
-
-Serviço de Associação
----------------------
-
-Membership Services authenticates, authorizes, and manages identities on a
-permissioned blockchain network. The membership services code that runs in peers
-and orderers both authenticates and authorizes blockchain operations.  It is a
-PKI-based implementation of the Membership Services Provider (MSP) abstraction.
-
-.. _Smart-Contract:
-
-Smart Contract
---------------
-
-A smart contract is code -- invoked by a client application external to the
-blockchain network -- that manages access and modifications to a set of
-key-value pairs in the :ref:`World-State` via :ref:`Transaction`. In Hyperledger Fabric,
-smart contracts are packaged as chaincode. Chaincode is installed on peers
-and then defined and used on one or more channels.
-
-.. _State-DB:
-
-State Database
---------------
-
-World state data is stored in a state database for efficient reads and queries
-from chaincode. Supported databases include levelDB and couchDB.
-
-.. _System-Chain:
-
-System Chain
-------------
-
-Contains a configuration block defining the network at a system level. The
-system chain lives within the ordering service, and similar to a channel, has
-an initial configuration containing information such as: MSP information, policies,
-and configuration details.  Any change to the overall network (e.g. a new org
-joining or a new ordering node being added) will result in a new configuration block
-being added to the system chain.
-
-The system chain can be thought of as the common binding for a channel or group
-of channels.  For instance, a collection of financial institutions may form a
-consortium (represented through the system chain), and then proceed to create
-channels relative to their aligned and varying business agendas.
+Atualmente, os dois SDKs oficialmente suportados são para Node.js e Java, 
+enquanto outros dois -- Python e Go -- ainda não são oficiais, mas podem ser 
+baixados e testados.
 
 .. _Transaction:
 .. _Transacao:
@@ -712,6 +718,21 @@ empacotam os resultados e endossos em uma transação que é submetida ao servi�
 de ordens. O serviço de ordens ordena uma solicitação e coloca transações em um 
 bloco que é transmitido aos pares que validam e confirmam as transações para o
 livro-razão e atualizam o estado global.
+
+.. _Concurrency-Control-Version-Check:
+.. _Verificacao-de-Concorrencia-do-Controle-de-Versao:
+
+Verificação de Concorrência do Controle de Versão 
+-------------------------------------------------
+
+A verificação de concorrência do controle de versão é um método para manter o 
+estado do razão sincronizado entre os pares de um canal. Os pares executam 
+transações em paralelo e, antes de se confirmarem no livro-razão, os pares 
+verificam se o estado lido no momento em que a transação foi executada foi 
+modificado. Se os dados lidos para a transação foram alterados entre o tempo de 
+execução e o tempo de confirmação, ocorreu uma violação da Verificação de 
+Concorrência do Controle de Versão, e a transação é marcada como inválida no 
+razão e os valores não são atualizados no banco de dados de estado.
 
 
 .. Licensed under Creative Commons Attribution 4.0 International License
