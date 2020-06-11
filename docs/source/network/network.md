@@ -916,112 +916,110 @@ podem ser distribuídos conforme necessário pelas várias organizações em uma
 
 ### Mudança de política
 
-Throughout our exploration of the sample network, we've seen the importance of
-the policies to control the behaviour of the actors in the system. We've only
-discussed a few of the available policies, but there are many that can be
-declaratively defined to control every aspect of behaviour. These individual
-policies are discussed elsewhere in the documentation.
+Ao longo de nossa exploração da rede de exemplo, vimos a importância das 
+políticas para controlar o comportamento dos atores no sistema. Discutimos apenas
+algumas das políticas disponíveis, mas há muitas que podem ser definidas
+declarativamente para controlar todos os aspectos do comportamento. Essas 
+políticas individuais são discutidas em outras partes da documentação.
 
-Most importantly of all, Hyperledger Fabric provides a uniquely powerful policy
-that allows network and channel administrators to manage policy change itself!
-The underlying philosophy is that policy change is a constant, whether it occurs
-within or between organizations, or whether it is imposed by external
-regulators. For example, new organizations may join a channel, or existing
-organizations may have their permissions increased or decreased. Let's
-investigate a little more how change policy is implemented in Hyperledger
-Fabric.
+Mais importante ainda, o Hyperledger Fabric fornece uma política exclusivamente 
+poderosa que permite que os administradores de rede e canal gerenciem a própria 
+alteração de política! A filosofia subjacente é que a mudança de política é uma
+constante, se ela ocorre dentro ou entre organizações ou se é imposta por 
+reguladores externos. Por exemplo, novas organizações podem ingressar em um canal
+ou organizações existentes e podem ter suas permissões aumentadas ou diminuídas. 
+Vamos investigar um pouco mais como a política de mudança é implementada no 
+Hyperledger Fabric.
 
-The key point of understanding is that policy change is managed by a
-policy within the policy itself.  The **modification policy**, or
-**mod_policy** for short, is a first class policy within a network or channel
-configuration that manages change. Let's give two brief examples of how we've
-**already** used mod_policy to manage change in our network!
+O ponto principal do entendimento é que a mudança de política é gerenciada por 
+uma política dentro da própria política. A **política de modificação**, ou 
+**mod_policy**, é uma política de primeira classe em uma configuração de rede ou 
+canal que gerencia alterações. Vamos dar dois breves exemplos de como **já** 
+usamos o mod_policy para gerenciar alterações em nossa rede!
 
-The first example was when the network was initially set up. At this time, only
-organization R4 was allowed to manage the network. In practice, this was
-achieved by making R4 the only organization defined in the network configuration
-NC4 with permissions to network resources.  Moreover, the mod_policy for NC4
-only mentioned organization R4 -- only R4 was allowed to change this
-configuration.
+O primeiro exemplo foi quando a rede foi configurada inicialmente. No momento, 
+apenas a organização R4 tinha permissão para gerenciar a rede. Na prática, isso 
+foi conseguido tornando R4 a única organização definida na configuração de rede 
+NC4 com permissões para recursos de rede. Além disso, o mod_policy para NC4 
+mencionou apenas a organização R4 -- somente R4 foi autorizado a alterar essa
+configuração.
 
-We then evolved the network N to also allow organization R1 to administer the
-network.  R4 did this by adding R1 to the policies for channel creation and
-consortium creation. Because of this change, R1 was able to define the
-consortia X1 and X2, and create the channels C1 and C2. R1 had equal
-administrative rights over the channel and consortium policies in the network
-configuration.
+Em seguida, desenvolvemos a rede N para também permitir que a organização R1 
+administre. O R4 fez isso adicionando R1 às políticas para criação de canal e 
+criação de consórcio. Devido a essa alteração, R1 conseguiu definir os consórcios
+X1 e X2 e criar os canais C1 e C2. R1 tinha direitos administrativos iguais sobre 
+as políticas de canal e consórcio na configuração de rede.
 
-R4 however, could grant even more power over the network configuration to R1! R4
-could add R1 to the mod_policy such that R1 would be able to manage change of
-the network policy too.
+R4, no entanto, poderia conceder ainda mais poder sobre a configuração de rede 
+ao R1! O R4 poderia adicionar R1 ao mod_policy, para que o R1 também pudesse 
+gerenciar a alteração da política de rede.
 
-This second power is much more powerful than the first, because R1 now has
-**full control** over the network configuration NC4! This means that R1 can, in
-principle remove R4's management rights from the network.  In practice, R4 would
-configure the mod_policy such that R4 would need to also approve the change, or
-that all organizations in the mod_policy would have to approve the change.
-There's lots of flexibility to make the mod_policy as sophisticated as it needs
-to be to support whatever change process is required.
+Este segundo poder é muito mais poderoso que o primeiro, porque o R1 agora possui 
+**controle total** sobre a configuração de rede NC4! Isso significa que o R1 pode,
+em princípio, remover os direitos de gerenciamento do R4 da rede. Na prática, o 
+R4 configuraria o mod_policy de forma que o R4 também precisasse aprovar a 
+alteração ou que todas as organizações no mod_policy precisassem aprová-la. Há 
+muita flexibilidade para tornar o mod_policy tão sofisticado quanto necessário 
+para suportar qualquer processo de mudança necessário.
 
-This is mod_policy at work -- it has allowed the graceful evolution of a basic
-configuration into a sophisticated one. All the time this has occurred with the
-agreement of all organization involved. The mod_policy behaves like every other
-policy inside a network or channel configuration; it defines a set of
-organizations that are allowed to change the mod_policy itself.
+Esse é o mod_policy no trabalho -- permitiu a evolução graciosa de uma 
+configuração básica para uma sofisticada. O tempo todo isso ocorreu com o acordo 
+de toda organização envolvida. O mod_policy se comporta como todas as outras 
+políticas dentro de uma configuração de rede ou canal, define um conjunto de 
+organizações que têm permissão para alterar o próprio mod_policy.
 
-We've only scratched the surface of the power of policies and mod_policy in
-particular in this subsection. It is discussed at much more length in the policy
-topic, but for now let's return to our finished network!
+Nós apenas arranhamos a superfície do poder das políticas e do mod_policy em 
+particular nesta subseção. Isso é discutido muito mais detalhadamente no tópico 
+da política, mas por enquanto vamos voltar à nossa rede concluída!
 
-## Network fully formed
+## Rede totalmente formada
 
-Let's recap what our network looks like using a consistent visual vocabulary.
-We've re-organized it slightly using our more compact visual syntax, because it
-better accommodates larger topologies:
+Vamos recapitular a aparência da nossa rede usando um vocabulário visual 
+consistente. Reorganizamos um pouco usando nossa sintaxe visual mais compacta, 
+pois ela acomoda melhor topologias maiores:
 
 ![network.finalnetwork2](./network.diagram.14.png)
 
-*In this diagram we see that the Fabric blockchain network consists of two
-application channels and one ordering channel. The organizations R1 and R4 are
-responsible for the ordering channel, R1 and R2 are responsible for the blue
-application channel while R2 and R3 are responsible for the red application
-channel. Client applications A1 is an element of organization R1, and CA1 is
-it's certificate authority. Note that peer P2 of organization R2 can use the
-communication facilities of the blue and the red application channel. Each
-application channel has its own channel configuration, in this case CC1 and
-CC2. The channel configuration of the system channel is part of the network
-configuration, NC4.*
+*Neste diagrama, vemos que a rede blockchain da Fabric consiste em dois canais 
+de aplicativos e um canal de pedidos. As organizações R1 e R4 são responsáveis 
+pelo canal de pedidos, R1 e R2 são responsáveis pelo canal de aplicativos azul, 
+enquanto R2 e R3 são responsáveis pelo canal de aplicativos vermelho. Os 
+aplicativos clientes A1 são um elemento da organização R1 e CA1 é sua autoridade
+de certificação. Observe que o ponto P2 da organização R2 pode usar os recursos 
+de comunicação do canal de aplicativo azul e vermelho. Cada canal de aplicativo 
+possui sua própria configuração de canal, neste caso, CC1 e CC2. A configuração 
+do canal do sistema faz parte da configuração de rede, NC4.*
 
-We're at the end of our conceptual journey to build a sample Hyperledger Fabric
-blockchain network. We've created a four organization network with two channels
-and three peer nodes, with two smart contracts and an ordering service.  It is
-supported by four certificate authorities. It provides ledger and smart contract
-services to three client applications, who can interact with it via the two
-channels. Take a moment to look through the details of the network in the
-diagram, and feel free to read back through the topic to reinforce your
-knowledge, or go to a more detailed topic.
+Estamos no final de nossa jornada conceitual para construir uma rede blockchain
+Hyperledger Fabric de exemplo. Criamos uma rede de quatro organizações com dois 
+canais e três nós pares, com dois contratos inteligentes e um serviço de ordens. 
+É suportado por quatro autoridades de certificação. Ele fornece serviços de 
+contrato inteligente e de livro-razão para três aplicativos clientes, que podem 
+interagir com ele pelos dois canais. Reserve um momento para examinar os detalhes 
+da rede no diagrama e sinta-se à vontade para ler novamente o tópico para reforçar
+seu conhecimento ou vá para um tópico mais detalhado.
 
-### Summary of network components
+### Resumo dos componentes de rede
 
-Here's a quick summary of the network components we've discussed:
+Aqui está um rápido resumo dos componentes de rede que discutimos:
 
-* [Ledger](../glossary.html#ledger). One per channel. Comprised of the
-  [Blockchain](../glossary.html#block) and
-  the [World state](../glossary.html#world-state)
-* [Smart contract](../glossary.html#smart-contract) (aka chaincode)
-* [Peer nodes](../glossary.html#peer)
-* [Ordering service](../glossary.html#ordering-service)
-* [Channel](../glossary.html#channel)
-* [Certificate Authority](../glossary.html#hyperledger-fabric-ca)
+* [Livro-Razão](../glossary.html#livro-razao). Um por canal. Composto pelo
+  [Blockchain](../glossary.html#bloco) e pelo
+  [Estado Global](../glossary.html#estado-global)
+* [Contrato Inteligente](../glossary.html#contrato-inteligente) (ou chaincode)
+* [Nós Pares](../glossary.html#par)
+* [Serviço de Ordens](../glossary.html#servico-de-ordem)
+* [Canal](../glossary.html#canal)
+* [Autoridade de Certificação](../glossary.html#fabric-ca)
 
-## Network summary
+## Resumo da rede
 
-In this topic, we've seen how different organizations share their infrastructure
-to provide an integrated Hyperledger Fabric blockchain network.  We've seen how
-the collective infrastructure can be organized into channels that provide
-private communications mechanisms that are independently managed.  We've seen
-how actors such as client applications, administrators, peers and orderers are
-identified as being from different organizations by their use of certificates
-from their respective certificate authorities.  And in turn, we've seen the
-importance of policy to define the agreed permissions that these organizational
-actors have over network and channel resources.
+Neste tópico, vimos como diferentes organizações compartilham sua infraestrutura 
+para fornecer uma rede blockchain integrada Hyperledger Fabric. Vimos como a 
+infraestrutura coletiva pode ser organizada em canais que fornecem mecanismos de
+comunicação privados gerenciados de forma independente. Vimos os atores como, 
+aplicativos clientes, administradores, pares e ordens são identificados como de
+diferentes organizações pelo uso de certificados de suas respectivas autoridades 
+de certificação. E, por sua vez, vimos a importância da política para definir as
+permissões acordadas que esses atores organizacionais têm sobre os recursos de 
+rede e canal.
