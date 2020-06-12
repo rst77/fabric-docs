@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
-        <link rel="next" title="Documentation style guide for contributors" href="style_guide.html"/>
+        <link rel="next" title="Making a documentation change" href="docs_guide.html"/>
         <link rel="prev" title="Frequently Asked Questions" href="Fabric-FAQ.html"/> 
 
   
@@ -116,15 +116,20 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Fabric-FAQ.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributions Welcome!</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="style_guide.html">Documentation style guide for contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ways-to-contribute">Ways to contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-a-linux-foundation-account">Getting a Linux Foundation account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-documentation">Contributing documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docs_guide.html">Making a documentation change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_guide.html">Style guide for contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_languages.html">International languages</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#project-governance">Project Governance</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#maintainers">Maintainers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#becoming-a-maintainer">Becoming a maintainer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#release-cadence">Release cadence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-feature-enhancement-proposals">Making Feature/Enhancement Proposals</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maintainers-meeting">Maintainers meeting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributor-meeting">Contributor meeting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Release roadmap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#communications">Communications</a></li>
 </ul>
@@ -154,7 +159,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossário</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="questions.html">Still Have Questions?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="status.html">Status</a></li>
@@ -221,26 +226,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Users who are migrating from Gerrit to GitHub: You can follow simple
-Git workflows to move your development from Gerrit to GitHub. After
-forking the Fabric repo, simply push the branches you want to save from
-your current Gerrit-based local repo to your remote forked repository.
-Once you’ve pushed the changes you want to save, simply delete your
-local Gerrit-based repository and clone your fork.</p>
-<p class="last">For a basic Git workflow recommendation please see our doc at
-<a class="reference internal" href="github/github.html"><span class="doc">GitHub Contributions</span></a>.</p>
-</div>
-<div class="section" id="contributions-welcome">
+  <div class="section" id="contributions-welcome">
 <h1>Contributions Welcome!<a class="headerlink" href="#contributions-welcome" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<p>We welcome contributions to Hyperledger in many forms, and
-there’s always plenty to do!</p>
+<p>We welcome contributions to Hyperledger in many forms, and there’s always plenty
+to do!</p>
 <p>First things first, please review the Hyperledger <a class="reference external" href="https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct">Code of
 Conduct</a>
 before participating. It is important that we keep things civil.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to contribute to this documentation, please check out the <a class="reference internal" href="style_guide.html"><span class="doc">Style guide for contributors</span></a>.</p>
+</div>
 <div class="section" id="ways-to-contribute">
 <h2>Ways to contribute<a class="headerlink" href="#ways-to-contribute" title="Permalink to this headline">¶</a></h2>
 <p>There are many ways you can contribute to Hyperledger Fabric, both as a user and
@@ -254,6 +250,25 @@ as a developer.</p>
 Contact the Epic assignee via the Jira work item or on
 <a class="reference external" href="https://chat.hyperledger.org">RocketChat</a>.</li>
 </ul>
+<p>As a writer or information developer:</p>
+<ul class="simple">
+<li>Update the documentation using your experience of Fabric and this
+documentation to improve existing topics and create new ones.  A documentation
+change is an easy way to get started as a contributor, makes it easier for
+other users to understand and use Fabric, and grows your open source commit
+history.</li>
+<li>Participate in a language translation to keep the Fabric documentation current
+in your chosen language.  The Fabric documentation is available in a number of
+languages – English, Chinese, Malayalam and Brazilian Portuguese – so why
+not join a team that keeps your favorite documentation up-to-date? You’ll find
+a friendly community of users, writers and developers to collaborate with.</li>
+<li>Start a new language translation if the Fabric documentation isn’t
+available in your language.  The Chinese, Malayalam and Portuguese Brazilian
+teams got started this way, and you can too!  It’s more work, as you’ll have
+to form a community of writers, and organize contributions; but it’s really
+fulfilling to see the Fabric documentation available in your chosen language.</li>
+</ul>
+<p>Jump to <a class="reference internal" href="#contributing-documentation">Contributing documentation</a> to get started on your journey.</p>
 <p>As a developer:</p>
 <ul class="simple">
 <li>If you only have a little time, consider picking up a
@@ -292,6 +307,20 @@ out the form that appears.</li>
 <a class="reference external" href="https://chat.hyperledger.org/">RocketChat</a>.</li>
 </ol>
 </div>
+<div class="section" id="contributing-documentation">
+<h2>Contributing documentation<a class="headerlink" href="#contributing-documentation" title="Permalink to this headline">¶</a></h2>
+<p>It’s a good idea to make your first change a documentation change. It’s quick
+and easy to do, checks that you have a correctly configured machine, (including
+the required pre-requisite software), and gets you familiar with the whole
+process.  Use the following sections to help you get started:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs_guide.html">Making a documentation change</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_guide.html">Style guide for contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="international_languages.html">International languages</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="project-governance">
 <h2>Project Governance<a class="headerlink" href="#project-governance" title="Permalink to this headline">¶</a></h2>
 <p>Hyperledger Fabric is managed under an open governance model as described in
@@ -310,14 +339,22 @@ the guidelines established by the Hyperledger Technical Steering Committee (TSC)
 <div class="section" id="becoming-a-maintainer">
 <h3>Becoming a maintainer<a class="headerlink" href="#becoming-a-maintainer" title="Permalink to this headline">¶</a></h3>
 <p>The project’s maintainers will, from time-to-time, consider
-adding or removing a maintainer. An existing maintainer can submit a
-change set to the <a class="reference external" href="https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md">maintainers</a> file. A nominated
-Contributor may become a Maintainer by a majority approval of the proposal
+adding a maintainer, based on the following criteria:</p>
+<ul class="simple">
+<li>Demonstrated track record of PR reviews (both quality and quantity of reviews)</li>
+<li>Demonstrated thought leadership in the project</li>
+<li>Demonstrated shepherding of project work and contributors</li>
+</ul>
+<p>An existing maintainer can submit a pull request to the
+<a class="reference external" href="https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md">maintainers</a> file.
+A nominated Contributor may become a Maintainer by a majority approval of the proposal
 by the existing Maintainers. Once approved, the change set is then merged
-and the individual is added to (or alternatively, removed from) the maintainers
-group. Maintainers may be removed by explicit resignation, for prolonged
-inactivity (3 or more months), or for some infraction of the <a class="reference external" href="https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct">code of conduct</a>
-or by consistently demonstrating poor judgement. A maintainer removed for
+and the individual is added to the maintainers group.</p>
+<p>Maintainers may be removed by explicit resignation, for prolonged
+inactivity (e.g. 3 or more months with no review comments),
+or for some infraction of the <a class="reference external" href="https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct">code of conduct</a>
+or by consistently demonstrating poor judgement. A proposed removal
+also requires a majority approval. A maintainer removed for
 inactivity should be restored following a sustained resumption of contributions
 and reviews (a month or more) demonstrating a renewed commitment to the project.</p>
 </div>
@@ -352,14 +389,14 @@ design discussion.</p>
 the new feature will greatly enhance the probability that the feature’s related
 PRs will be included in a subsequent release.</p>
 </div>
-<div class="section" id="maintainers-meeting">
-<h3>Maintainers meeting<a class="headerlink" href="#maintainers-meeting" title="Permalink to this headline">¶</a></h3>
-<p>The maintainers hold regular maintainers meetings.
-The purpose of the maintainers meeting is to plan for and review the progress of
-releases, and to discuss the technical and operational direction of the project
+<div class="section" id="contributor-meeting">
+<h3>Contributor meeting<a class="headerlink" href="#contributor-meeting" title="Permalink to this headline">¶</a></h3>
+<p>The maintainers hold regular contributors meetings.
+The purpose of the contributors meeting is to plan for and review the progress of
+releases and contributions, and to discuss the technical and operational direction of the project
 and sub-projects.</p>
 <p>Please see the
-<a class="reference external" href="https://wiki.hyperledger.org/display/fabric/Maintainer+Meetings">wiki</a>
+<a class="reference external" href="https://wiki.hyperledger.org/display/fabric/Contributor+Meetings">wiki</a>
 for maintainer meeting details.</p>
 <p>New feature/enhancement proposals as described above should be presented to a
 maintainers meeting for consideration, feedback and acceptance.</p>
@@ -611,7 +648,7 @@ local git repository using <code class="docutils literal notranslate"><span clas
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="style_guide.html" class="btn btn-neutral float-right" title="Documentation style guide for contributors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="docs_guide.html" class="btn btn-neutral float-right" title="Making a documentation change" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Fabric-FAQ.html" class="btn btn-neutral" title="Frequently Asked Questions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

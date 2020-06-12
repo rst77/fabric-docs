@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Documentation style guide for contributors &mdash; hyperledger-fabricdocs master documentation</title>
+  <title>Style guide for contributors &mdash; hyperledger-fabricdocs master documentation</title>
   
 
   
@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
         <link rel="up" title="Contributions Welcome!" href="CONTRIBUTING.html"/>
-        <link rel="next" title="Using Jira to understand current work items" href="jira_navigation.html"/>
-        <link rel="prev" title="Contributions Welcome!" href="CONTRIBUTING.html"/> 
+        <link rel="next" title="International languages" href="international_languages.html"/>
+        <link rel="prev" title="Making a documentation change" href="docs_guide.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -117,16 +117,21 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Fabric-FAQ.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="CONTRIBUTING.html">Contributions Welcome!</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Documentation style guide for contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#ways-to-contribute">Ways to contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#getting-a-linux-foundation-account">Getting a Linux Foundation account</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="CONTRIBUTING.html#contributing-documentation">Contributing documentation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="docs_guide.html">Making a documentation change</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Style guide for contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_languages.html">International languages</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#project-governance">Project Governance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#contribution-guide">Contribution guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#legal-stuff">Legal stuff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#related-topics">Related Topics</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossário</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="questions.html">Still Have Questions?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="status.html">Status</a></li>
@@ -176,7 +181,7 @@
         
           <li><a href="CONTRIBUTING.html">Contributions Welcome!</a> &raquo;</li>
         
-      <li>Documentation style guide for contributors</li>
+      <li>Style guide for contributors</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -195,16 +200,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="documentation-style-guide-for-contributors">
-<span id="documentation-style-guide-for-contributors"></span><h1>Documentation style guide for contributors<a class="headerlink" href="#documentation-style-guide-for-contributors" title="Permalink to this headline">¶</a></h1>
-<p><em>Audience: documentation writers and editors</em></p>
+  <div class="section" id="style-guide-for-contributors">
+<span id="style-guide-for-contributors"></span><h1>Style guide for contributors<a class="headerlink" href="#style-guide-for-contributors" title="Permalink to this headline">¶</a></h1>
+<p><strong>Audience</strong>: documentation writers and editors</p>
 <p>While this style guide will also refer to best practices using ReStructured Text (also known as RST), in general we advise writing documentation in Markdown, as it’s a more universally accepted documentation standard. Both formats are usable, however, and if you decide to write a topic in RST (or are editing an RST topic), be sure to refer to this style guide.</p>
 <p><strong>When in doubt, use the docs themselves for guidance on how to format things.</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="http://hyperledger-fabric.readthedocs.io/en/release-1.4/channel_update_tutorial.html">For RST formatting</a>.</li>
 <li><a class="reference external" href="http://hyperledger-fabric.readthedocs.io/en/release-1.4/peers/peers.html">For Markdown formatting</a>.</li>
 </ul>
-<p>If you just want to look at how things are formatted, you can navigate to the Fabric repo to look at the raw file by clicking on <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">Github</span></code> link in the upper right hand corner of the page. Then click the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> tab. This will show you the formatting of the doc. <strong>Do not attempt to edit the file on Github.</strong> If you want to make a change, clone the repo and follow the instructions in <a class="reference external" href="contributing.html">Contributing</a> for creating pull requests.</p>
+<p>If you just want to look at how things are formatted, you can navigate to the Fabric repo to look at the raw file by clicking on <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">on</span> <span class="pre">Github</span></code> link in the upper right hand corner of the page. Then click the <code class="docutils literal notranslate"><span class="pre">Raw</span></code> tab. This will show you the formatting of the doc. <strong>Do not attempt to edit the file on Github.</strong> If you want to make a change, clone the repo and follow the instructions in <a class="reference external" href="./CONTRIBUTING.html">Contributing</a> for creating pull requests.</p>
 <p><strong>Line lengths.</strong></p>
 <p>If you look at the raw versions of the documentation, you will see that many topics conform to a line length of roughly 70 characters. This restriction is no longer necessary, so you are free to make lines as long as you want.</p>
 <p><strong>Tutorials should have a list of steps at the top.</strong></p>
@@ -321,6 +326,21 @@ https://creativecommons.org/licenses/by/4.0/ --&gt;
 </pre></div>
 </div>
 <p>Both file formats don’t like when these things are done out of order. For example, you might want a <code class="docutils literal notranslate"><span class="pre">####</span></code> to be the first thing after your <code class="docutils literal notranslate"><span class="pre">#</span></code> Title. Markdown won’t allow it. Similarly, RST will default to whatever order you give to the title formats (as they appear in the first sections of your doc).</p>
+<p><strong>Relative links should be used whenever possible.</strong></p>
+<p>For RST, the preferred syntax is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  :doc:`anchor text &lt;relativepath&gt;`
+</pre></div>
+</div>
+<p>Do not put the .rst suffix at the end of the filepath.</p>
+<p>For Markdown, the preferred syntax is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="p">[</span><span class="n">anchor</span> <span class="n">text</span><span class="p">](</span><span class="o">&lt;</span><span class="n">relativepath</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For other files, such as text or YAML files, use a direct link to the file in
+github for example:</p>
+<p><a class="reference external" href="https://github.com/hyperledger/fabric/blob/master/docs/README.md">https://github.com/hyperledger/fabric/blob/master/docs/README.md</a></p>
+<p>Relative links are unfortunately not working on github when browsing through a
+RST file.</p>
 <!--- Licensed under Creative Commons Attribution 4.0 International License
 https://creativecommons.org/licenses/by/4.0/ --></div>
 
@@ -334,10 +354,10 @@ https://creativecommons.org/licenses/by/4.0/ --></div>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="jira_navigation.html" class="btn btn-neutral float-right" title="Using Jira to understand current work items" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="international_languages.html" class="btn btn-neutral float-right" title="International languages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="CONTRIBUTING.html" class="btn btn-neutral" title="Contributions Welcome!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="docs_guide.html" class="btn btn-neutral" title="Making a documentation change" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Membership Service Provider (MSP) &mdash; hyperledger-fabricdocs master documentation</title>
+  <title>Provedor de Serviço de Associação (MSP) &mdash; hyperledger-fabricdocs master documentation</title>
   
 
   
@@ -40,7 +40,7 @@
     <link rel="top" title="hyperledger-fabricdocs master documentation" href="../index.html"/>
         <link rel="up" title="Conceitos Chave" href="../key_concepts.html"/>
         <link rel="next" title="Policies" href="../policies/policies.html"/>
-        <link rel="prev" title="Identity" href="../identity/identity.html"/> 
+        <link rel="prev" title="Identidade" href="../identity/identity.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -109,22 +109,22 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../key_concepts.html">Conceitos Chave</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../blockchain.html">Introdução</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../fabric_model.html">Modelo Hyperledger Fabric</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../network/network.html">Blockchain network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../identity/identity.html">Identity</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Membership Service Provider (MSP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#why-do-i-need-an-msp">Why do I need an MSP?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#what-is-an-msp">What is an MSP?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#msp-domains">MSP domains</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#local-msps">Local MSPs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#channel-msps">Channel MSPs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../network/network.html">Rede Blockchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/identity.html">Identidade</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Provedor de Serviço de Associação (MSP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#por-que-preciso-de-um-msp">Por que preciso de um MSP?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#o-que-e-um-msp">O que é um MSP?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dominios-msp">Domínios MSP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#msps-locais">MSPs locais</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#msps-de-canal">MSPs de canal</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#what-role-does-an-organization-play-in-an-msp">What role does an organization play in an MSP?</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#organizational-units-ous-and-msps">Organizational Units (OUs) and MSPs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#node-ou-roles-and-msps">Node OU Roles and MSPs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qual-o-papel-de-uma-organizacao-em-um-msp">Qual o papel de uma organização em um MSP?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#unidades-organizacionais-ous-e-msps">Unidades Organizacionais (OUs) e MSPs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#papeis-da-ou-e-msps">Papéis da OU e MSPs</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#msp-structure">MSP Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estrutura-do-msp">Estrutura do MSP</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../policies/policies.html">Policies</a></li>
@@ -148,7 +148,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Fabric-FAQ.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributions Welcome!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossário</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../questions.html">Still Have Questions?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../status.html">Status</a></li>
@@ -198,7 +198,7 @@
         
           <li><a href="../key_concepts.html">Conceitos Chave</a> &raquo;</li>
         
-      <li>Membership Service Provider (MSP)</li>
+      <li>Provedor de Serviço de Associação (MSP)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -217,77 +217,232 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="membership-service-provider-msp">
-<span id="membership-service-provider-msp"></span><h1>Membership Service Provider (MSP)<a class="headerlink" href="#membership-service-provider-msp" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="why-do-i-need-an-msp">
-<span id="why-do-i-need-an-msp"></span><h2>Why do I need an MSP?<a class="headerlink" href="#why-do-i-need-an-msp" title="Permalink to this headline">¶</a></h2>
-<p>Because Fabric is a permissioned network, blockchain participants need a way to prove their identity to the rest of the network in order to transact on the network. If you’ve read through the documentation on <a class="reference external" href="../identity/identity.html">Identity</a>
-you’ve seen how a Public Key Infrastructure (PKI) can provide verifiable identities through a chain of trust. How is that chain of trust used by the blockchain network?</p>
-<p>Certificate Authorities issue identities by generating a public and private key which forms a key-pair that can be used to prove identity. Because a private key can never be shared publicly, a mechanism is required to enable that proof which is where the MSP comes in. For example, a peer uses its private key to digitally sign, or endorse, a transaction.  The MSP on the ordering service contains the peer’s public key which is then used to verify that the signature attached to the transaction is valid. The private key is used to produce a signature on a transaction that only the corresponding public key, that is part of an MSP, can match. Thus, the MSP is the mechanism that allows that identity to be trusted and recognized by the rest of the network without ever revealing the member’s private key.</p>
-<p>Recall from the credit card scenario in the Identity topic that the Certificate Authority is like a card provider — it dispenses many different types of verifiable identities. An MSP, on the other hand, determines which credit card providers are accepted at the store. In this way, the MSP turns an identity (the credit card) into a role (the ability to buy things at the store).</p>
-<p>This ability to turn verifiable identities into roles is fundamental to the way Fabric networks function, since it allows organizations, nodes, and channels the ability establish MSPs that determine who is allowed to do what at the organization, node, and channel level.</p>
+  <div class="section" id="provedor-de-servico-de-associacao-msp">
+<span id="provedor-de-servico-de-associacao-msp"></span><h1>Provedor de Serviço de Associação (MSP)<a class="headerlink" href="#provedor-de-servico-de-associacao-msp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="por-que-preciso-de-um-msp">
+<span id="por-que-preciso-de-um-msp"></span><h2>Por que preciso de um MSP?<a class="headerlink" href="#por-que-preciso-de-um-msp" title="Permalink to this headline">¶</a></h2>
+<p>Como a Fabric é uma rede permissionada, os participantes da blockchain precisam
+de uma maneira de provar sua identidade para o restante da rede, a fim de realizar
+transações na rede. Se você leu a documentação sobre <a class="reference external" href="../identity/identity.html">Identidade</a>,
+viu como uma PKI (Public Key Infrastructure) pode fornecer identidades verificáveis
+​​por meio de uma cadeia de confiança. Como essa cadeia de confiança é usada pela
+rede blockchain?</p>
+<p>As autoridades de certificação emitem identidades gerando uma chave pública e
+privada que forma um par de chaves que pode ser usado para provar a identidade.
+Como uma chave privada nunca pode ser compartilhada publicamente, é necessário
+um mecanismo para executar a prova, é onde o MSP entra. Por exemplo, um par usa
+sua chave privada para assinar digitalmente ou endossar uma transação. O MSP no
+serviço de pedidos contém a chave pública do par que é usada para verificar se a
+assinatura anexada à transação é válida. A chave privada é usada para produzir
+uma assinatura em uma transação que somente a chave pública correspondente, que
+faz parte de um MSP, pode corresponder. Assim, o MSP é o mecanismo que permite
+que essa identidade seja confiável e reconhecida pelo restante da rede sem nunca
+revelar a chave privada do membro.</p>
+<p>Lembre-se, no cenário do cartão de crédito, no tópico Identidade, que a Autoridade
+de Certificação é como um fornecedor de cartões – ela distribui muitos tipos
+diferentes de identidades verificáveis. Um MSP, por outro lado, determina quais
+fornecedores de cartão de crédito são aceitos na loja. Dessa maneira, o MSP
+transforma uma identidade (o cartão de crédito) em uma função (a capacidade de
+comprar coisas na loja).</p>
+<p>Essa capacidade de transformar identidades verificáveis em funções é fundamental
+para o funcionamento das redes Fabric, pois permite que as organizações, nós e
+canais estabeleçam MSPs que determinam quem tem permissão para fazer o que nos
+níveis de organização, nó e canal.</p>
 <p><img alt="MSP1a" src="../_images/membership.msp.diagram.png" /></p>
-<p><em>Identities are similar to your credit cards that are used to prove you can pay. The MSP is similar to the list of accepted credit cards.</em></p>
-<p>Consider a consortium of banks that operate a blockchain network. Each bank operates peer and ordering nodes, and the peers endorse transactions submitted to the network. However, each bank would also have departments and account holders. The account holders would belong to each organization, but would not run nodes on the network. They would only interact with the system from their mobile or web application. So how does the network recognize and differentiate these identities? A CA was used to create the identities, but like the card example, those identities can’t just be issued, they need to be recognized by the network. MSPs are used to define the organizations that are trusted by the network members. MSPs are also the mechanism that provide members with a set of roles and permissions within the network. Because the MSPs defining these organizations are known to the members of a network, they can then be used to validate that network entities that attempt to perform actions are allowed to.</p>
-<p>Finally, consider if you want to join an <em>existing</em> network, you need a way to turn your identity into something that is recognized by the network. The MSP is the mechanism that enables you to participate on a permissioned blockchain network. To transact on a Fabric network a member needs to:</p>
+<p><em>As identidades são semelhantes aos seus cartões de crédito usados ​​para provar
+que você pode pagar. O MSP é semelhante à lista de cartões de crédito aceitos.</em></p>
+<p>Considere um consórcio de bancos que operam uma rede blockchain. Cada banco opera
+nós pares e de ordens, e os pares endossam as transações enviadas à rede. No
+entanto, cada banco também teria departamentos e correntistas. Os titulares da
+conta pertenceriam a cada organização, mas não executariam nós na rede. Eles só
+interagiriam com o sistema a partir de seus aplicativos móveis ou da web. Então,
+como a rede reconhece e diferencia essas identidades? Uma CA foi usada para criar
+as identidades, mas, como no exemplo do cartão, essas identidades não podem apenas
+ser emitidas, elas precisam ser reconhecidas pela rede. MSPs são usados ​​para
+definir as organizações confiáveis ​​pelos membros da rede. Os MSPs também são os
+mecanismos que fornecem aos membros um conjunto de funções e permissões na rede.
+Como os MSPs que definem essas organizações são conhecidos pelos membros de uma
+rede, eles podem ser usados ​​para validar as entidades de rede que tentam executar
+ações.</p>
+<p>Por fim, considere se você deseja ingressar em uma rede <em>existente</em>, precisa de
+uma maneira de transformar sua identidade em algo que seja reconhecido pela rede.
+O MSP é o mecanismo que permite que você participe de uma rede blockchain
+permissionada. Para realizar transações em uma rede Fabric, um membro precisa:</p>
 <ol class="simple">
-<li>Have an identity issued by a CA that is trusted by the network.</li>
-<li>Become a member of an <em>organization</em> that is recognized and approved by the network members. The MSP is how the identity is linked to the membership of an organization. Membership is achieved by adding the member’s public key (also known as certificate, signing cert, or signcert) to the organization’s MSP.</li>
-<li>Add the MSP to either a <a class="reference external" href="../glossary.html#consortium">consortium</a> on the network or a channel.</li>
-<li>Ensure the MSP is included in the <a class="reference external" href="../policies/policies.html">policy</a> definitions on the network.</li>
+<li>Tenha uma identidade emitida por uma CA confiável pela rede.</li>
+<li>Torne-se membro de uma <em>organização</em> que é reconhecida e aprovada pelos membros
+da rede. O MSP é como a identidade está vinculada à associação de uma organização.
+A associação é obtida adicionando a chave pública do membro (também conhecida como
+certificado, certificado de assinatura ou certificado de assinatura) ao MSP da
+organização.</li>
+<li>Adicione o MSP a um <a class="reference external" href="../glossary.html#consorcio">consórcio</a> na rede ou em um canal.</li>
+<li>Verifique se o MSP está incluído nas definições da <a class="reference external" href="../policies/policies.html">política</a>
+da rede.</li>
 </ol>
 </div>
-<div class="section" id="what-is-an-msp">
-<span id="what-is-an-msp"></span><h2>What is an MSP?<a class="headerlink" href="#what-is-an-msp" title="Permalink to this headline">¶</a></h2>
-<p>Despite its name, the Membership Service Provider does not actually provide anything. Rather, the implementation of the MSP requirement is a set of folders that are added to the configuration of the network and is used to define an organization both inwardly (organizations decide who its admins are) and outwardly (by allowing other organizations to validate that entities have the authority to do what they are attempting to do).  Whereas Certificate Authorities generate the certificates that represent identities, the MSP contains a list of permissioned identities.</p>
-<p>The MSP identifies which Root CAs and Intermediate CAs are accepted to define the members of a trust domain by listing the identities of their members, or by identifying which CAs are authorized to issue valid identities for their members.</p>
-<p>But the power of an MSP goes beyond simply listing who is a network participant or member of a channel. It is the MSP that turns an identity into a <strong>role</strong> by identifying specific privileges an actor has on a node or channel. Note that when a user is registered with a Fabric CA, a role of admin, peer, client, orderer, or member must be associated with the user. For example, identities registered with the “peer” role should, naturally, be given to a peer. Similarly, identities registered with the “admin” role should be given to organization admins. We’ll delve more into the significance of these roles later in the topic.</p>
-<p>In addition, an MSP can allow for the identification of a list of identities that have been revoked — as discussed in the <a class="reference external" href="../identity/identity.html">Identity</a> documentation — but we will talk about how that process also extends to an MSP.</p>
+<div class="section" id="o-que-e-um-msp">
+<span id="o-que-e-um-msp"></span><h2>O que é um MSP?<a class="headerlink" href="#o-que-e-um-msp" title="Permalink to this headline">¶</a></h2>
+<p>Apesar do nome, o Provedor de Serviços para Membros não fornece nada. Em vez disso,
+a implementação do requisito MSP é um conjunto de pastas que são adicionadas à
+configuração da rede e são usadas para definir uma organização interna (as
+organizações decidem quem são seus administradores) e externa (permitindo que
+outras organizações validem que entidades tem autoridade para fazer o que eles
+estão tentando fazer). Enquanto as autoridades de certificação geram os
+certificados que representam identidades, o MSP contém uma lista de identidades
+permitidas.</p>
+<p>O MSP identifica quais CAs raises e intermediárias são aceitas para definir os
+membros de um domínio confiável listando as identidades de seus membros ou
+identificando quais CAs estão autorizadas a emitir identidades válidas para seus
+membros.</p>
+<p>Mas o poder de um MSP vai além de simplesmente listar quem é participante da rede
+ou membro de um canal. É o MSP que transforma uma identidade em uma <strong>função</strong>,
+identificando privilégios específicos que um ator possui em um nó ou canal.
+Observe que, quando um usuário é registrado com uma Fabric CA, o papel de
+administrador, nó, cliente, ordenação ou membro deve ser associada ao usuário.
+Por exemplo, identidades registradas com a função “nó” devem, naturalmente, ser
+atribuídas a um nó par. Da mesma forma, identidades registradas com a função
+“admin” devem ser dadas aos administradores da organização. Iremos nos aprofundar
+no significado dessas funções mais adiante neste tópico.</p>
+<p>Além disso, um MSP pode permitir a identificação de uma lista de identidades que
+foram revogadas – como discutido na documentação <a class="reference external" href="../identity/identity.html">Identidade</a> –,
+mas falaremos sobre como esse processo também se estende a um MSP.</p>
 </div>
-<div class="section" id="msp-domains">
-<span id="msp-domains"></span><h2>MSP domains<a class="headerlink" href="#msp-domains" title="Permalink to this headline">¶</a></h2>
-<p>MSPs occur in two domains in a blockchain network:</p>
+<div class="section" id="dominios-msp">
+<span id="dominios-msp"></span><h2>Domínios MSP<a class="headerlink" href="#dominios-msp" title="Permalink to this headline">¶</a></h2>
+<p>MSPs ocorrem em dois domínios em uma rede blockchain:</p>
 <ul class="simple">
-<li>Locally on an actor’s node (<strong>local MSP</strong>)</li>
-<li>In channel configuration (<strong>channel MSP</strong>)</li>
+<li>Localmente no nó de um ator (<strong>MSP local</strong>)</li>
+<li>Na configuração do canal (<strong>channel MSP</strong>)</li>
 </ul>
-<p>The key difference between local and channel MSPs is not how they function – both turn identities into roles – but their <strong>scope</strong>. Each MSP lists roles and permissions at a particular level of administration.</p>
-<div class="section" id="local-msps">
-<span id="local-msps"></span><h3>Local MSPs<a class="headerlink" href="#local-msps" title="Permalink to this headline">¶</a></h3>
-<p><strong>Local MSPs are defined for clients and for nodes (peers and orderers)</strong>.
-Local MSPs define the permissions for a node (who are the peer admins who can operate the node, for example). The local MSPs of clients (the account holders in the banking scenario above), allow the user to authenticate itself in its transactions as a member of a channel (e.g. in chaincode transactions), or as the owner of a specific role into the system such as an organization admin, for example, in configuration transactions.</p>
-<p><strong>Every node must have a local MSP defined</strong>, as it defines who has administrative or participatory rights at that level (peer admins will not necessarily be channel admins, and vice versa).  This allows for authenticating member messages outside the context of a channel and to define the permissions over a particular node (who has the ability to install chaincode on a peer, for example). Note that one or more nodes can be owned by an organization. An MSP defines the organization admins. And the organization, the admin of the organization, the admin of the node, and the node itself should all have the same root of trust.</p>
-<p>An orderer local MSP is also defined on the file system of the node and only applies to that node. Like peer nodes, orderers are also owned by a single organization and therefore have a single MSP to list the actors or nodes it trusts.</p>
+<p>A principal diferença entre os MSPs locais e de canal não é como eles funcionam
+– ambos transformam identidades em papéis – mas seu <strong>escopo</strong>. Cada MSP lista
+funções e permissões em um nível específico de administração.</p>
+<div class="section" id="msps-locais">
+<span id="msps-locais"></span><h3>MSPs locais<a class="headerlink" href="#msps-locais" title="Permalink to this headline">¶</a></h3>
+<p><strong>MSPs locais são definidos para clientes e nós (nós pares e ordens)</strong>.
+MSPs locais definem as permissões para um nó (que são os administradores de mesmo
+nível que podem operar o nó, por exemplo). Os MSPs locais de clientes (os titulares
+da conta no cenário bancário acima) permitem que o usuário se autentique em suas
+transações como membro de um canal (por exemplo, em transações de chaincodes) ou
+como proprietário de uma função específica no sistema, como administrador da
+organização, por exemplo, em transações de configuração.</p>
+<p><strong>Todo nó deve ter um MSP local definido</strong>, pois define quem possui direitos
+administrativos ou participativos nesse nível (os administradores de nós pares
+não serão necessariamente administradores de canal e vice-versa). Isso permite
+autenticar mensagens de membros fora do contexto de um canal e definir as
+permissões em um nó específico (que tem a capacidade de instalar o chaincode em
+um par, por exemplo). Observe que um ou mais nós podem pertencer a uma organização.
+Um MSP define os administradores da organização. E a organização, o administrador
+da organização, o administrador do nó e o próprio nó devem ter a mesma raiz de
+confiança.</p>
+<p>Um MSP local do ordenador também é definido no sistema de arquivos do nó e se
+aplica apenas a esse nó. Como nós pares, os pedidos também pertencem a uma única
+organização e, portanto, têm um único MSP para listar os atores ou nós nos quais
+confia.</p>
 </div>
-<div class="section" id="channel-msps">
-<span id="channel-msps"></span><h3>Channel MSPs<a class="headerlink" href="#channel-msps" title="Permalink to this headline">¶</a></h3>
-<p>In contrast, <strong>channel MSPs define administrative and participatory rights at the channel level</strong>. Peers and ordering nodes on an application channel share the same view of channel MSPs, and will therefore be able to correctly authenticate the channel participants. This means that if an organization wishes to join the channel, an MSP incorporating the chain of trust for the organization’s members would need to be included in the channel configuration. Otherwise transactions originating from this organization’s identities will be rejected. Whereas local MSPs are represented as a folder structure on the file system, channel MSPs are described in a channel configuration.</p>
+<div class="section" id="msps-de-canal">
+<span id="msps-de-canal"></span><h3>MSPs de canal<a class="headerlink" href="#msps-de-canal" title="Permalink to this headline">¶</a></h3>
+<p>Por outro lado, <strong>os MSPs de canal definem direitos administrativos e participativos
+no nível do canal</strong>. Os pares e os nós de ordens em um canal de aplicativo
+compartilham a mesma visualização dos MSPs do canal e, portanto, poderão autenticar
+corretamente os participantes do canal. Isso significa que, se uma organização
+desejar ingressar no canal, um MSP que incorpore a cadeia de confiança dos membros
+da organização precisará ser incluído na configuração do canal. Caso contrário,
+as transações originárias das identidades desta organização serão rejeitadas.
+Enquanto os MSPs locais são representados como uma estrutura de pastas no sistema
+de arquivos, os MSPs do canal são descritos em uma configuração de canal.</p>
 <p><img alt="MSP1d" src="../_images/ChannelMSP.png" /></p>
-<p><em>Snippet from a channel config.json file that includes two organization MSPs.</em></p>
-<p><strong>Channel MSPs identify who has authorities at a channel level</strong>.
-The channel MSP defines the <em>relationship</em> between the identities of channel members (which themselves are MSPs) and the enforcement of channel level policies. Channel MSPs contain the MSPs of the organizations of the channel members.</p>
-<p><strong>Every organization participating in a channel must have an MSP defined for it</strong>. In fact, it is recommended that there is a one-to-one mapping between organizations and MSPs. The MSP defines which members are empowered to act on behalf of the organization. This includes configuration of the MSP itself as well as approving administrative tasks that the organization has role, such as adding new members to a channel. If all network members were part of a single organization or MSP, data privacy is sacrificed. Multiple organizations facilitate privacy by segregating ledger data to only channel members. If more granularity is required within an organization, the organization can be further divided into organizational units (OUs) which we describe in more detail later in this topic.</p>
-<p><strong>The system channel MSP includes the MSPs of all the organizations that participate in an ordering service.</strong> An ordering service will likely include ordering nodes from multiple organizations and collectively these organizations run the ordering service, most importantly managing the consortium of organizations and the default policies that are inherited by the application channels.</p>
-<p><strong>Local MSPs are only defined on the file system of the node or user</strong> to which they apply. Therefore, physically and logically there is only one local MSP per
-node. However, as channel MSPs are available to all nodes in the channel, they are logically defined once in the channel configuration. However, <strong>a channel MSP is also instantiated on the file system of every node in the channel and kept synchronized via consensus</strong>. So while there is a copy of each channel MSP on the local file system of every node, logically a channel MSP resides on and is maintained by the channel or the network.</p>
-<p>The following diagram illustrates how local and channel MSPs coexist on the network:</p>
+<p><em>Snippet de um arquivo config.json do canal que inclui dois MSPs da organização.</em></p>
+<p><strong>MSPs de canal identificam quem possui autoridades no nível do canal</strong>.
+O canal MSP define a <em>relação</em> entre as identidades dos membros do canal (que são
+MSPs) e a imposição de políticas no nível do canal. Os MSPs do canal contêm os
+MSPs das organizações dos membros do canal.</p>
+<p><strong>Toda organização que participa de um canal deve ter um MSP definido para ele</strong>.
+De fato, é recomendável que haja um mapeamento individual entre organizações e MSPs.
+O MSP define quais membros têm poderes para agir em nome da organização. Isso inclui
+a configuração do próprio MSP, bem como a aprovação de tarefas administrativas que a
+organização possui, como adicionar novos membros a um canal. Se todos os membros da
+rede faziam parte de uma única organização ou MSP, a privacidade dos dados é
+sacrificada. Várias organizações facilitam a privacidade segregando dados do
+livro-razão apenas para membros do canal. Se for necessária mais granularidade
+dentro de uma organização, ela poderá ser dividida em unidades organizacionais (OUs)
+que descrevemos em mais detalhes a frente neste tópico.</p>
+<p><strong>O canal do sistema MSP inclui os MSPs de todas as organizações que participam
+de um serviço de ordens.</strong> Um serviço de ordens provavelmente incluirá nós de
+ordens de várias organizações e, coletivamente, essas organizações executam o
+serviço de ordens, gerenciando o consórcio de organizações e as políticas padrão
+que são herdadas pelos canais de aplicativos.</p>
+<p><strong>MSPs locais são definidos apenas no sistema de arquivos do nó ou usuário</strong> ao
+qual eles se aplicam. Portanto, fisicamente e logicamente, há apenas um MSP local
+por nó. No entanto, como os MSPs do canal estão disponíveis para todos os nós no
+canal, eles são definidos logicamente uma vez na configuração do canal. No entanto,
+<strong>um canal MSP também é instanciado no sistema de arquivos de todos os nós no canal
+e mantido sincronizado por consenso</strong>. Portanto, embora exista uma cópia de cada
+MSP de canal no sistema de arquivos local de cada nó, logicamente um MSP de canal
+reside e é mantido pelo canal ou pela rede.</p>
+<p>O diagrama a seguir ilustra como os MSPs locais e de canal coexistem na rede:</p>
 <p><img alt="MSP3" src="../_images/membership.diagram.2.png" /></p>
-<p><em>The MSPs for the peer and orderer are local, whereas the MSPs for a channel (including the network configuration channel, also known as the system channel) are global, shared across all participants of that channel. In this figure, the network system channel is administered by ORG1, but another application channel can be managed by ORG1 and ORG2. The peer is a member of and managed by ORG2, whereas ORG1 manages the orderer of the figure. ORG1 trusts identities from RCA1, whereas ORG2 trusts identities from RCA2. It is important to note that these are administration identities, reflecting who can administer these components. So while ORG1 administers the network, ORG2.MSP does exist in the network definition.</em></p>
+<p><em>Os MSPs do nó e do solicitante são locais, enquanto os MSPs de um canal (incluindo
+o canal de configuração de rede, também conhecido como canal do sistema) são
+globais, compartilhados entre todos os participantes desse canal. Nesta figura,
+o canal do sistema de rede é administrado pelo ORG1, mas outro canal de aplicativo
+pode ser gerenciado pelo ORG1 e ORG2. O par é um membro e é gerenciado pelo ORG2,
+enquanto o ORG1 gerencia o ordenador da figura. O ORG1 confia nas identidades do
+RCA1, enquanto o ORG2 confia nas identidades do RCA2. É importante observar que
+essas são identidades de administração, refletindo quem pode administrar esses
+componentes. Portanto, enquanto o ORG1 administra a rede, o ORG2.MSP existe na
+definição de rede.</em></p>
 </div>
 </div>
-<div class="section" id="what-role-does-an-organization-play-in-an-msp">
-<span id="what-role-does-an-organization-play-in-an-msp"></span><h2>What role does an organization play in an MSP?<a class="headerlink" href="#what-role-does-an-organization-play-in-an-msp" title="Permalink to this headline">¶</a></h2>
-<p>An <strong>organization</strong> is a logical managed group of members. This can be something as big as a multinational corporation or a small as a flower shop. What’s most important about organizations (or <strong>orgs</strong>) is that they manage their members under a single MSP. The MSP allows an identity to be linked to an organization. Note that this is different from the organization concept defined in an X.509 certificate, which we mentioned above.</p>
-<p>The exclusive relationship between an organization and its MSP makes it sensible to name the MSP after the organization, a convention you’ll find adopted in most policy configurations. For example, organization <code class="docutils literal notranslate"><span class="pre">ORG1</span></code> would likely have an MSP called something like <code class="docutils literal notranslate"><span class="pre">ORG1-MSP</span></code>. In some cases an organization may require multiple membership groups — for example, where channels are used to perform very different business functions between organizations. In these cases it makes sense to have multiple MSPs and name them accordingly, e.g., <code class="docutils literal notranslate"><span class="pre">ORG2-MSP-NATIONAL</span></code> and <code class="docutils literal notranslate"><span class="pre">ORG2-MSP-GOVERNMENT</span></code>, reflecting the different membership roots of trust within <code class="docutils literal notranslate"><span class="pre">ORG2</span></code> in the <code class="docutils literal notranslate"><span class="pre">NATIONAL</span></code> sales channel compared to the <code class="docutils literal notranslate"><span class="pre">GOVERNMENT</span></code> regulatory channel.</p>
-<div class="section" id="organizational-units-ous-and-msps">
-<span id="organizational-units-ous-and-msps"></span><h3>Organizational Units (OUs) and MSPs<a class="headerlink" href="#organizational-units-ous-and-msps" title="Permalink to this headline">¶</a></h3>
-<p>An organization can also be divided into multiple <strong>organizational units</strong>, each of which has a certain set of responsibilities, also referred to as <code class="docutils literal notranslate"><span class="pre">affiliations</span></code>. Think of an OU as a department inside an organization. For example, the <code class="docutils literal notranslate"><span class="pre">ORG1</span></code> organization might have both <code class="docutils literal notranslate"><span class="pre">ORG1.MANUFACTURING</span></code> and <code class="docutils literal notranslate"><span class="pre">ORG1.DISTRIBUTION</span></code> OUs to reflect these separate lines of business. When a CA issues X.509 certificates, the <code class="docutils literal notranslate"><span class="pre">OU</span></code> field in the certificate specifies the line of business to which the identity belongs. A benefit of using OUs like this is that these values can then be used in policy definitions in order to restrict access or in smart contracts for attribute-based access control. Otherwise, separate MSPs would need to be created for each organization.</p>
-<p>Specifying OUs is optional. If OUs are not used, all of the identities that are part of an MSP — as identified by the Root CA and Intermediate CA folders — will be considered members of the organization.</p>
+<div class="section" id="qual-o-papel-de-uma-organizacao-em-um-msp">
+<span id="qual-o-papel-de-uma-organizacao-em-um-msp"></span><h2>Qual o papel de uma organização em um MSP?<a class="headerlink" href="#qual-o-papel-de-uma-organizacao-em-um-msp" title="Permalink to this headline">¶</a></h2>
+<p>Uma <strong>organização</strong> é um grupo lógico de membros gerenciados. Isso pode ser algo
+tão grande quanto uma corporação multinacional ou tão pequeno quanto uma loja de
+flores. O mais importante sobre as organizações (ou <strong>orgs</strong>) é que elas gerenciam
+seus membros em um único MSP. O MSP permite que uma identidade seja vinculada a
+uma organização. Observe que isso é diferente do conceito de organização definido
+em um certificado X.509, que mencionamos acima.</p>
+<p>O relacionamento exclusivo entre uma organização e seu MSP torna sensato nomear
+o MSP após a organização, uma convenção que você encontrará adotada na maioria
+das configurações de políticas. Por exemplo, a organização <code class="docutils literal notranslate"><span class="pre">ORG1</span></code> provavelmente
+teria um MSP chamado algo como <code class="docutils literal notranslate"><span class="pre">ORG1-MSP</span></code>. Em alguns casos, uma organização pode
+exigir vários grupos de associação — por exemplo, onde os canais são usados ​​
+para executar funções comerciais muito diferentes entre as organizações. Nesses
+casos, faz sentido ter vários MSPs e nomeá-los adequadamente, por exemplo,
+<code class="docutils literal notranslate"><span class="pre">ORG2-MSP-NATIONAL</span></code> e <code class="docutils literal notranslate"><span class="pre">ORG2-MSP-GOVERNMENT</span></code>, refletindo as diferentes raízes de
+confiança da associação dentro do <code class="docutils literal notranslate"><span class="pre">ORG2</span></code> nas vendas <code class="docutils literal notranslate"><span class="pre">NATIONAL</span></code> canal em
+comparação com o canal regulatório <code class="docutils literal notranslate"><span class="pre">GOVERNO</span></code>.</p>
+<div class="section" id="unidades-organizacionais-ous-e-msps">
+<span id="unidades-organizacionais-ous-e-msps"></span><h3>Unidades Organizacionais (OUs) e MSPs<a class="headerlink" href="#unidades-organizacionais-ous-e-msps" title="Permalink to this headline">¶</a></h3>
+<p>Uma organização também pode ser dividida em várias <strong>unidades organizacionais</strong>,
+cada uma das quais com um certo conjunto de responsabilidades, também chamadas de
+<code class="docutils literal notranslate"><span class="pre">afiliações</span></code>. Pense em uma UO como um departamento dentro de uma organização. Por
+exemplo, a organização <code class="docutils literal notranslate"><span class="pre">ORG1</span></code> pode ter UOs <code class="docutils literal notranslate"><span class="pre">ORG1.MANUFACTURING</span></code> e <code class="docutils literal notranslate"><span class="pre">ORG1.DISTRIBUTION</span></code>
+para refletir essas linhas de negócios separadas. Quando uma CA emite certificados
+X.509, o campo <code class="docutils literal notranslate"><span class="pre">OU</span></code> no certificado especifica a linha de negócios à qual a
+identidade pertence. Um benefício do uso de OUs como esse é que esses valores
+podem ser usados nas definições de política para restringir o acesso ou em
+contratos inteligentes para controle de acesso baseado em atributos. Caso
+contrário, MSPs separados precisariam ser criados para cada organização.</p>
+<p>A especificação de UOs é opcional. Se as OUs não forem usadas, todas as identidades
+que fazem parte de um MSP – como identificadas pelas pastas CA raiz e CA
+intermediária – serão consideradas membros da organização.</p>
 </div>
-<div class="section" id="node-ou-roles-and-msps">
-<span id="node-ou-roles-and-msps"></span><h3>Node OU Roles and MSPs<a class="headerlink" href="#node-ou-roles-and-msps" title="Permalink to this headline">¶</a></h3>
-<p>Additionally, there is a special kind of OU, sometimes referred to as a <code class="docutils literal notranslate"><span class="pre">Node</span> <span class="pre">OU</span></code>, that can be used to confer a role onto an identity. These Node OU roles are defined in the <code class="docutils literal notranslate"><span class="pre">$FABRIC_CFG_PATH/msp/config.yaml</span></code> file and contain a list of organizational units whose members are considered to be part of the organization represented by this MSP. This is particularly useful when you want to restrict the members of an organization to the ones holding an identity (signed by one of MSP designated CAs) with a specific Node OU role in it. For example, with node OU’s you can implement a more granular endorsement policy that requires Org1 peers to endorse a transaction, rather than any member of Org1.</p>
-<p>In order to use the Node OU roles, the “identity classification” feature must be enabled for the network. When using the folder-based MSP structure, this is accomplished by enabling “Node OUs” in the config.yaml file which resides in the root of the MSP folder:</p>
+<div class="section" id="papeis-da-ou-e-msps">
+<span id="papeis-da-ou-e-msps"></span><h3>Papéis da OU e MSPs<a class="headerlink" href="#papeis-da-ou-e-msps" title="Permalink to this headline">¶</a></h3>
+<p>Além disso, existe um tipo especial de OU, às vezes chamada de <code class="docutils literal notranslate"><span class="pre">Node</span> <span class="pre">OU</span></code>, que
+pode ser usada para conferir uma função a uma identidade. Essas funções da OU do
+nó são definidas no arquivo <code class="docutils literal notranslate"><span class="pre">$FABRIC_CFG_PATH/msp/config.yaml</span></code> e contêm uma lista
+de unidades organizacionais cujos membros são considerados parte da organização
+representada por este MSP. Isso é particularmente útil quando você deseja
+restringir os membros de uma organização àqueles que possuem uma identidade
+(assinada por uma das CAs designadas pelo MSP) com uma função específica de OU
+do nó. Por exemplo, com OUs de nó, você pode implementar uma política de endosso
+mais granular que exige que os nós pares Org1 endossem uma transação, em vez de
+qualquer membro da Org1.</p>
+<p>Para usar as funções da OU do Nó, o recurso “classificação de identidade” deve
+estar ativado para a rede. Ao usar a estrutura MSP baseada em pasta, isso é feito
+ativando “OUs de nó” no arquivo config.yaml, que reside na raiz da pasta MSP:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NodeOUs</span><span class="p">:</span>
   <span class="n">Enable</span><span class="p">:</span> <span class="n">true</span>
   <span class="n">ClientOUIdentifier</span><span class="p">:</span>
@@ -304,34 +459,74 @@ node. However, as channel MSPs are available to all nodes in the channel, they a
     <span class="n">OrganizationalUnitIdentifier</span><span class="p">:</span> <span class="n">orderer</span>
 </pre></div>
 </div>
-<p>In the example above, there are 4 possible Node OU <code class="docutils literal notranslate"><span class="pre">ROLES</span></code> for the MSP:</p>
+<p>No exemplo acima, existem 4 possíveis Nós OU <code class="docutils literal notranslate"><span class="pre">ROLES</span></code> para o MSP:</p>
 <ul class="simple">
-<li>client</li>
-<li>peer</li>
-<li>admin</li>
-<li>orderer</li>
+<li>cliente (client)</li>
+<li>par (peer)</li>
+<li>admin (admin)</li>
+<li>ordenador (orderer)</li>
 </ul>
-<p>This convention allows you to distinguish MSP roles by the OU present in the CommonName attribute of the X509 certificate. The example above says that any certificate issued by cacerts/ca.sampleorg-cert.pem in which OU=client will identified as a client, OU=peer as a peer, etc. Starting with Fabric v1.4.3, there is also an OU for the orderer and for admins. The new admins role means that you no longer have to explicitly place certs in the admincerts folder of the MSP directory. Rather, the <code class="docutils literal notranslate"><span class="pre">admin</span></code> role present in the user’s signcert qualifies the identity as an admin user.</p>
-<p>These Role and OU attributes are assigned to an identity when the Fabric CA or SDK is used to <code class="docutils literal notranslate"><span class="pre">register</span></code> a user with the CA. It is the subsequent <code class="docutils literal notranslate"><span class="pre">enroll</span></code> user command that generates the certificates in the users’ <code class="docutils literal notranslate"><span class="pre">/msp</span></code> folder.</p>
+<p>Esta convenção permite distinguir funções do MSP pela OU presente no atributo
+CommonName do certificado X509. O exemplo acima diz que qualquer certificado
+emitido por cacerts/ca.sampleorg-cert.pem no qual OU=client será identificado
+como cliente, OU=peer como nó, etc. A partir do Fabric v1.4.3, também há uma OU
+para o ordenador e para administradores. A nova função de administrador significa
+que você não precisa mais colocar explicitamente certs na pasta admincerts do
+diretório MSP. Em vez disso, a função <code class="docutils literal notranslate"><span class="pre">admin</span></code> presente no signcert do usuário
+qualifica a identidade como um usuário administrador.</p>
+<p>Esses atributos de função e OU são atribuídos a uma identidade quando o CA ou
+SDK da Fabric é usado para <code class="docutils literal notranslate"><span class="pre">registrar</span></code> um usuário na CA. É o comando do usuário
+<code class="docutils literal notranslate"><span class="pre">register</span></code> subsequente que gera os certificados na pasta <code class="docutils literal notranslate"><span class="pre">/msp</span></code> dos usuários.</p>
 <p><img alt="MSP1c" src="../_images/ca-msp-visualization.png" /></p>
-<p>The resulting ROLE and OU attributes are visible inside the X.509 signing certificate located in the <code class="docutils literal notranslate"><span class="pre">/signcerts</span></code> folder. The <code class="docutils literal notranslate"><span class="pre">ROLE</span></code> attribute is identified as <code class="docutils literal notranslate"><span class="pre">hf.Type</span></code> and  refers to an actor’s role within its organization, (specifying, for example, that an actor is a <code class="docutils literal notranslate"><span class="pre">peer</span></code>). See the following snippet from a signing certificate shows how the Roles and OUs are represented in the certificate.</p>
+<p>Os atributos ROLE e OU resultantes são visíveis dentro do certificado de assinatura
+X.509 localizado na pasta <code class="docutils literal notranslate"><span class="pre">/signcerts</span></code>. O atributo <code class="docutils literal notranslate"><span class="pre">ROLE</span></code> é identificado como
+<code class="docutils literal notranslate"><span class="pre">hf.Type</span></code> e refere-se à função de um ator dentro de sua organização (especificando,
+por exemplo, que um ator é um <code class="docutils literal notranslate"><span class="pre">par</span></code>). Veja a seguir o pedaço de um certificado de
+assinatura mostra como as Funções e OUs são representadas no certificado.</p>
 <p><img alt="MSP1d" src="../_images/signcert.png" /></p>
-<p><strong>Note:</strong> For Channel MSPs, just because an actor has the role of an administrator it doesn’t mean that they can administer particular resources. The actual power a given identity has with respect to administering the system is determined by the <em>policies</em> that manage system resources. For example, a channel policy might specify that <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code> administrators, meaning identities with a role of <code class="docutils literal notranslate"><span class="pre">admin</span></code> and a Node OU of  <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code>, have the rights to add new organizations to the channel, whereas the <code class="docutils literal notranslate"><span class="pre">ORG1-DISTRIBUTION</span></code> administrators have no such rights.</p>
-<p>Finally, OUs could be used by different organizations in a consortium to distinguish each other. But in such cases, the different organizations have to use the same Root CAs and Intermediate CAs for their chain of trust, and assign the OU field to identify members of each organization. When every organization has the same CA or chain of trust, this makes the system more centralized than what might be desirable and therefore deserves careful consideration on a blockchain network.</p>
+<p><strong>Nota:</strong> Para MSPs de canal, apenas porque um ator tem o papel de administrador,
+isso não significa que eles podem administrar recursos específicos. O poder real
+de uma determinada identidade em relação à administração do sistema é determinado
+pelas <em>políticas</em> que gerenciam os recursos do sistema. Por exemplo, uma política
+de canal pode especificar que os administradores do <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code>, ou seja,
+identidades com a função de <code class="docutils literal notranslate"><span class="pre">admin</span></code> e uma OU do nó da <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code>, tenham
+o direito de adicionar novas organizações ao canal, enquanto os administradores da
+<code class="docutils literal notranslate"><span class="pre">ORG1-DISTRIBUTION</span></code> não têm esses direitos.</p>
+<p>Finalmente, as OUs podem ser usadas por diferentes organizações em um consórcio
+para se distinguir. Porém, nesses casos, as diferentes organizações precisam usar
+as mesmas CAs raiz e intermediárias para sua cadeia de confiança e atribuir o
+campo OU para identificar membros de cada organização. Quando toda organização
+tem a mesma CA ou cadeia de confiança, isso torna o sistema mais centralizado do
+que seria desejável e, portanto, merece uma atenção cuidadosa em uma rede blockchain.</p>
 </div>
 </div>
-<div class="section" id="msp-structure">
-<span id="msp-structure"></span><h2>MSP Structure<a class="headerlink" href="#msp-structure" title="Permalink to this headline">¶</a></h2>
-<p>Let’s explore the MSP elements that render the functionality we’ve described so far.</p>
-<p>A local MSP folder contains the following sub-folders:</p>
+<div class="section" id="estrutura-do-msp">
+<span id="estrutura-do-msp"></span><h2>Estrutura do MSP<a class="headerlink" href="#estrutura-do-msp" title="Permalink to this headline">¶</a></h2>
+<p>Vamos explorar os elementos MSP que estruturam a funcionalidade que descrevemos
+até agora.</p>
+<p>Uma pasta MSP local contém as seguintes subpastas:</p>
 <p><img alt="MSP6" src="../_images/membership.diagram.6.png" /></p>
-<p><em>The figure above shows the subfolders in a local MSP on the file system</em></p>
+<p><em>A figura acima mostra as subpastas em um MSP local no sistema de arquivos</em></p>
 <ul>
-<li><p class="first"><strong>config.yaml:</strong>  Used to configure the identity classification feature in Fabric by enabling “Node OUs” and defining the accepted roles.</p>
+<li><p class="first"><strong>config.yaml:</strong> Usado para configurar o recurso de classificação de identidade
+no Fabric, ativando “OUs de nó” e definindo as funções aceitas.</p>
 </li>
-<li><p class="first"><strong>cacerts:</strong> This folder contains a list of self-signed X.509 certificates of the Root CAs trusted by the organization represented by this MSP. There must be at least one Root CA certificate in this MSP folder.</p>
-<p>This is the most important folder because it identifies the CAs from which all other certificates must be derived to be considered members of the
-corresponding organization to form the chain of trust.</p>
+<li><p class="first"><strong>cacerts:</strong> Esta pasta contém uma lista de certificados X.509 autoassinados
+das CAs raiz confiáveis pela organização representada por este MSP. Deve haver
+pelo menos um certificado de CA raiz nesta pasta MSP.</p>
+<p>Essa é a pasta mais importante porque identifica as CAs das quais todos os
+outros certificados devem ser derivados para serem considerados membros da
+organização correspondente para formar a cadeia de confiança.</p>
+</li>
+<li><p class="first"><strong>intermediatecerts:</strong> Esta pasta contém uma lista de certificados X.509 das
+CAs intermediárias creditadas ​​por esta organização. Cada certificado deve ser
+assinado por uma das CAs raiz no MSP ou por qualquer CA intermediária cuja cadeia
+de CA emissora finalmente retorne a uma CA raiz confiável.</p>
+<p>Uma CA intermediária pode representar uma subdivisão diferente da organização
+(como <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code> e <code class="docutils literal notranslate"><span class="pre">ORG1-DISTRIBUTION</span></code> fazem para <code class="docutils literal notranslate"><span class="pre">ORG1</span></code>) ou a própria
+organização (como pode ser o caso se uma CA comercial for alavancada para a
+organização). Gerenciamento de identidade). No último caso, as CAs intermediárias podem ser usadas para representar subdivisões da organização. [Aqui] (../ msp.html), você pode encontrar mais informações sobre práticas recomendadas para a configuração do MSP. Observe que é possível ter uma rede em funcionamento que não possua uma CA intermediária; nesse caso, essa pasta estaria vazia.</p>
+<p>Como a pasta CA raiz, essa pasta define as CAs das quais os certificados devem ser emitidos para serem considerados membros da organização.</p>
 </li>
 <li><p class="first"><strong>intermediatecerts:</strong> This folder contains a list of X.509 certificates of the Intermediate CAs trusted by this organization. Each certificate must be signed by one of the Root CAs in the MSP or by any Intermediate CA whose issuing CA chain ultimately leads back to a trusted Root CA.</p>
 <p>An intermediate CA may represent a different subdivision of the organization (like <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code> and <code class="docutils literal notranslate"><span class="pre">ORG1-DISTRIBUTION</span></code> do for <code class="docutils literal notranslate"><span class="pre">ORG1</span></code>), or the
@@ -391,7 +586,7 @@ Licensed under Creative Commons Attribution 4.0 International License https://cr
         <a href="../policies/policies.html" class="btn btn-neutral float-right" title="Policies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../identity/identity.html" class="btn btn-neutral" title="Identity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../identity/identity.html" class="btn btn-neutral" title="Identidade" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

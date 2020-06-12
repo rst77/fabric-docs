@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="hyperledger-fabricdocs master documentation" href="index.html"/>
         <link rel="up" title="Conceitos Chave" href="key_concepts.html"/>
-        <link rel="next" title="Blockchain network" href="network/network.html"/>
+        <link rel="next" title="Rede Blockchain" href="network/network.html"/>
         <link rel="prev" title="Introdução" href="blockchain.html"/> 
 
   
@@ -117,7 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#consenso">Consenso</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="network/network.html">Blockchain network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network/network.html">Rede Blockchain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="identity/identity.html">Identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="membership/membership.html">Membership Service Provider (MSP)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="policies/policies.html">Policies</a></li>
@@ -218,7 +218,7 @@ mas personalizável:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#ativos"><span class="std std-ref">Ativos (Assets)</span></a> — Ativos permitem a troca de quase tudo com valor monetário na
 rede, de alimentos integrais, a carros antigos e futuros de moeda.</li>
-<li><a class="reference internal" href="glossary.html#chaincode"><span class="std std-ref">Chaincode</span></a> — A execução do chaincode é particionado pela ordem das
+<li><a class="reference internal" href="#chaincode"><span class="std std-ref">Chaincode</span></a> — A execução do chaincode é particionado pela ordem das
 transações, limitando os níveis necessários de confiança e verificação nos
 nós e otimizando a escalabilidade e o desempenho da rede.</li>
 <li><a class="reference internal" href="#livro-razao"><span class="std std-ref">Livro-Razão (Ledger)</span></a> — O livro-razão imutável compartilhado codifica todo
@@ -279,7 +279,7 @@ membros.</p>
 <li>Antes de anexar um bloco, é realizada uma verificação da versão para garantir que os estados dos blocos ativos que foram lidos não tenham sido alterados desde o tempo de execução do chaincode</li>
 <li>Se torna imutável uma vez que uma transação é validada e confirmada</li>
 <li>O livro-razão de um canal contém um bloco de configuração que define suas políticas, listas de controle de acesso e outras informações pertinentes</li>
-<li>Os canais possuem instâncias do <a class="reference internal" href="glossary.html#msp"><span class="std std-ref">Provedor de Serviço de Associação</span></a> permitindo que a criptografia possa ser derivada de diferentes autoridades certificadoras</li>
+<li>Os canais possuem instâncias do <a class="reference internal" href="glossary.html#msp"><span class="std std-ref">Provedor de Serviço de Associação (MSP)</span></a> permitindo que a criptografia possa ser derivada de diferentes autoridades certificadoras</li>
 </ul>
 <p>Consulte o tópico <a class="reference internal" href="ledger.html"><span class="doc">Ledger</span></a> para obter informações mais detalhadas sobre
 bancos de dados, estrutura de armazenamento e “capacidade de consulta”.</p>
@@ -362,7 +362,7 @@ concluir, o consenso não se limita apenas à ordem acordada de um lote de
 transações, pelo contrário, é uma caracterização abrangente que é obtida como um
 subproduto das verificações em andamento que ocorrem durante a jornada de uma
 transação, da proposta ao registro.</p>
-<p>Confira o diagrama <a class="reference internal" href="txflow.html"><span class="doc">Transaction Flow</span></a> para uma representação visual
+<p>Confira o diagrama <a class="reference internal" href="txflow.html"><span class="doc">Fluxo da Transação</span></a> para uma representação visual
 de consenso.</p>
 </div>
 </div>
@@ -377,7 +377,7 @@ de consenso.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="network/network.html" class="btn btn-neutral float-right" title="Blockchain network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="network/network.html" class="btn btn-neutral float-right" title="Rede Blockchain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="blockchain.html" class="btn btn-neutral" title="Introdução" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
