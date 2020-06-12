@@ -272,36 +272,78 @@ No exemplo acima, existem 4 possíveis Nós OU `ROLES` para o MSP:
   * admin (admin)
   * ordenador (orderer)
 
-This convention allows you to distinguish MSP roles by the OU present in the CommonName attribute of the X509 certificate. The example above says that any certificate issued by cacerts/ca.sampleorg-cert.pem in which OU=client will identified as a client, OU=peer as a peer, etc. Starting with Fabric v1.4.3, there is also an OU for the orderer and for admins. The new admins role means that you no longer have to explicitly place certs in the admincerts folder of the MSP directory. Rather, the `admin` role present in the user's signcert qualifies the identity as an admin user.
+Esta convenção permite distinguir funções do MSP pela OU presente no atributo 
+CommonName do certificado X509. O exemplo acima diz que qualquer certificado 
+emitido por cacerts/ca.sampleorg-cert.pem no qual OU=client será identificado 
+como cliente, OU=peer como nó, etc. A partir do Fabric v1.4.3, também há uma OU 
+para o ordenador e para administradores. A nova função de administrador significa 
+que você não precisa mais colocar explicitamente certs na pasta admincerts do 
+diretório MSP. Em vez disso, a função `admin` presente no signcert do usuário 
+qualifica a identidade como um usuário administrador.
 
-These Role and OU attributes are assigned to an identity when the Fabric CA or SDK is used to `register` a user with the CA. It is the subsequent `enroll` user command that generates the certificates in the users' `/msp` folder.   
+Esses atributos de função e OU são atribuídos a uma identidade quando o CA ou 
+SDK da Fabric é usado para `registrar` um usuário na CA. É o comando do usuário 
+`register` subsequente que gera os certificados na pasta `/msp` dos usuários.
 
 ![MSP1c](./ca-msp-visualization.png)
 
-The resulting ROLE and OU attributes are visible inside the X.509 signing certificate located in the `/signcerts` folder. The `ROLE` attribute is identified as `hf.Type` and  refers to an actor's role within its organization, (specifying, for example, that an actor is a `peer`). See the following snippet from a signing certificate shows how the Roles and OUs are represented in the certificate.
+Os atributos ROLE e OU resultantes são visíveis dentro do certificado de assinatura 
+X.509 localizado na pasta `/signcerts`. O atributo `ROLE` é identificado como 
+`hf.Type` e refere-se à função de um ator dentro de sua organização (especificando, 
+por exemplo, que um ator é um `par`). Veja a seguir o pedaço de um certificado de
+assinatura mostra como as Funções e OUs são representadas no certificado.
 
 ![MSP1d](./signcert.png)
 
-**Note:** For Channel MSPs, just because an actor has the role of an administrator it doesn't mean that they can administer particular resources. The actual power a given identity has with respect to administering the system is determined by the _policies_ that manage system resources. For example, a channel policy might specify that `ORG1-MANUFACTURING` administrators, meaning identities with a role of `admin` and a Node OU of  `ORG1-MANUFACTURING`, have the rights to add new organizations to the channel, whereas the `ORG1-DISTRIBUTION` administrators have no such rights.
+**Nota:** Para MSPs de canal, apenas porque um ator tem o papel de administrador, 
+isso não significa que eles podem administrar recursos específicos. O poder real 
+de uma determinada identidade em relação à administração do sistema é determinado 
+pelas _políticas_ que gerenciam os recursos do sistema. Por exemplo, uma política 
+de canal pode especificar que os administradores do `ORG1-MANUFACTURING`, ou seja, 
+identidades com a função de `admin` e uma OU do nó da `ORG1-MANUFACTURING`, tenham 
+o direito de adicionar novas organizações ao canal, enquanto os administradores da
+`ORG1-DISTRIBUTION` não têm esses direitos.
 
-Finally, OUs could be used by different organizations in a consortium to distinguish each other. But in such cases, the different organizations have to use the same Root CAs and Intermediate CAs for their chain of trust, and assign the OU field to identify members of each organization. When every organization has the same CA or chain of trust, this makes the system more centralized than what might be desirable and therefore deserves careful consideration on a blockchain network.
+Finalmente, as OUs podem ser usadas por diferentes organizações em um consórcio 
+para se distinguir. Porém, nesses casos, as diferentes organizações precisam usar 
+as mesmas CAs raiz e intermediárias para sua cadeia de confiança e atribuir o 
+campo OU para identificar membros de cada organização. Quando toda organização 
+tem a mesma CA ou cadeia de confiança, isso torna o sistema mais centralizado do
+que seria desejável e, portanto, merece uma atenção cuidadosa em uma rede blockchain.
 
-## MSP Structure
+## Estrutura do MSP
 
-Let's explore the MSP elements that render the functionality we've described so far.
+Vamos explorar os elementos MSP que estruturam a funcionalidade que descrevemos 
+até agora.
 
-A local MSP folder contains the following sub-folders:
+Uma pasta MSP local contém as seguintes subpastas:
 
 ![MSP6](./membership.diagram.6.png)
 
-*The figure above shows the subfolders in a local MSP on the file system*
+*A figura acima mostra as subpastas em um MSP local no sistema de arquivos*
 
-* **config.yaml:**  Used to configure the identity classification feature in Fabric by enabling "Node OUs" and defining the accepted roles.
+* **config.yaml:** Usado para configurar o recurso de classificação de identidade 
+  no Fabric, ativando "OUs de nó" e definindo as funções aceitas.
 
-* **cacerts:** This folder contains a list of self-signed X.509 certificates of the Root CAs trusted by the organization represented by this MSP. There must be at least one Root CA certificate in this MSP folder.
+* **cacerts:** Esta pasta contém uma lista de certificados X.509 autoassinados 
+das CAs raiz confiáveis pela organização representada por este MSP. Deve haver 
+pelo menos um certificado de CA raiz nesta pasta MSP.
 
-  This is the most important folder because it identifies the CAs from which all other certificates must be derived to be considered members of the
-  corresponding organization to form the chain of trust.
+   Essa é a pasta mais importante porque identifica as CAs das quais todos os 
+   outros certificados devem ser derivados para serem considerados membros da
+   organização correspondente para formar a cadeia de confiança.
+
+* **intermediatecerts:** Esta pasta contém uma lista de certificados X.509 das 
+CAs intermediárias creditadas ​​por esta organização. Cada certificado deve ser 
+assinado por uma das CAs raiz no MSP ou por qualquer CA intermediária cuja cadeia 
+de CA emissora finalmente retorne a uma CA raiz confiável.
+
+  Uma CA intermediária pode representar uma subdivisão diferente da organização 
+  (como `ORG1-MANUFACTURING` e `ORG1-DISTRIBUTION` fazem para `ORG1`) ou a própria 
+  organização (como pode ser o caso se uma CA comercial for alavancada para a 
+  organização). Gerenciamento de identidade). No último caso, as CAs intermediárias podem ser usadas para representar subdivisões da organização. [Aqui] (../ msp.html), você pode encontrar mais informações sobre práticas recomendadas para a configuração do MSP. Observe que é possível ter uma rede em funcionamento que não possua uma CA intermediária; nesse caso, essa pasta estaria vazia.
+
+  Como a pasta CA raiz, essa pasta define as CAs das quais os certificados devem ser emitidos para serem considerados membros da organização.
 
 * **intermediatecerts:** This folder contains a list of X.509 certificates of the Intermediate CAs trusted by this organization. Each certificate must be signed by one of the Root CAs in the MSP or by any Intermediate CA whose issuing CA chain ultimately leads back to a trusted Root CA.
 
