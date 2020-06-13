@@ -340,61 +340,115 @@ de CA emissora finalmente retorne a uma CA raiz confiável.
 
   Uma CA intermediária pode representar uma subdivisão diferente da organização 
   (como `ORG1-MANUFACTURING` e `ORG1-DISTRIBUTION` fazem para `ORG1`) ou a própria 
-  organização (como pode ser o caso se uma CA comercial for alavancada para a 
-  organização). Gerenciamento de identidade). No último caso, as CAs intermediárias podem ser usadas para representar subdivisões da organização. [Aqui] (../ msp.html), você pode encontrar mais informações sobre práticas recomendadas para a configuração do MSP. Observe que é possível ter uma rede em funcionamento que não possua uma CA intermediária; nesse caso, essa pasta estaria vazia.
+  organização (como pode ser o caso se uma CA comercial for definida como 
+  responsável pelo gerenciamento de identidade de uma organização). No último caso, 
+  as CAs intermediárias podem ser usadas para representar subdivisões da 
+  organização. [Aqui](../msp.html), você pode encontrar mais informações sobre 
+  práticas recomendadas para a configuração do MSP. Observe que é possível ter 
+  uma rede em funcionamento que não possua uma CA intermediária, nesse caso, essa 
+  pasta estaria vazia.
 
-  Como a pasta CA raiz, essa pasta define as CAs das quais os certificados devem ser emitidos para serem considerados membros da organização.
+  Como a pasta CA raiz, essa pasta define as CAs das quais os certificados devem
+  ser emitidos para serem considerados membros da organização.
 
-* **intermediatecerts:** This folder contains a list of X.509 certificates of the Intermediate CAs trusted by this organization. Each certificate must be signed by one of the Root CAs in the MSP or by any Intermediate CA whose issuing CA chain ultimately leads back to a trusted Root CA.
+* **admincerts (Descontinuado do Fabric v1.4.3 e superior):** Esta pasta contém 
+uma lista de identidades que definem os atores que têm a função de administradores 
+dessa organização. Em geral, deve haver um ou mais certificados X.509 nesta lista.
 
-  An intermediate CA may represent a different subdivision of the organization (like `ORG1-MANUFACTURING` and `ORG1-DISTRIBUTION` do for `ORG1`), or the
-  organization itself (as may be the case if a commercial CA is leveraged for the organization's identity management). In the latter case intermediate CAs
-  can be used to represent organization subdivisions. [Here](../msp.html) you may find more information on best practices for MSP configuration. Notice, that
-  it is possible to have a functioning network that does not have an Intermediate CA, in which case this folder would be empty.
+  **Nota:** Antes do Fabric v1.4.3, os administradores eram definidos colocando 
+  explicitamente certificados na pasta `admincerts` no diretório MSP local do seu 
+  nó par. **Com o Fabric v1.4.3 ou superior, os certificados nesta pasta não são 
+  mais necessários.** Em vez disso, é recomendável que, quando o usuário estiver 
+  registrado na CA, a função `admin` seja usada para designar o administrador do 
+  nó. Em seguida, a identidade é reconhecida como um `admin` pelo valor da função 
+  OU do nó em seu certificado de assinatura. Como um lembrete, para alavancar a 
+  função de administrador, o recurso "identity classification" deve ser ativado 
+  no config.yaml acima, configurando "OUs de nó" para `Enable: true`. Vamos 
+  explorar isso mais tarde.
 
-  Like the Root CA folder, this folder defines the CAs from which certificates must be issued to be considered members of the organization.
+  E, como lembrete, para os MSPs do canal, apenas porque um ator tem o papel de 
+  administrador, não significa que eles possam administrar recursos específicos. 
+  O poder real de uma determinada identidade em relação à administração do sistema 
+  é determinado pelas _políticas_ que gerenciam os recursos do sistema. Por 
+  exemplo, uma política de canal pode especificar que os administradores da 
+  `ORG1-MANUFACTURING` têm o direito de adicionar novas organizações ao canal, 
+  enquanto os administradores do `ORG1-DISTRIBUTION` não têm esses direitos.
 
-* **admincerts (Deprecated from Fabric v1.4.3 and higher):** This folder contains a list of identities that define the actors who have the role of administrators for this organization. In general, there should be one or more X.509 certificates in this list.
+* **keystore: (chave privada)** Esta pasta é definida para o MSP local de um nó 
+par ou de ordens (ou no MSP local de um cliente) e contém a chave privada do nó. 
+Essa chave é usada para assinar dados -- por exemplo, para assinar uma resposta 
+da proposta de transação, como parte da fase de endosso.
 
-  **Note:** Prior to Fabric v1.4.3, admins were defined by explicitly putting certs in the `admincerts` folder in the local MSP directory of your peer. **With Fabric v1.4.3 or higher, certificates in this folder are no longer required.** Instead, it is recommended that when the user is registered with the CA, that the `admin` role is used to designate the node administrator. Then, the identity is recognized as an `admin` by the Node OU role value in their signcert. As a reminder, in order to leverage the admin role, the "identity classification" feature must be enabled in the config.yaml above by setting "Node OUs" to `Enable: true`. We'll explore this more later.
+  Essa pasta é obrigatória para MSPs locais e deve conter exatamente uma chave 
+  privada. Obviamente, o acesso a esta pasta deve ser limitado apenas às 
+  identidades dos usuários que têm responsabilidade administrativa no par.
 
-  And as a reminder, for Channel MSPs, just because an actor has the role of an administrator it doesn't mean that they can administer particular resources. The actual power a given identity has with respect to administering the system is determined by the _policies_ that manage system resources. For example, a channel policy might specify that `ORG1-MANUFACTURING` administrators have the rights to add new organizations to the channel, whereas the `ORG1-DISTRIBUTION` administrators have no such rights.
+  A configuração **channel MSP** não inclui essa pasta, porque os MSPs do canal 
+  visam apenas oferecer funcionalidades de validação de identidade e não 
+  habilidades de assinatura.
 
-* **keystore: (private Key)** This folder is defined for the local MSP of a peer or orderer node (or in a client's local MSP), and contains the node's private key. This key is used to sign data --- for example to sign a transaction proposal response, as part of the endorsement phase.
+  **Nota:** Se você estiver usando um [Módulo Físico de Segurança (HSM)](../hsm.html) 
+  para gerenciamento de chaves, esta pasta estará vazia porque a chave privada é 
+  gerada e armazenada no HSM.
 
-  This folder is mandatory for local MSPs, and must contain exactly one private key. Obviously, access to this folder must be limited only to the identities of users who have administrative responsibility on the peer.
+* **signcert:** Para um nó par ou de ordens (ou no MSP local de um cliente), esta 
+pasta contém a **chave de assinatura do nó**. Essa chave corresponde 
+criptograficamente à identidade do nó incluída na pasta **Node Identity** e é 
+usada para assinar dados --- por exemplo, para assinar uma resposta da proposta 
+de transação, como parte da fase de endosso.
 
-  The **channel MSP** configuration does not include this folder, because channel MSPs solely aim to offer identity validation functionalities and not signing abilities.
+  Essa pasta é obrigatória para MSPs locais e deve conter exatamente uma chave 
+  pública. Obviamente, o acesso a esta pasta deve ser limitado apenas às 
+  identidades dos usuários que têm responsabilidade administrativa no nó par.
 
-  **Note:** If you are using a [Hardware Security Module(HSM)](../hsm.html) for key management, this folder is empty because the private key is generated by and stored in the HSM.
+  A configuração de um **MSP de canal** não inclui esta pasta, pois os MSPs de 
+  canal visam apenas oferecer funcionalidades de validação de identidade e não 
+  habilidades de assinatura.
 
-* **signcert:** For a peer or orderer node (or in a client's local MSP) this folder contains the node's **signing key**. This key matches cryptographically the node's identity included in **Node Identity** folder and is used to sign data --- for example to sign a transaction proposal response, as part of the endorsement phase.
+* **tlscacerts:** Esta pasta contém uma lista de certificados X.509 autoassinados 
+das CAs raiz confiáveis ​​por esta organização **para comunicações seguras entre os 
+nós usando TLS**. Um exemplo de comunicação TLS seria quando um par precisa se 
+conectar a um ordenador para poder receber atualizações do razão.
 
-  This folder is mandatory for local MSPs, and must contain exactly one public key. Obviously, access to this folder must be limited only to the identities of users who have  administrative responsibility on the peer.
+  As informações do MSP TLS estão relacionadas aos nós dentro da rede -- os pares 
+  e ordens, e não aos aplicativos e administrações que consomem a rede.
 
-  Configuration of a **channel MSP** does not include this folder, as channel MSPs solely aim to offer identity validation functionalities and not signing abilities.
+  Deve haver pelo menos um certificado de CA raiz TLS nesta pasta. Para obter 
+  mais informações sobre TLS, consulte [Protegendo a comunicação com TLS 
+  (Transport Layer Security)](../enable_tls.html).
 
-* **tlscacerts:** This folder contains a list of self-signed X.509 certificates of the Root CAs trusted by this organization **for secure communications between nodes using TLS**. An example of a TLS communication would be when a peer needs to connect to an orderer so that it can receive ledger updates.
+* **tlsintermediatecacerts:** Esta pasta contém uma lista de certificados CA 
+intermediários de CAs confiáveis ​​pela organização representada por este MSP 
+**para comunicações seguras entre nós usando TLS**. Essa pasta é especificamente 
+útil quando CAs comerciais são usadas para certificados TLS de uma organização. 
+Semelhante às CAs intermediárias de associação, a especificação de CAs TLS 
+intermediárias é opcional.
 
-  MSP TLS information relates to the nodes inside the network --- the peers and the orderers, in other words, rather than the applications and administrations that consume the network.
+* **operationscerts:** Esta pasta contém os certificados necessários para se 
+comunicar com a API [Serviços de Operação da Fabric](../operations_service.html).
 
-  There must be at least one TLS Root CA certificate in this folder. For more information about TLS, see [Securing Communication with Transport Layer Security (TLS)](../enable_tls.html).
+Um canal MSP inclui a seguinte pasta adicional:
 
-* **tlsintermediatecacerts:** This folder contains a list intermediate CA certificates CAs trusted by the organization represented by this MSP **for secure communications between nodes using TLS**. This folder is specifically useful when commercial CAs are used for TLS certificates of an organization. Similar to membership intermediate CAs, specifying intermediate TLS CAs is optional.
+* **Certificados revogados:** Se a identidade de um ator foi revogada, as 
+informações de identificação sobre a identidade -- e não a própria identidade -- 
+são mantidas nesta pasta. Para identidades baseadas no X.509, esses identificadores 
+são pares de caracteres conhecidos como SKI (Subject Key Identifier) ​​e AKI 
+(Authority Access Identifier) ​​e são verificados sempre que o certificado estiver 
+sendo usado para garantir que o certificado não foi revogado.
 
-* **operationscerts:** This folder contains the certificates required to communicate with the [Fabric Operations Service](../operations_service.html) API.
+  Esta lista é conceitualmente a mesma que uma CRL (Lista de revogação de 
+  certificados) da CA, mas também se refere à revogação de associação da 
+  organização. Como resultado, o administrador de um MSP de canal pode revogar
+  rapidamente um ator ou nó de uma organização anunciando a CRL atualizada da CA. 
+  Esta "lista de listas" é opcional. Ele só será preenchido quando os certificados 
+  forem revogados.
 
-A channel MSP includes the following additional folder:
-
-* **Revoked Certificates:** If the identity of an actor has been revoked, identifying information about the identity --- not the identity itself --- is held in this folder. For X.509-based identities, these identifiers are pairs of strings known as Subject Key Identifier (SKI) and Authority Access Identifier (AKI), and are checked whenever the certificate is being used to make sure the certificate has not been revoked.
-
-  This list is conceptually the same as a CA's Certificate Revocation List (CRL), but it also relates to revocation of membership from the organization. As a result, the administrator of a channel MSP can quickly revoke an actor or node from an organization by advertising the updated CRL of the CA. This "list of lists" is optional. It will only become populated as certificates are revoked.
-
-If you've read this doc as well as our doc on [Identity](../identity/identity.html), you
-should now have a pretty good grasp of how identities and MSPs work in Hyperledger Fabric.
-You've seen how a PKI and MSPs are used to identify the actors collaborating in a blockchain
-network. You've learned how certificates, public/private keys, and roots of trust work,
-in addition to how MSPs are physically and logically structured.
+Se você leu este documento e também o documento [Identity](../identity/identity.html),
+já deve ter uma boa noção de como as identidades e os MSPs funcionam na Hyperledger 
+Fabric. Você viu como uma PKI e MSPs são usados para identificar os atores que 
+colaboram em uma rede blockchain. Você aprendeu como certificados, chaves 
+públicas/privadas e CA raízes da confiança funcionam, além de como os MSPs são 
+física e logicamente estruturados.
 
 <!---
 Licensed under Creative Commons Attribution 4.0 International License https://creativecommons.org/licenses/by/4.0/

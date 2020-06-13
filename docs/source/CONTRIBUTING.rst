@@ -1,101 +1,99 @@
-Contributions Welcome!
-======================
+Contribuições são Bem Vindas!
+=============================
 
-We welcome contributions to Hyperledger in many forms, and there's always plenty
-to do!
+Nos deixa feliz receber todas as formas de contribuição no Hyperledger, 
+sempre há muito o que fazer!
 
-First things first, please review the Hyperledger `Code of
-Conduct <https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct>`__
-before participating. It is important that we keep things civil.
+Antes de mais nada, leia o `Código de Conduta do Hyperledger <https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct>`__
+antes de participar. É importante estabelecermos esse marco civil.
 
-.. note:: If you want to contribute to this documentation, please check out the :doc:`style_guide`.
+.. note:: Se você quiser contribuir com esta documentação, consulte o :doc:`style_guide`.
 
-Ways to contribute
-------------------
-There are many ways you can contribute to Hyperledger Fabric, both as a user and
-as a developer.
+Formas de contribuição
+----------------------
 
-As a user:
+Há várias maneiras de contribuir com a Hyperledger Fabric como usuário e desenvolvedor.
 
-- `Making Feature/Enhancement Proposals`_
-- `Reporting bugs`_
-- Help test an upcoming Epic on the
-  `release roadmap <https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104>`_.
-  Contact the Epic assignee via the Jira work item or on
-  `RocketChat <https://chat.hyperledger.org>`_.
+Como usuário:
 
-As a writer or information developer:
+- `Construindo Recurso/Propondo Aprimoramento`_
+- `Relatando bugs`_
+- Ajude a testar uma próxima versão Epic no `roteiro de lançamento <https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104>`_. 
+  Entre em contato com o responsável pela Epic através do item de trabalho Jira ou no `RocketChat <https://chat.hyperledger.org>`_.
 
-- Update the documentation using your experience of Fabric and this
-  documentation to improve existing topics and create new ones.  A documentation
-  change is an easy way to get started as a contributor, makes it easier for
-  other users to understand and use Fabric, and grows your open source commit
-  history.
+Como escritor ou desenvolvedor de informações:
 
-- Participate in a language translation to keep the Fabric documentation current
-  in your chosen language.  The Fabric documentation is available in a number of
-  languages -- English, Chinese, Malayalam and Brazilian Portuguese -- so why
-  not join a team that keeps your favorite documentation up-to-date? You'll find
-  a friendly community of users, writers and developers to collaborate with.
+- Atualize a documentação usando sua experiência na Fabric, enriqueça tópicos 
+  existentes ou cria novos tópicos. Uma alteração na documentação é uma maneira 
+  fácil de começar como colaborador, facilita a compreensão e o uso de outros 
+  usuários na Fabric e amplia o histórico de confirmação de código-fonte aberto.
 
-- Start a new language translation if the Fabric documentation isn't
-  available in your language.  The Chinese, Malayalam and Portuguese Brazilian
-  teams got started this way, and you can too!  It's more work, as you'll have
-  to form a community of writers, and organize contributions; but it's really
-  fulfilling to see the Fabric documentation available in your chosen language.
+- Participe de uma tradução de idioma para manter a documentação do Fabric 
+  atualizada no idioma escolhido. A documentação do Fabric está disponível em 
+  vários idiomas - inglês, chinês, malaiala e português do Brasil -- então por 
+  que não fazer parte de uma equipe que mantém sua documentação favorita atualizada? 
+  Você encontrará uma comunidade amigável de usuários, escritores e desenvolvedores 
+  para colaborar.
 
-Jump to `Contributing documentation`_ to get started on your journey.
+- Inicie uma nova tradução de idioma se a documentação do Fabric não estiver 
+  disponível no seu idioma. As equipes chinesa, malaiala e brasileira começaram 
+  assim, e você também pode! É mais trabalho, pois você terá que formar uma
+  comunidade de escritores e organizar contribuições, mas é realmente gratificante 
+  ver a documentação da Fabric disponível no idioma escolhido.
 
-As a developer:
+Vá para `Contribuindo com a Documentação`_ para começar sua jornada.
 
-- If you only have a little time, consider picking up a
-  `"help-wanted" <https://jira.hyperledger.org/issues/?filter=10147>`_ task,
-  see `Fixing issues and working stories`_.
-- If you can commit to full-time development, either propose a new feature
-  (see `Making Feature/Enhancement Proposals`_) and
-  bring a team to implement it, or join one of the teams working on an existing Epic.
-  If you see an Epic that interests you on the
-  `release roadmap <https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104>`_,
-  contact the Epic assignee via the Jira work item or on `RocketChat <https://chat.hyperledger.org/>`_.
+Como desenvolvedor:
 
-Getting a Linux Foundation account
-----------------------------------
+- Se você tiver apenas um pouco de tempo, considere pegar uma tarefa do tipo
+  `"preciso de ajuda" <https://jira.hyperledger.org/issues/?filter=10147>`_,
+  veja mais em `Corrigindo problemas e histórias de atividades`_.
+- Se você pode se comprometer com o desenvolvimento em tempo integral, proponha 
+  um novo recurso (consulte `Construindo Recurso/Propondo Aprimoramento`_) e
+  convide uma equipe para implementá-lo ou participe de uma das equipes existentes
+  que trabalha em uma nova capacidade. Se você ver um desenvolvimento que lhe 
+  interessa no `roteiro de lançamento <https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104>`_,
+  entre em contato com o responsável pela atividade através do item de trabalho 
+  no Jira ou no `RocketChat <https://chat.hyperledger.org/>`_.
 
-In order to participate in the development of the Hyperledger Fabric
-project, you will need a Linux Foundation
-account. Once you have a LF ID you will be able to
-access all the Hyperledger community tools, including
-`Jira issue management <https://jira.hyperledger.org>`__,
-`RocketChat <https://chat.hyperledger.org/>`__, and the
-`Wiki <https://wiki.hyperledger.org/display/fabric/Hyperledger+Fabric>`__ (for editing, only).
+Criando uma conta do Linux Foundation
+-------------------------------------
 
-Follow the steps below to create a Linux Foundation account if you don't
-already have one.
+Para participar do desenvolvimento do projeto Hyperledger Fabric, você precisará 
+de uma conta na Linux Foundation. Depois de ter um LF ID, você poderá acessar todas 
+as ferramentas da comunidade Hyperledger, incluindo 
+`Gerenciador de tarefas do Jira <https://jira.hyperledger.org>`__, 
+`RocketChat <https://chat.hyperledger.org/>`__, e o 
+`Wiki <https://wiki.hyperledger.org/display/fabric/Hyperledger+Fabric>`__ (apenas para edição).
 
-1. Go to the `Linux Foundation ID
-   website <https://identity.linuxfoundation.org/>`__.
+Siga as etapas abaixo para criar uma conta na Linux Foundation se você ainda não tiver uma.
 
-2. Select the option ``I need to create a Linux Foundation ID``, and fill
-   out the form that appears.
+1. Acesse o site `Linux Foundation ID 
+   <https://identity.linuxfoundation.org/>`__.
 
-3. Wait a few minutes, then look for an email message with the subject line:
+2. Selecione a opção ``Preciso criar um ID da Linux Foundation`` e preencha o 
+   formulário que aparece.
+
+3. Aguarde alguns minutos e procure uma mensagem de email com a linha de assunto:
    "Validate your Linux Foundation ID email".
+   (Valide o seu email do ID da Linux Foundation)
 
-4. Open the received URL to validate your email address.
+4. Abra a URL recebida para validar seu endereço de email.
 
-5. Verify that your browser displays the message
+5. Verifique se o seu navegador exibe a mensagem
    ``You have successfully validated your e-mail address``.
+   (Você validou com sucesso o seu endereço de e-mail).
 
-6. Access `Jira issue management <https://jira.hyperledger.org>`__, or
+6. Acesse `Gerenciamento de problemas do Jira <https://jira.hyperledger.org>` __ ou
    `RocketChat <https://chat.hyperledger.org/>`__.
 
-Contributing documentation
---------------------------
+Contribuindo com a Documentação
+-------------------------------
 
-It's a good idea to make your first change a documentation change. It's quick
-and easy to do, checks that you have a correctly configured machine, (including
-the required pre-requisite software), and gets you familiar with the whole
-process.  Use the following sections to help you get started:
+É uma boa idéia fazer da sua primeira alteração, uma alteração na documentação. 
+É rápido e fácil de fazer, ajuda a verificar se você possui uma máquina configurada 
+corretamente (incluindo os pré-requisito necessários) e se familiariza
+com todo o processo. Use as seções a seguir para ajudar você a começar:
 
 .. toctree::
    :maxdepth: 1
@@ -104,115 +102,110 @@ process.  Use the following sections to help you get started:
    style_guide
    international_languages
 
+Governança do Projeto
+---------------------
 
-Project Governance
-------------------
+O Hyperledger Fabric é gerenciado sob um modelo de governança aberta, conforme 
+descrito no `capítulo <https://www.hyperledger.org/about/charter>`__. Projetos e 
+subprojetos são liderados por um conjunto de mantenedores. Novos subprojetos podem 
+designar um conjunto inicial de mantenedores que serão aprovados pelos mantenedores 
+existentes do projeto de nível superior quando o projeto for aprovado pela primeira 
+vez.
 
-Hyperledger Fabric is managed under an open governance model as described in
-our `charter <https://www.hyperledger.org/about/charter>`__. Projects and
-sub-projects are lead by a set of maintainers. New sub-projects can
-designate an initial set of maintainers that will be approved by the
-top-level project's existing maintainers when the project is first
-approved.
+Mantenedores
+~~~~~~~~~~~~
 
-Maintainers
-~~~~~~~~~~~
+O projeto Fabric é liderado pelos `mantenedores de nível superior do projeto 
+<https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md>`__. Os 
+mantenedores são responsáveis por revisar e mesclar todos os patches enviados 
+para revisão e orientam a direção técnica geral do projeto dentro das diretrizes 
+estabelecidas pelo Comitê de Direção Técnica do Hyperledger (TSC).
 
-The Fabric project is lead by the project's top level `maintainers <https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md>`__.
-The maintainers are responsible for reviewing and merging all patches submitted
-for review, and they guide the overall technical direction of the project within
-the guidelines established by the Hyperledger Technical Steering Committee (TSC).
+Tornando-se um mantenedor
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Becoming a maintainer
+Os mantenedores do projeto, de tempos em tempos, consideram adicionar um mantenedor, 
+com base nos seguintes critérios:
+
+- Demonstrado histórico comprovado de análises de PR (qualidade e quantidade de análises)
+- Demonstrando liderança intelectual no projeto
+- Demonstrado trabalho de liderança no projeto e com os colaboradores
+
+Um atual mantenedor pode enviar uma solicitação de PR para o arquivo de `mantenedores 
+<https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md>`__. Um 
+Colaborador nomeado pode se tornar Mantenedor por uma aprovação majoritária da 
+proposta pelos Mantenedores existentes. Depois de aprovado, o conjunto de 
+alterações é mesclado e o indivíduo é adicionado ao grupo de mantenedores.
+
+Os mantenedores podem ser removidos por renúncia explícita, por inatividade 
+prolongada (por exemplo, 3 meses ou mais sem comentários de revisão) ou por alguma 
+infração do `código de conduta <https://wiki.hyperledger.org/community/hyperledger-project- código de conduta>`__ 
+ou demonstrando consistentemente um julgamento inadequado. Uma remoção proposta 
+também requer uma aprovação majoritária. Um mantenedor removido por inatividade 
+deve ser restaurado após uma retomada sustentada de contribuições e análises (um
+mês ou mais), demonstrando um compromisso renovado com o projeto.
+
+Cadência de liberação
 ~~~~~~~~~~~~~~~~~~~~~
 
-The project's maintainers will, from time-to-time, consider
-adding a maintainer, based on the following criteria:
+Os mantenedores da Fabric estabeleceram uma cadência de liberação trimestral 
+(aproximadamente) (consulte `versões <https://github.com/hyperledger/fabric#releases>`__). 
+A qualquer momento, haverá um galho de lançamento LTS (suporte a longo prazo) 
+estável, bem como o galho mestre para os próximos novos recursos. Siga a discussão 
+no canal #fabric-release no RocketChat.
 
-- Demonstrated track record of PR reviews (both quality and quantity of reviews)
-- Demonstrated thought leadership in the project
-- Demonstrated shepherding of project work and contributors
+Fazendo Propostas de Recurso/Aprimoramento
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An existing maintainer can submit a pull request to the
-`maintainers <https://github.com/hyperledger/fabric/blob/master/MAINTAINERS.md>`__ file.
-A nominated Contributor may become a Maintainer by a majority approval of the proposal
-by the existing Maintainers. Once approved, the change set is then merged
-and the individual is added to the maintainers group.
+Primeiro, reserve um tempo para revisar o `JIRA <https://jira.hyperledger.org/issues/?filter=12524>`__ 
+para garantir que ainda não haja uma proposta aberta (ou fechada recentemente) 
+para a mesma função. Se não houver, para fazer uma proposta, recomendamos que 
+você abra uma Épico ou História no JIRA, o que parecer melhor se encaixar na 
+circunstância e anexe ou escreva um "texto"  coma a proposta que indica o que o recurso
+faria e, se possível, como ele pode ser implementado. Também ajudaria a argumentar 
+por que o recurso deve ser adicionado, como identificar casos de uso específicos 
+para os quais o recurso é necessário e um caso que seria beneficiado caso 
+o recurso fosse implementado. Depois que o registro do JIRA é criado e o "texto" 
+anexado, ou embutido no campo de descrição ou um link para um documento acessível
+ao público é adicionado à descrição, envie um email de introdução para a lista de
+correspondência fabric@lists.hyperledger.org que o vincula o problema do JIRA e 
+solicite um feedback.
 
-Maintainers may be removed by explicit resignation, for prolonged
-inactivity (e.g. 3 or more months with no review comments),
-or for some infraction of the `code of conduct
-<https://wiki.hyperledger.org/community/hyperledger-project-code-of-conduct>`__
-or by consistently demonstrating poor judgement. A proposed removal
-also requires a majority approval. A maintainer removed for
-inactivity should be restored following a sustained resumption of contributions
-and reviews (a month or more) demonstrating a renewed commitment to the project.
+A discussão do recurso proposto deve ser conduzida na própria página do JIRA, 
+para que tenhamos um padrão consistente em nossa comunidade sobre onde encontrar 
+a discussão sobre design.
 
-Release cadence
-~~~~~~~~~~~~~~~
+Obter o apoio de três ou mais mantenedores da Hyperledger Fabric para o novo 
+recurso aumentará bastante a probabilidade de que os PRs relacionados ao recurso 
+sejam incluídos em uma versão subsequente.
 
-The Fabric maintainers have settled on a quarterly (approximately) release
-cadence (see `releases <https://github.com/hyperledger/fabric#releases>`__).
-At any given time, there will be a stable LTS (long term support) release branch,
-as well as the master branch for upcoming new features.
-Follow the discussion on the #fabric-release channel in RocketChat.
+Reunião de colaboradores
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Making Feature/Enhancement Proposals
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Os mantenedores realizam reuniões regulares de colaboradores. O objetivo da 
+reunião de colaboradores é planejar e revisar o progresso de lançamentos, 
+contribuições e discutir a direção técnica e operacional do projeto e subprojetos.
 
-First, take time to review
-`JIRA <https://jira.hyperledger.org/issues/?filter=12524>`__
-to be sure that there isn't already an open (or recently closed) proposal for the
-same function. If there isn't, to make a proposal we recommend that you open a
-JIRA Epic or Story, whichever seems to best fit the circumstance and
-link or inline a "one pager" of the proposal that states what the feature would
-do and, if possible, how it might be implemented. It would help also to make a
-case for why the feature should be added, such as identifying specific use
-case(s) for which the feature is needed and a case for what the benefit would be
-should the feature be implemented. Once the JIRA issue is created, and the
-"one pager" either attached, inlined in the description field, or a link to a
-publicly accessible document is added to the description, send an introductory
-email to the fabric@lists.hyperledger.org mailing list linking the
-JIRA issue, and soliciting feedback.
+Consulte a `wiki <https://wiki.hyperledger.org/display/fabric/Contributor+Meetings>`__ 
+para obter detalhes da reunião dos mantenedores.
 
-Discussion of the proposed feature should be conducted in the JIRA issue itself,
-so that we have a consistent pattern within our community as to where to find
-design discussion.
+Novas propostas de recurso/aprimoramento, conforme descrito acima, devem ser 
+apresentadas a uma reunião de mantenedores para consideração, feedback e aceitação.
 
-Getting the support of three or more of the Hyperledger Fabric maintainers for
-the new feature will greatly enhance the probability that the feature's related
-PRs will be included in a subsequent release.
+Roteiro de lançamento
+~~~~~~~~~~~~~~~~~~~~~
 
-Contributor meeting
-~~~~~~~~~~~~~~~~~~~
-
-The maintainers hold regular contributors meetings.
-The purpose of the contributors meeting is to plan for and review the progress of
-releases and contributions, and to discuss the technical and operational direction of the project
-and sub-projects.
-
-Please see the
-`wiki <https://wiki.hyperledger.org/display/fabric/Contributor+Meetings>`__
-for maintainer meeting details.
-
-New feature/enhancement proposals as described above should be presented to a
-maintainers meeting for consideration, feedback and acceptance.
-
-Release roadmap
-~~~~~~~~~~~~~~~
-
-The Fabric release roadmap of epics is maintained in
+O roteiro de versão Épica da Fabric é mantido em
 `JIRA <https://jira.hyperledger.org/secure/Dashboard.jspa?selectPageId=10104>`__.
 
-Communications
-~~~~~~~~~~~~~~
+Comunicações
+~~~~~~~~~~~~
 
-We use `RocketChat <https://chat.hyperledger.org/>`__ for communication
-and Google Hangouts™ for screen sharing between developers. Our
-development planning and prioritization is done in
-`JIRA <https://jira.hyperledger.org>`__, and we take longer running
-discussions/decisions to the `mailing
-list <https://lists.hyperledger.org/mailman/listinfo/hyperledger-fabric>`__.
+Usamos `RocketChat <https://chat.hyperledger.org/>`__ para comunicação
+e Google Hangouts™ para compartilhamento de tela entre desenvolvedores. Nosso
+planejamento de desenvolvimento e priorização é feito em `JIRA <https://jira.hyperledger.org>`__, 
+e fazemos longas discussões e tomadas de decisões na `lista de email
+<https://lists.hyperledger.org/mailman/listinfo/hyperledger-fabric>`__.
 
 Contribution guide
 ------------------
