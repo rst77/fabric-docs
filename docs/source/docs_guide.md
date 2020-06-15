@@ -7,13 +7,13 @@ publicada, bem como algumas convenções que você deve conhecer antes de fazer
 alterações na documentação do Fabric.
 
 Neste tópico, abordaremos:
-* [Uma introdução à documentação](#introdução)
-* [Estrutura do repositório](#repository-structure)
-* [Testando suas alterações](#testing-your-changes)
+* [Uma introdução à documentação](#introducao)
+* [Estrutura do repositório](#estrutura-do-repositorio)
+* [Testando suas alterações](#testando-suas-alteracoes)
 * [Construindo a documentação localmente](#construindo-localmente)
-* [Criando a documentação no GitHub e ReadTheDocs](# building-on-github)
-* [Fazendo alteração na Referência de Comandos](#command-reference-updates)
-* [Adicionando um novo comando da CLI](# adicionando um novo comando cli)
+* [Criando a documentação no GitHub e ReadTheDocs](#desenvolvendo-no-github)
+* [Fazendo alteração na Referência de Comandos](#atualizacoes-da-referencia-de-comandos)
+* [Adicionando um novo comando no CLI](#adicionando-um-novo-comando-no-cli)
 
 ## Introdução
 
@@ -32,8 +32,8 @@ compilação e subsequente publicação do documento.
 
 As traduções da documentação do fabric estão disponíveis em diferentes idiomas:
 
-   * [Documentação em chinês] (https://hyperledger-fabric.readthedocs.io/zh_CN/latest/)
-   * [Documentação em malaiala] (https://hyperledgerlabsml.readthedocs.io/en/latest/)
+   * [Documentação em chinês](https://hyperledger-fabric.readthedocs.io/zh_CN/latest/)
+   * [Documentação em malaiala](https://hyperledgerlabsml.readthedocs.io/en/latest/)
    * Documentação em português do Brasil - em breve
 
 Cada um deles é criado a partir de seu repositório específico de idioma no
@@ -53,7 +53,7 @@ idioma chinês estão disponíveis no
 ## Estrutura do repositório
 
 Em cada um desses repositórios, os documentos da Fabric são sempre mantidos na 
-pasta de nível superior `/ docs`.
+pasta de nível superior `/docs`.
 
 ```bash
 (docs) bash-3.2$ ls -l docs
@@ -70,7 +70,7 @@ drwxr-xr-x   18 user  staff    576  4 Jun 09:42 wrappers
 ```
 
 Os arquivos neste diretório são os arquivos de configuração para o processo de 
-construção. Toda a documentação está contida na pasta `/ source`:
+construção. Toda a documentação está contida na pasta `/source`:
 
 
 ```bash
