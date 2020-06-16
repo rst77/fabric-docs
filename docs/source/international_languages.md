@@ -1,36 +1,33 @@
-# International languages
+# Idiomas internacionais
 
-**Audience**: Anyone who would like to contribute to the Fabric documentation in
-a language other than English.
+**Público**: qualquer pessoa que queira contribuir com a documentação da Fabric 
+em outro idioma que não o inglês.
 
-This short guide describes how you can make a change to one of the many
-languages that Fabric supports. If you're just getting started, this guide will
-show you how to join an existing language translation workgroup, or how to start
-a new workgroup if your chosen language is not available.
+Este pequeno guia descreve como você pode fazer alterações em um dos muitos idiomas 
+suportados pela Fabric. Se você está apenas começando, este guia mostrará como 
+ingressar em um grupo de trabalho de tradução de idiomas existente ou como iniciar 
+um novo grupo de trabalho se o idioma escolhido não estiver disponível.
 
-In this topic, we're going to cover:
-* [An introduction to Fabric language support](#introduction)
-* [How to join an existing language workgroup](#joining-a-workgroup)
-* [How to starting a new language workgroup](#starting-a-workgroup)
-* [Getting connected to other language contributors](#get-connected)
+Neste tópico, abordaremos:
+* [Uma introdução ao suporte de idioma da Fabric](#introducao)
+* [Como ingressar em um grupo de trabalho de idiomas existente](#entrando-em-um-grupo-de-trabalho)
+* [Como iniciar um novo grupo de trabalho de idiomas](#iniciando-um-grupo-de-trabalho)
+* [Conectando-se a outros colaboradores de idiomas](#conectando-se-a-outros-colaboradores-de-idiomas)
 
-## Introduction
+## Introdução
 
-The [main Fabric repository](https://github.com/hyperledger/fabric) is located
-in GitHub under the Hyperledger organization. It contains an English translation
-of the documentation in the `/docs/source` folder. When built, the files in this
-folder result contribute to the in the [documentation
-website](https://hyperledger-fabric.readthedocs.io/en/latest/).
+O [repositório principal do Fabric](https://github.com/hyperledger/fabric) está 
+localizado no GitHub da Hyperledger. Ele contém uma tradução em inglês da 
+documentação na pasta `/docs/source`. Quando criados, os arquivos nesta pasta 
+resultam no [site da documentação](https://hyperledger-fabric.readthedocs.io/en/latest/).
 
-This website has other language translations available, such as
-[Chinese](https://hyperledger-fabric.readthedocs.io/zh_CN/latest/). However,
-these languages are built from specific language repositories hosted in the [HL
-Labs organization](https://github.com/hyperledger-labs). For example, the
-Chinese language documentation is stored in [this
-repository](https://github.com/hyperledger-labs/fabric-docs-cn).
+Este site tem outras traduções de idiomas disponíveis, como [Chinês](https://hyperledger-fabric.readthedocs.io/zh_CN/latest/). 
+No entanto, esses idiomas são criados a partir de repositórios de idiomas específicos 
+hospedados na [organização do HL Labs](https://github.com/hyperledger-labs). Por 
+exemplo, a documentação em chinês está armazenada [neste repositório](https://github.com/hyperledger-labs/fabric-docs-cn).
 
-Language repositories have a cut-down structure; they just contain documentation
-related folders and files:
+Os repositórios de idiomas têm uma estrutura de corte, eles contêm apenas as pastas 
+e arquivos relacionados à documentação:
 
 ```bash
 (base) user/git/fabric-docs-ml ls -l
@@ -40,57 +37,58 @@ total 48
 drwxr-xr-x  12 user  staff    384 15 May 07:40 docs
 ```
 
-Because this structure is a subset of the main Fabric repo, you can use the same
-tools and processes to contribute to any language translation; you simply work
-against the appropriate repository.
+Como essa estrutura é um subconjunto do repositório principal da Fabric, você pode 
+usar as mesmas ferramentas e processos para contribuir qualquer tradução de 
+idioma, você simplesmente deve trabalhar no repositório apropriado.
 
-## Joining a workgroup
+## Entrando em um grupo de trabalho
 
-While the default Hyperledger Fabric language is English, as we've seen, other
-translations are available. The [Chinese language
-documentation](https://hyperledger-fabric.readthedocs.io/zh_CN/latest/) is well
-progressed, and other languages such as Brazilian Portuguese and Malayalam are
-in progress.
+Embora o idioma padrão do Hyperledger Fabric seja o inglês, como vimos, outras 
+traduções estão disponíveis. A documentação do [idioma chinês](https://hyperledger-fabric.readthedocs.io/zh_CN/latest/) 
+está bem avançada e outros idiomas, como o português do Brasil e o malaiala, 
+estão em andamento.
 
-You can find a list of all [current international language
-groups](https://wiki.hyperledger.org/display/fabric/International+groups) in the
-Hyperledger wiki. These groups have lists of active members that you can connect
-with. They hold regular meetings that you are welcome to join.
+Você pode encontrar uma lista de todos os 
+[grupos de idiomas internacionais atuais](https://wiki.hyperledger.org/display/fabric/International+groups) 
+no wiki do Hyperledger. Esses grupos têm listas de membros ativos com os quais 
+você pode se conectar. Eles realizam reuniões regulares nas quais você pode 
+participar.
 
-Feel free to follow [these instructions](./docs_guide.html) to contribute a
-documentation change to any of the language repositories. Here's a list of
-current language repositories:
+Sinta-se à vontade para seguir [estas instruções](./docs_guide.html) para 
+contribuir com uma alteração na documentação de qualquer repositório de idiomas. 
+Aqui está uma lista dos repositórios de idiomas atuais:
 
-* [English](https://github.com/hyperledger/fabric/tree/master/docs)
-* [Chinese](https://github.com/hyperledger-labs/fabric-docs-cn)
+* [Inglês](https://github.com/hyperledger/fabric/tree/master/docs)
+* [Chinês](https://github.com/hyperledger-labs/fabric-docs-cn)
 * [Malayalam](https://github.com/hyperledger-labs/fabric-docs-ml)
-* [Brazilian Portuguese]() -- coming soon.
+* [Português do Brasil]() -- coming soon.
 
-## Starting a workgroup
+## Iniciando um grupo de trabalho
 
-If your chosen language is not available, then why not start a new language
-translation? It's relatively easy to get going. A workgroup can help you
-organize and share the work to translate, maintain, and manage a language
-repository. Working with other contributors and maintainers on a language
-translation can be a very satisfying activity for you and other Fabric users.
+Se o idioma escolhido não estiver disponível, por que não iniciar uma nova 
+tradução para o idioma? É relativamente fácil seguir em frente. Um grupo de 
+trabalho pode ajudá-lo a organizar e compartilhar o trabalho de traduzir, manter 
+e gerenciar um repositório de idiomas. Trabalhar com outros colaboradores e 
+mantenedores em uma tradução de idioma pode ser uma atividade muito satisfatória 
+para você e outros usuários da Fabric.
 
-Follow these instructions to create your own language repository. Our
-instructions will use the Sanskrit language as an example:
+Siga estas instruções para criar seu próprio repositório de idiomas. Nossas 
+instruções usarão o idioma sânscrito como exemplo:
 
-1. Identify the [ISO
-   639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) two letter
-   international language code for your language. Sanskrit has the two letter
-   code `sa`.
+1. Identifique o código internacional do idioma [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) 
+   de duas letras para o seu idioma. O sânscrito possui o código de duas letras `sa`.
 
-1. Clone the main Fabric repository to your local machine, renaming the
-   repository during the clone:
-   ```bash
-   git clone git@github.com:hyperledger/fabric.git fabric-docs-sa
-   ```
+1. Clone o repositório principal do Fabric na sua máquina local, renomeando o 
+   repositório durante o clone:
 
-1. Select the Fabric version you are going to use as a baseline. We
-   recommend that you start with at least Fabric 2.1, and ideally a Long Term
-   Support version such as 2.2. You can add other releases later.
+    ```bash
+    git clone git@github.com:hyperledger/fabric.git fabric-docs-sa
+    ```
+
+1. Selecione a versão do Fabric que você usará como linha de base. Recomendamos 
+   que você comece com pelo menos o Fabric 2.1 e, idealmente, uma versão de 
+   Suporte de Longo Prazo, como 2.2. Você pode adicionar outros lançamentos mais 
+   tarde.
 
    ```bash
    cd fabric-docs-sa
@@ -98,9 +96,9 @@ instructions will use the Sanskrit language as an example:
    git checkout release-2.1
    ```
 
-1. Remove all folders from the root directory except `/doc`. Likewise, remove
-   all files (including hidden ones) except `LICENCE` and `README.md`, so that
-   you are left with the following:
+1. Remova todas as pastas do diretório raiz, exceto `/doc`. Da mesma forma, remova 
+   todos os arquivos (incluindo os ocultos), exceto `LICENCE` e `README.md`, para 
+   que você fique com o seguinte:
 
    ```bash
    ls -l
@@ -110,17 +108,16 @@ instructions will use the Sanskrit language as an example:
    drwxr-xr-x  11 user  staff    352  5 Jun 14:38 docs
    ```
 
-1. Update the `README.md` file to using [this
-   one](https://github.com/hyperledger-labs/fabric-docs-ml/blob/master/README.md)
-   as an example.
+1. Atualize o arquivo `README.md` para usar [este](https://github.com/hyperledger-labs/fabric-docs-ml/blob/master/README.md) 
+   como exemplo.
 
-   Customize the `README.md` file for your new language.
+    Personalize o arquivo `README.md` para o seu novo idioma.
 
-1. Add a `.readthedocs.yml` file [like this
-   one](https://github.com/hyperledger-labs/fabric-docs-ml/blob/master/.readthedocs.yml)
-   to the top level folder.  This file is configured to disable ReadTheDocs PDF
-   builds which may fail if you use non-latin character sets. Your top level
-   repository folder will now look like this:
+1. Adicione um arquivo `.readthedocs.yml` [como este](https://github.com/hyperledger-labs/fabric-docs-ml/blob/master/.readthedocs.yml) 
+   na pasta de nível superior. Este arquivo está configurado para desativar as 
+   compilações do ReadTheDocs PDF que podem falhar se você usar conjuntos de 
+   caracteres não latinos. Sua pasta de repositório de nível superior será agora 
+   assim:
 
    ```bash
    (base) anthonyodowd/git/fabric-docs-sa ls -al
@@ -132,37 +129,36 @@ instructions will use the Sanskrit language as an example:
    drwxr-xr-x  11 anthonyodowd  staff    352  5 Jun 14:38 docs
    ```
 
-1. Commit these changes locally to your local repository:
+1. Confirme as alterações no seu repositório local:
 
    ```bash
    git add .
    git commit -s -m "Initial commit"
    ```
 
-1. Create a new repository on your GitHub account called `fabric-docs-sa`. In
-   the description field type `Hyperledger Fabric documentation in Sanskrit
-   language`.
+1. Crie um novo repositório na sua conta do GitHub chamado `fabric-docs-sa`. No 
+   campo de descrição, digite `Documentação do Hyperledger Fabric em idioma sânscrito`.
 
-1. Update your local git `origin` to point to this repository, replacing
-   `YOURGITHUBID` with your GitHub ID:
+1. Atualize seu git local `origin` para apontar para este repositório, substituindo 
+`YOURGITHUBID` pelo seu ID do GitHub:
 
    ```bash
    git remote set-url origin git@github.com:YOURGITHUBID/fabric-docs-sa.git
    ```
 
-   At this stage in the process, an `upstream` cannot be set because the
-   `fabric-docs-sa` repository hasn't yet been created in the HL Labs
-   organization; we'll do this a little later.
+   Nesta fase do processo, um `upstream` não pode ser definido porque o repositório 
+   `fabric-docs-sa` ainda não foi criado na organização HL Labs, faremos isso um 
+   pouco mais tarde.
 
-   For now, confirm that the `origin` is set:
-
+   Por enquanto, confirme se a `origem` está definida:
+   
    ```bash
    git remote -v
    origin	git@github.com:ODOWDAIBM/fabric-docs-sa.git (fetch)
    origin	git@github.com:ODOWDAIBM/fabric-docs-sa.git (push)
    ```
 
-1. Push your `release-2.1` branch to be the `master` branch in this repository:
+1. Empurre o seu ramo `release-2.1` para ser o ramo `master` neste repositório:
 
    ```bash
    git push origin release-2.1:master
@@ -178,37 +174,34 @@ instructions will use the Sanskrit language as an example:
    b3b9389be..7d627aeb0  release-2.1 -> master
    ```
 
-1. Verify that your new repository `fabric-docs-sa` is correctly
-   populated on GitHub under the `master` branch.
+1. Verifique se o seu novo repositório `fabric-docs-sa` está preenchido corretamente 
+   no GitHub sob o ramo` master`.
 
-1. Connect your repository to ReadTheDocs using these
-   [instructions](./docs_guide.html#building-on-github). Verify that your
-   documentation builds correctly.
+1. Conecte seu repositório ao ReadTheDocs usando estas [instruções](./docs_guide.html#desenvolvendo-no-github). 
+   Verifique se sua documentação foi criada corretamente.
 
-1. You can now perform translation updates in `fabric-docs-sa`.
+1. Agora você pode executar atualizações de tradução em `fabric-docs-sa`.
 
-   We recommend that you translate at least the [Fabric front
-   page](https://hyperledger-fabric.readthedocs.io/en/latest/) and
-   [Introduction](https://hyperledger-fabric.readthedocs.io/en/latest/whatis.html)
-   before proceeding. This way, users will be clear on your intention to
-   translate the Fabric documentation, which will help you gain contributors.
-   More on this [later](#get-connected).
+    Recomendamos que você traduza pelo menos a [página inicial do Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/) 
+    e a [Introdução](https://hyperledger-fabric.readthedocs.io/en/latest/whatis.html) 
+    antes de prosseguir. Dessa forma, os usuários terão clara sua intenção de 
+    traduzir a documentação do Fabric, o que ajudará você a obter contribuidores. 
+    Mais sobre isso [mais tarde](#conectando-se-a-outros-colaboradores-de-idiomas).
 
-1. When you are happy with your repository, create a request to make an
-   equivalent repository in the Hyperledger Labs organization, following [these
-   instructions](https://github.com/hyperledger-labs/hyperledger-labs.github.io).
+1. Quando estiver satisfeito com o seu repositório, crie uma solicitação para 
+   criar um repositório equivalente na organização Hyperledger Labs, seguindo 
+   [estas instruções](https://github.com/hyperledger-labs/hyperledger-labs.github.io) .
 
-   Here's an [example
-   PR](https://github.com/hyperledger-labs/hyperledger-labs.github.io/pull/126)
-   to show you the process at work.
+    Aqui está um [exemplo de PR](https://github.com/hyperledger-labs/hyperledger-labs.github.io/pull/126) 
+    para mostrar o processo no trabalho.
 
-1. Once your repository has been approved, you can now add an `upstream`:
+1. Depois que seu repositório for aprovado, você poderá adicionar um `upstream`:
 
    ```bash
    git remote add upstream git@github.com:hyperledger-labs/fabric-docs-sa.git
    ```
 
-   Confirm that your `origin`  and `upstream` remotes are now set:
+   Confirme se seus `origin` e `upstream` remotos estão definidos:
 
    ```bash
    git remote -v
@@ -218,58 +211,59 @@ instructions will use the Sanskrit language as an example:
    upstream	git@github.com:hyperledger-labs/fabric-docs-sa.git (push)
    ```
 
-   Congratulations! You're now ready to build a community of contributors for
-   your newly-created international language repository.
+   Parabéns! Agora você está pronto para criar uma comunidade de colaboradores 
+   para o seu repositório de idiomas internacional recém-criado.
 
-## Get connected
 
-Here's a few ways to connected with other people interested in international
-language translations:
+## Conectando-se a outros colaboradores de idiomas
+
+Aqui estão algumas maneiras de se conectar com outras pessoas interessadas em 
+traduções de idiomas internacionais:
 
   * Rocket chat
 
-    Read the conversation or ask a question on the [Fabric documentation rocket
-    channel](https://chat.hyperledger.org/channel/fabric-documentation). You'll
-    find beginners and experts sharing information on the documentation.
+    Leia a conversa ou faça uma pergunta no 
+    [canal do Rocket de documentação da Fabric](https://chat.hyperledger.org/channel/fabric-documentation). 
+    Você encontrará iniciantes e especialistas compartilhando informações sobre
+    documentação.
 
-    There also a dedicated channel for issues specific to
-    [internationalization](https://chat.hyperledger.org/channel/i18n).
-
-
-  * Join a documentation workgroup call
-
-    A great place to meet people working on documentation is on a workgroup
-    call. These are held regularly at a time convenient for both the Easten and
-    Western hemispheres. The agenda is published in advance, and there are
-    minutes and recordings of each session.  [Find out
-    more](https://wiki.hyperledger.org/display/fabric/Documentation+Working+Group).
+    Há também um canal dedicado para questões específicas de 
+    [internacionalização](https://chat.hyperledger.org/channel/i18n).
 
 
-  * Join a language translation workgroup
+  * Participar de uma reunião do grupo de trabalho de documentação
 
-    Each of the international languages has a workgroup that welcome and
-    encouraged to join. View the [list of international
-    workgroups](https://wiki.hyperledger.org/display/fabric/International+groups).
-    See what your favourite workgroup is doing, and get connected with them;
-    each workgroup has a list of members and their contact information.
-
-
-  * Create a language translation workgroup page
-
-    If you've decided to create a new language translation, then add a new
-    workgroup to the [list of internationl
-    workgroups](https://wiki.hyperledger.org/display/fabric/International+groups),
-    using one of the existing workgroup pages as an exemplar.
-
-    It's worth documentating how your workgroup will collaborate; meetings,
-    chat and mailing lists can all be very effective. Making these mechanisms clear on your workgroup page can help build a community of translators.
+    Um ótimo lugar para conhecer pessoas trabalhando na documentação é em uma 
+    reunião do grupo de trabalho. São realizadas regularmente em um horário 
+    conveniente para os hemisférios leste e oeste. A agenda é publicada com 
+    antecedência e há atas e gravações de cada sessão. [Saiba mais](https://wiki.hyperledger.org/display/fabric/Documentation+Working+Group).
 
 
-  * Use one of the many other Fabric mechanisms such as mailing list,
-    contributor meetings, maintainer meetings. Read more
-    [here](./contributing.html).
+  * Participar de um grupo de trabalho de tradução de idiomas
 
-Good luck and thank you for contributing to Hyperledger Fabric.
+    Cada um dos idiomas internacionais possui um grupo de trabalho onde todos são
+    bem-vindos e incentivados a participar. Essa é a 
+    [lista de grupos de trabalho internacionais](https://wiki.hyperledger.org/display/fabric/International+groups). 
+    Veja o que seu grupo de trabalho favorito está fazendo e conecte-se a eles,
+    cada grupo de trabalho tem uma lista de membros e suas informações de contato.
+
+
+  * Crie uma página de grupo de trabalho de tradução de idiomas
+
+    Se você decidiu criar uma tradução para um novo idioma, adicione um novo 
+    grupo de trabalho à [lista de grupos de trabalho internacionais](https://wiki.hyperledger.org/display/fabric/International+groups), 
+    usando um dos grupos existentes páginas do grupo de trabalho como um exemplo.
+
+    Vale a pena documentar como o seu grupo de trabalho colaborará, reuniões, 
+    chats e listas de discussão podem ser muito eficazes. O detalhamento desses 
+    mecanismos na página do seu grupo de trabalho pode ajudar a criar uma 
+    comunidade de tradutores.
+
+
+   * Use um dos muitos outros mecanismos da Fabric, como lista de discussão, 
+   reuniões de colaboradores e reuniões de mantenedores. Leia mais [aqui](./contributing.html).
+
+Boa sorte e obrigado por contribuir com o Hyperledger Fabric.
 
 <!--- Licensed under Creative Commons Attribution 4.0 International License
 https://creativecommons.org/licenses/by/4.0/ -->

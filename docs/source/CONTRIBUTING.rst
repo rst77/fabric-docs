@@ -218,7 +218,7 @@ Antes de começarmos, se você ainda não o fez, pode verificar se possui todos 
 desenvolvendo aplicativos blockchain e/ou operando a Hyperledger Fabric.
 
 Conseguindo ajuda
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 Se você está procurando algo para trabalhar ou precisa de assistência especializada 
 na depuração de um problema ou na solução de um problema, nossa `comunidade <https://www.hyperledger.org/community>`__ 
@@ -291,7 +291,7 @@ Basta navegar pelos `PRs abertos no GitHub <https://github.com/hyperledger/fabri
 para começar.
 
 Validade do PR
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 À medida que o projeto do Fabric cresce, também aumenta a lista de pendências de 
 PRs abertos. Um problema que quase todos os projetos enfrentam é gerenciar esse 
@@ -422,7 +422,7 @@ Você pode incluir isso automaticamente quando confirmar uma alteração no seu
 repositório git local usando ``git commit -s``.
 
 Tópicos relacionados
---------------
+--------------------
 
 .. toctree::
    :maxdepth: 1
